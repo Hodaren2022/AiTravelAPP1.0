@@ -210,6 +210,12 @@ const TripManagement = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '' });
 
+  // --- AI Feature State ---
+  const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
+  const [isAiModalOpen, setIsAiModalOpen] = useState(false);
+  const [aiInputText, setAiInputText] = useState('');
+  const [isAiLoading, setIsAiLoading] = useState(false); // Loading state for AI
+
   const initialTripState = { id: '', name: '', destination: '', startDate: '', endDate: '', description: '', flights: [] };
   const initialFlightState = { date: '', airline: '', flightNumber: '', departureCity: '', arrivalCity: '', departureTime: '', arrivalTime: '', departureTimezone: 'UTC+8 (台灣)', arrivalTimezone: 'UTC+8 (台灣)', customAirline: '', duration: '' };
 
@@ -220,10 +226,15 @@ const TripManagement = () => {
   const [editingFlightId, setEditingFlightId] = useState(null);
 
   useEffect(() => {
-    if (isModalOpen) document.body.classList.add('modal-open');
-    else document.body.classList.remove('modal-open');
-    return () => document.body.classList.remove('modal-open');
-  }, [isModalOpen]);
+    const bodyClassList = document.body.classList;
+    const hasModalOpen = isModalOpen || isChoiceModalOpen || isAiModalOpen;
+    if (hasModalOpen) {
+      bodyClassList.add('modal-open');
+    } else {
+      bodyClassList.remove('modal-open');
+    }
+    return () => bodyClassList.remove('modal-open');
+  }, [isModalOpen, isChoiceModalOpen, isAiModalOpen]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -302,11 +313,67 @@ const TripManagement = () => {
     setEditingFlightId(null);
   };
 
+  // --- Modal Handlers ---
   const openAddModal = () => {
+    setIsChoiceModalOpen(false);
     setIsEditing(false);
     setNewTrip(initialTripState);
     setNewFlight(initialFlightState);
     setIsModalOpen(true);
+  };
+
+  const openAiModal = () => {
+    setIsChoiceModalOpen(false);
+    setIsAiModalOpen(true);
+  };
+
+  const closeAiModal = () => {
+    setIsAiModalOpen(false);
+    setAiInputText('');
+  };
+
+  const handleAiSubmit = async () => {
+    if (!aiInputText.trim()) {
+      alert("請輸入行程文字。");
+      return;
+    }
+    setIsAiLoading(true);
+    try {
+      const response = await fetch('/.netlify/functions/analyze-itinerary', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: aiInputText }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`伺服器錯誤: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // 將 AI 回傳的資料填入表單
+      setNewTrip(prev => ({
+        ...prev,
+        name: data.tripName || '',
+        destination: data.destination || '',
+        startDate: data.startDate || '',
+        endDate: data.endDate || '',
+        description: data.description || '',
+        flights: data.flights || [],
+      }));
+
+      closeAiModal();
+      setIsModalOpen(true); // 打開手動表單讓使用者確認
+      showToast("AI 分析完成，請確認後儲存");
+
+    } catch (error) {
+      console.error("AI 分析失敗:", error);
+      alert(`AI 分析失敗: ${error.message}`);
+    } finally {
+      setIsAiLoading(false);
+    }
   };
 
   const handleEdit = (trip) => {
@@ -421,8 +488,46 @@ const TripManagement = () => {
           )}
         </CardsContainer>
 
-        <FloatingActionButton onClick={openAddModal}>+</FloatingActionButton>
+        <FloatingActionButton onClick={() => setIsChoiceModalOpen(true)}>+</FloatingActionButton>
 
+        {/* --- Choice Modal --- */}
+        {isChoiceModalOpen && (
+          <ModalBackdrop onClick={() => setIsChoiceModalOpen(false)}>
+            <ModalContent onClick={e => e.stopPropagation()}>
+              <CloseButton onClick={() => setIsChoiceModalOpen(false)}>&times;</CloseButton>
+              <h3 style={{ textAlign: 'center', marginBottom: '2rem' }}>選擇新增方式</h3>
+              <ButtonGroup style={{ justifyContent: 'center', gap: '1rem' }}>
+                <Button onClick={openAddModal} style={{ padding: '1rem 2rem' }}>手動輸入行程</Button>
+                <Button onClick={openAiModal} $primary style={{ padding: '1rem 2rem' }}>AI 辨識行程</Button>
+              </ButtonGroup>
+            </ModalContent>
+          </ModalBackdrop>
+        )}
+
+        {/* --- AI Input Modal --- */}
+        {isAiModalOpen && (
+          <ModalBackdrop onClick={closeAiModal}>
+            <ModalContent onClick={e => e.stopPropagation()}>
+              <CloseButton onClick={closeAiModal}>&times;</CloseButton>
+              <h3>AI 辨識行程</h3>
+              <p style={{ margin: '1rem 0', color: '#666' }}>請在下方貼上您的行程文字，AI 將嘗試自動為您分析並填入表單。</p>
+              <textarea
+                style={{ width: '100%', minHeight: '250px', marginTop: '1rem', padding: '0.75rem', border: '1px solid #ccc', borderRadius: '4px', fontSize: '1rem', boxSizing: 'border-box' }}
+                value={aiInputText}
+                onChange={(e) => setAiInputText(e.target.value)}
+                placeholder="例如：&#10;- 航班：中華航空 CI751 8/15 09:20 TPE -> SIN&#10;- 飯店：濱海灣金沙酒店 8/15-8/18&#10;- 活動：8/16 早上 10:00 環球影城"
+              />
+              <ButtonGroup>
+                <Button type="button" onClick={closeAiModal} disabled={isAiLoading}>取消</Button>
+                <Button type="button" onClick={handleAiSubmit} $primary disabled={isAiLoading}>
+                  {isAiLoading ? '辨識中...' : '開始辨識'}
+                </Button>
+              </ButtonGroup>
+            </ModalContent>
+          </ModalBackdrop>
+        )}
+
+        {/* --- Manual Input Modal --- */}
         {isModalOpen && (
           <ModalBackdrop onClick={closeModal}>
             <ModalContent onClick={e => e.stopPropagation()}>
