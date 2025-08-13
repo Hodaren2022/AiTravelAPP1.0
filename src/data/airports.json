@@ -1,0 +1,3317 @@
+[
+  {
+    "iata": "TPE",
+    "name": "TAIPEI-CHIANG KAI SHEK",
+    "city": "台灣桃園"
+  },
+  {
+    "iata": "CYI",
+    "name": "CHIAYI",
+    "city": "台灣嘉義"
+  },
+  {
+    "iata": "CMJ",
+    "name": "CHIMAY",
+    "city": "台灣七美"
+  },
+  {
+    "iata": "GNI",
+    "name": "GREEN ISLAND",
+    "city": "台灣綠島"
+  },
+  {
+    "iata": "HUN",
+    "name": "HUALIEN",
+    "city": "台灣花蓮"
+  },
+  {
+    "iata": "KHH",
+    "name": "KAOHSIUNG",
+    "city": "台灣高雄"
+  },
+  {
+    "iata": "KNH",
+    "name": "KINMEN",
+    "city": "台灣金門"
+  },
+  {
+    "iata": "MZG",
+    "name": "MAKUNG",
+    "city": "台灣馬公"
+  },
+  {
+    "iata": "MFK",
+    "name": "MATSU",
+    "city": "台灣馬祖"
+  },
+  {
+    "iata": "KYD",
+    "name": "ORCHID ISLAND",
+    "city": "台灣蘭嶼"
+  },
+  {
+    "iata": "PIF",
+    "name": "PINGTUNG",
+    "city": "台灣屏東"
+  },
+  {
+    "iata": "WOT",
+    "name": "WON-AN",
+    "city": "台灣望安"
+  },
+  {
+    "iata": "TSA",
+    "name": "SUNG SHAN - TAIPEI CITY",
+    "city": "台灣松山"
+  },
+  {
+    "iata": "TXG",
+    "name": "TAICHUNG",
+    "city": "台灣台中"
+  },
+  {
+    "iata": "TTT",
+    "name": "TAITUNG",
+    "city": "台灣台東"
+  },
+  {
+    "iata": "TNN",
+    "name": "TAINAN",
+    "city": "台灣台南"
+  },
+  {
+    "iata": "BHY",
+    "name": "BEIHAI",
+    "city": "中國北海"
+  },
+  {
+    "iata": "PEK",
+    "name": "BEIJING",
+    "city": "中國北京"
+  },
+  {
+    "iata": "CAN",
+    "name": "CANTON",
+    "city": "中國廣州"
+  },
+  {
+    "iata": "CGQ",
+    "name": "CHANGCHUN",
+    "city": "中國長春"
+  },
+  {
+    "iata": "CSX",
+    "name": "CHANGSHA",
+    "city": "中國長沙"
+  },
+  {
+    "iata": "CTU",
+    "name": "CHENGTU",
+    "city": "中國成都"
+  },
+  {
+    "iata": "CKG",
+    "name": "CHONGQING",
+    "city": "中國重慶"
+  },
+  {
+    "iata": "DLC",
+    "name": "DALIAN",
+    "city": "中國大連"
+  },
+  {
+    "iata": "DYG",
+    "name": "DAYONG",
+    "city": "中國張家界"
+  },
+  {
+    "iata": "FOC",
+    "name": "FOOCHOW",
+    "city": "中國福州"
+  },
+  {
+    "iata": "KWL",
+    "name": "GUILIN",
+    "city": "中國桂林"
+  },
+  {
+    "iata": "KWE",
+    "name": "GUIYANG",
+    "city": "中國貴陽"
+  },
+  {
+    "iata": "HAK",
+    "name": "HAIKOU",
+    "city": "中國海口"
+  },
+  {
+    "iata": "HGH",
+    "name": "HANGCHOW",
+    "city": "中國杭州"
+  },
+  {
+    "iata": "HRB",
+    "name": "HARBIN",
+    "city": "中國哈爾濱"
+  },
+  {
+    "iata": "HFE",
+    "name": "HEFEI",
+    "city": "中國合肥"
+  },
+  {
+    "iata": "TNA",
+    "name": "JINAN",
+    "city": "中國濟南"
+  },
+  {
+    "iata": "KMG",
+    "name": "KUNMING",
+    "city": "中國昆明"
+  },
+  {
+    "iata": "LHW",
+    "name": "LANZHOU",
+    "city": "中國蘭州"
+  },
+  {
+    "iata": "LYA",
+    "name": "LUOYANG",
+    "city": "中國洛陽"
+  },
+  {
+    "iata": "MXZ",
+    "name": "MEIXIAN",
+    "city": "中國梅縣"
+  },
+  {
+    "iata": "KHN",
+    "name": "NANCHANG",
+    "city": "中國南昌"
+  },
+  {
+    "iata": "SYX",
+    "name": "SANYA",
+    "city": "中國三亞"
+  },
+  {
+    "iata": "SHA",
+    "name": "SHANGHAI",
+    "city": "中國上海"
+  },
+  {
+    "iata": "SHE",
+    "name": "SHENYANG",
+    "city": "中國瀋陽"
+  },
+  {
+    "iata": "SZX",
+    "name": "SHENZHEN",
+    "city": "中國深圳"
+  },
+  {
+    "iata": "SJW",
+    "name": "SHIJIAZHUANG",
+    "city": "中國石家莊"
+  },
+  {
+    "iata": "SWA",
+    "name": "SWATOW",
+    "city": "中國汕頭"
+  },
+  {
+    "iata": "TYN",
+    "name": "TAIYUAN",
+    "city": "中國太原"
+  },
+  {
+    "iata": "TSN",
+    "name": "TIANJIN",
+    "city": "中國天津"
+  },
+  {
+    "iata": "TAO",
+    "name": "TSINGTAO",
+    "city": "中國青島"
+  },
+  {
+    "iata": "TXN",
+    "name": "TUNXI",
+    "city": "中國黃山"
+  },
+  {
+    "iata": "URC",
+    "name": "URUMQI",
+    "city": "中國烏魯木齊"
+  },
+  {
+    "iata": "WNZ",
+    "name": "WENZHOU",
+    "city": "中國溫州"
+  },
+  {
+    "iata": "WUH",
+    "name": "WUHAN",
+    "city": "中國武漢"
+  },
+  {
+    "iata": "XMN",
+    "name": "XIAMEN",
+    "city": "中國廈門"
+  },
+  {
+    "iata": "SIA",
+    "name": "XIAN",
+    "city": "中國西安"
+  },
+  {
+    "iata": "XIY",
+    "name": "XIANYANG",
+    "city": "中國襄陽"
+  },
+  {
+    "iata": "YNT",
+    "name": "YANTAI",
+    "city": "中國煙台"
+  },
+  {
+    "iata": "CGO",
+    "name": "ZHENGZHOU",
+    "city": "中國鄭州"
+  },
+  {
+    "iata": "ZHA",
+    "name": "ZHANJIANG",
+    "city": "中國湛江"
+  },
+  {
+    "iata": "ZUH",
+    "name": "ZHUHAI",
+    "city": "中國珠海"
+  },
+  {
+    "iata": "HKG",
+    "name": "HONG KONG",
+    "city": "香港"
+  },
+  {
+    "iata": "MFM",
+    "name": "MACAU",
+    "city": "澳門"
+  },
+  {
+    "iata": "SEL",
+    "name": "SEOU",
+    "city": "南韓首爾"
+  },
+  {
+    "iata": "PUS",
+    "name": "PUSAN",
+    "city": "南韓釜山"
+  },
+  {
+    "iata": "CTS",
+    "name": "CHITOSE",
+    "city": "日本千歲"
+  },
+  {
+    "iata": "FUK",
+    "name": "FUKUOKA",
+    "city": "日本福岡"
+  },
+  {
+    "iata": "HKD",
+    "name": "HAKODATE",
+    "city": "日本函館"
+  },
+  {
+    "iata": "HND",
+    "name": "HANEDA",
+    "city": "日本東京羽田"
+  },
+  {
+    "iata": "NGO",
+    "name": "NAGOYA",
+    "city": "日本名古屋"
+  },
+  {
+    "iata": "NRT",
+    "name": "NARITA",
+    "city": "日本東京成田"
+  },
+  {
+    "iata": "OKA",
+    "name": "OKINAWA",
+    "city": "日本沖繩"
+  },
+  {
+    "iata": "KIX",
+    "name": "OSAKA-KANSAI INTERNATIONAL",
+    "city": "日本大阪"
+  },
+  {
+    "iata": "SPK",
+    "name": "SAPPORO",
+    "city": "日本札幌"
+  },
+  {
+    "iata": "BAG",
+    "name": "BAGUIO",
+    "city": "菲律賓碧瑤"
+  },
+  {
+    "iata": "BWN",
+    "name": "BANDAR SERI BEGAWAN",
+    "city": "汶萊"
+  },
+  {
+    "iata": "BKK",
+    "name": "BANGKOK",
+    "city": "泰國曼谷"
+  },
+  {
+    "iata": "BOM",
+    "name": "BOMBAY",
+    "city": "印度孟買"
+  },
+  {
+    "iata": "CCU",
+    "name": "CALCUTTA",
+    "city": "印度加爾各答"
+  },
+  {
+    "iata": "CEB",
+    "name": "CEBU",
+    "city": "菲律賓宿霧"
+  },
+  {
+    "iata": "CNX",
+    "name": "CHIANG MAI",
+    "city": "泰國清邁"
+  },
+  {
+    "iata": "CGP",
+    "name": "CHITTAGON",
+    "city": "孟加拉吉大港"
+  },
+  {
+    "iata": "CMB",
+    "name": "COLOMBO",
+    "city": "斯里蘭卡可倫坡"
+  },
+  {
+    "iata": "DAC",
+    "name": "DACCA",
+    "city": "孟加拉達卡"
+  },
+  {
+    "iata": "DVO",
+    "name": "DAVAO",
+    "city": "菲律賓達沃"
+  },
+  {
+    "iata": "DEL",
+    "name": "DELHI",
+    "city": "印度德里"
+  },
+  {
+    "iata": "DPS",
+    "name": "DENPASAR",
+    "city": "印尼巴里島"
+  },
+  {
+    "iata": "DIL",
+    "name": "DILI",
+    "city": "印尼帝利"
+  },
+  {
+    "iata": "HAN",
+    "name": "HANOI",
+    "city": "越南河內"
+  },
+  {
+    "iata": "IPH",
+    "name": "IPOH",
+    "city": "馬來西亞怡保"
+  },
+  {
+    "iata": "CGK",
+    "name": "JAKARTA",
+    "city": "印尼雅加達"
+  },
+  {
+    "iata": "KBL",
+    "name": "KABUL",
+    "city": "阿富汗喀布爾"
+  },
+  {
+    "iata": "KHI",
+    "name": "KARACHI",
+    "city": "巴基斯坦喀拉蚩"
+  },
+  {
+    "iata": "KTM",
+    "name": "KATHMANDU",
+    "city": "尼泊爾加德滿都"
+  },
+  {
+    "iata": "BKI",
+    "name": "KOTA KINABALU",
+    "city": "馬來西亞亞庇"
+  },
+  {
+    "iata": "KUL",
+    "name": "KUALA LUMPUR",
+    "city": "馬來西亞吉隆坡"
+  },
+  {
+    "iata": "MDC",
+    "name": "MANADO",
+    "city": "印尼馬納多"
+  },
+  {
+    "iata": "MNL",
+    "name": "MANILA",
+    "city": "菲律賓馬尼拉"
+  },
+  {
+    "iata": "AMI",
+    "name": "MATARAM",
+    "city": "印尼馬塔蘭"
+  },
+  {
+    "iata": "MES",
+    "name": "MEDAN",
+    "city": "印尼棉蘭"
+  },
+  {
+    "iata": "INU",
+    "name": "NAURU",
+    "city": "諾魯諾魯"
+  },
+  {
+    "iata": "PDG",
+    "name": "PADANG",
+    "city": "印尼巴東"
+  },
+  {
+    "iata": "PLM",
+    "name": "PALEMBANG",
+    "city": "印尼巨港"
+  },
+  {
+    "iata": "PKU",
+    "name": "PEKANBARU",
+    "city": "印尼北干巴魯"
+  },
+  {
+    "iata": "PEN",
+    "name": "PENANG",
+    "city": "馬來西亞檳城"
+  },
+  {
+    "iata": "PNH",
+    "name": "PHNOM PENH",
+    "city": "柬埔寨金邊"
+  },
+  {
+    "iata": "HKT",
+    "name": "PHUKET",
+    "city": "泰國普吉島"
+  },
+  {
+    "iata": "RGN",
+    "name": "RANGOON",
+    "city": "緬甸仰光"
+  },
+  {
+    "iata": "SGN",
+    "name": "SAIGON",
+    "city": "越南胡志明市"
+  },
+  {
+    "iata": "SPN",
+    "name": "SAIPAN",
+    "city": "塞班塞班"
+  },
+  {
+    "iata": "SBW",
+    "name": "SIBU",
+    "city": "馬來西亞詩巫"
+  },
+  {
+    "iata": "SIN",
+    "name": "SINGAPORE",
+    "city": "新加坡"
+  },
+  {
+    "iata": "SOC",
+    "name": "SOLO CITY",
+    "city": "印尼梭羅"
+  },
+  {
+    "iata": "SUB",
+    "name": "SURABAYA",
+    "city": "印尼泗水"
+  },
+  {
+    "iata": "TBU",
+    "name": "TONGATAPU",
+    "city": "東加王國東加塔布"
+  },
+  {
+    "iata": "VTE",
+    "name": "VIENTIANE",
+    "city": "寮國永珍"
+  },
+  {
+    "iata": "ABI",
+    "name": "ABILENE",
+    "city": "美國阿比林"
+  },
+  {
+    "iata": "ABR",
+    "name": "ABERDEEN",
+    "city": "美國阿伯丁"
+  },
+  {
+    "iata": "CAK",
+    "name": "AKRON/CANTON",
+    "city": "美國阿克倫/坎頓"
+  },
+  {
+    "iata": "ALS",
+    "name": "ALAMOSA",
+    "city": "美國阿拉莫薩"
+  },
+  {
+    "iata": "ALB",
+    "name": "ALBANY-SCHENCTADY",
+    "city": "美國奧爾巴尼"
+  },
+  {
+    "iata": "ABQ",
+    "name": "ALBUOERQUE",
+    "city": "美國阿波寇爾克"
+  },
+  {
+    "iata": "AEX",
+    "name": "ALEXANDRIA",
+    "city": "美國亞歷山大"
+  },
+  {
+    "iata": "ABE",
+    "name": "ALLENTOWN-BTHLEHM",
+    "city": "美國阿倫敦"
+  },
+  {
+    "iata": "AIA",
+    "name": "ALLIANCE",
+    "city": "美國聯盟市"
+  },
+  {
+    "iata": "AMA",
+    "name": "AMARILLO",
+    "city": "美國阿馬里洛"
+  },
+  {
+    "iata": "ANC",
+    "name": "ANCHORAGE",
+    "city": "美國安克拉治"
+  },
+  {
+    "iata": "ATW",
+    "name": "APPLETON",
+    "city": "美國阿普爾頓"
+  },
+  {
+    "iata": "ACV",
+    "name": "ARCATA",
+    "city": "美國阿克塔"
+  },
+  {
+    "iata": "AVL",
+    "name": "ASHEVLE-HENDSNVLE",
+    "city": "美國阿什維爾"
+  },
+  {
+    "iata": "ASE",
+    "name": "ASPEN",
+    "city": "美國阿斯彭"
+  },
+  {
+    "iata": "ATL",
+    "name": "ATLANTA",
+    "city": "美國亞特蘭大"
+  },
+  {
+    "iata": "AGS",
+    "name": "AUGUSTA",
+    "city": "美國奧古斯塔"
+  },
+  {
+    "iata": "AUS",
+    "name": "AUSTIN",
+    "city": "美國奧斯丁"
+  },
+  {
+    "iata": "BFL",
+    "name": "BAKERSFIELD",
+    "city": "美國貝克斯菲爾德"
+  },
+  {
+    "iata": "BGR",
+    "name": "BANGOR",
+    "city": "美國班戈"
+  },
+  {
+    "iata": "BTR",
+    "name": "BATON ROUGE - RYAN",
+    "city": "美國巴頓魯日"
+  },
+  {
+    "iata": "BPT",
+    "name": "BEAUMONT-PTARTHUR-JEFFERSON",
+    "city": "美國博蒙特"
+  },
+  {
+    "iata": "ZBV",
+    "name": "BEAVER CREEK VAN SVC",
+    "city": "美國比弗克里克"
+  },
+  {
+    "iata": "BLI",
+    "name": "BELLINGHAM",
+    "city": "美國貝靈漢"
+  },
+  {
+    "iata": "BIL",
+    "name": "BILLINGS",
+    "city": "美國比林斯"
+  },
+  {
+    "iata": "BGM",
+    "name": "BINGHAMTON",
+    "city": "美國賓漢頓"
+  },
+  {
+    "iata": "BHM",
+    "name": "BIRMINGHAM",
+    "city": "美國伯明罕"
+  },
+  {
+    "iata": "BOI",
+    "name": "BOISE",
+    "city": "美國波夕"
+  },
+  {
+    "iata": "BOS",
+    "name": "BOSTON",
+    "city": "美國波士頓"
+  },
+  {
+    "iata": "BZN",
+    "name": "BOZEMAN",
+    "city": "美國波茲曼"
+  },
+  {
+    "iata": "BMI",
+    "name": "BLOOMINGTON-NORMAL",
+    "city": "美國布盧明頓"
+  },
+  {
+    "iata": "BMG",
+    "name": "BLOOMINGTON",
+    "city": "美國布盧明頓"
+  },
+  {
+    "iata": "BDL",
+    "name": "BRADLEY INTL–HARTFORD",
+    "city": "美國哈特福德"
+  },
+  {
+    "iata": "BKX",
+    "name": "BROOKINGS",
+    "city": "美國布魯金斯"
+  },
+  {
+    "iata": "BUF",
+    "name": "BUFFALO",
+    "city": "美國水牛城"
+  },
+  {
+    "iata": "BRL",
+    "name": "BURLINGTON",
+    "city": "美國伯靈頓"
+  },
+  {
+    "iata": "BTV",
+    "name": "BURLINGTON",
+    "city": "美國伯靈頓"
+  },
+  {
+    "iata": "MDH",
+    "name": "CARBONDALE",
+    "city": "美國卡本代爾"
+  },
+  {
+    "iata": "CLD",
+    "name": "CARLSBAD",
+    "city": "美國卡爾斯巴德"
+  },
+  {
+    "iata": "CPR",
+    "name": "CASPER",
+    "city": "美國卡斯珀"
+  },
+  {
+    "iata": "CID",
+    "name": "CEDAR RAPIDS",
+    "city": "美國錫達拉皮茲"
+  },
+  {
+    "iata": "CYS",
+    "name": "CHEYENNE",
+    "city": "美國夏延"
+  },
+  {
+    "iata": "CDR",
+    "name": "CHADRON",
+    "city": "美國查德倫"
+  },
+  {
+    "iata": "CMI",
+    "name": "CHAMPAIGN",
+    "city": "美國尚佩恩"
+  },
+  {
+    "iata": "CHS",
+    "name": "CHARLESTON",
+    "city": "美國查爾斯頓"
+  },
+  {
+    "iata": "CRW",
+    "name": "CHARLESTON",
+    "city": "美國查爾斯頓"
+  },
+  {
+    "iata": "CLT",
+    "name": "CHARLOTTE",
+    "city": "美國夏洛特"
+  },
+  {
+    "iata": "CHO",
+    "name": "CHARLOTTESVILLE",
+    "city": "美國夏洛茨維爾"
+  },
+  {
+    "iata": "CHA",
+    "name": "CHATTANOOGA-LOVELL FIELD",
+    "city": "美國查塔努加"
+  },
+  {
+    "iata": "ORD",
+    "name": "CHICAGO-O HARE INTER.",
+    "city": "美國芝加哥"
+  },
+  {
+    "iata": "CIC",
+    "name": "CHICO",
+    "city": "美國奇科"
+  },
+  {
+    "iata": "CVG",
+    "name": "CINCINNATI",
+    "city": "美國辛辛那提"
+  },
+  {
+    "iata": "COD",
+    "name": "CODY/YELLOWSTONE",
+    "city": "美國科迪"
+  },
+  {
+    "iata": "COS",
+    "name": "COLORADO SPRINGS",
+    "city": "美國科羅拉多泉"
+  },
+  {
+    "iata": "CAE",
+    "name": "COLUMBIA",
+    "city": "美國哥倫比亞"
+  },
+  {
+    "iata": "CSG",
+    "name": "COLUMBUS",
+    "city": "美國哥倫布"
+  },
+  {
+    "iata": "CMH",
+    "name": "COLUMBUS",
+    "city": "美國哥倫布"
+  },
+  {
+    "iata": "UBS",
+    "name": "COLUMBUS-GOLDEN TRIANGLE REG.",
+    "city": "美國哥倫布"
+  },
+  {
+    "iata": "SBP",
+    "name": "COUNTY AIRPORT",
+    "city": "美國聖路易斯-奧比斯波"
+  },
+  {
+    "iata": "CRP",
+    "name": "CORPUS CHRISTI",
+    "city": "美國科珀斯克里斯蒂"
+  },
+  {
+    "iata": "CEZ",
+    "name": "CORTEZ",
+    "city": "美國科爾特斯"
+  },
+  {
+    "iata": "CLE",
+    "name": "CLEVELAND",
+    "city": "美國克利夫蘭"
+  },
+  {
+    "iata": "CEC",
+    "name": "CRESCENT CITY",
+    "city": "美國新月城"
+  },
+  {
+    "iata": "DFW",
+    "name": "DALLAS,TX",
+    "city": "美國達拉斯"
+  },
+  {
+    "iata": "DAY",
+    "name": "DAYTON",
+    "city": "美國代頓"
+  },
+  {
+    "iata": "DAB",
+    "name": "DAYTONA BEACH",
+    "city": "美國代托納比奇"
+  },
+  {
+    "iata": "DEC",
+    "name": "DECATUR",
+    "city": "美國迪凱特"
+  },
+  {
+    "iata": "DEN",
+    "name": "DENVER",
+    "city": "美國丹佛"
+  },
+  {
+    "iata": "DVL",
+    "name": "DEVILS LAKE",
+    "city": "美國魔鬼湖"
+  },
+  {
+    "iata": "DSM",
+    "name": "DES MOINES",
+    "city": "美國狄蒙"
+  },
+  {
+    "iata": "DTW",
+    "name": "DETROIT",
+    "city": "美國底特律"
+  },
+  {
+    "iata": "DIK",
+    "name": "DICKINSON",
+    "city": "美國狄金森"
+  },
+  {
+    "iata": "DDC",
+    "name": "DODGE CITY",
+    "city": "美國道奇城"
+  },
+  {
+    "iata": "DBQ",
+    "name": "DUBUQUE",
+    "city": "美國迪比克"
+  },
+  {
+    "iata": "DRO",
+    "name": "DURANGO",
+    "city": "美國杜蘭戈"
+  },
+  {
+    "iata": "EGE",
+    "name": "EAGLE",
+    "city": "美國伊格爾"
+  },
+  {
+    "iata": "ELP",
+    "name": "EL PASO",
+    "city": "美國埃爾帕索"
+  },
+  {
+    "iata": "ELM",
+    "name": "ELMIRA",
+    "city": "美國埃爾邁拉"
+  },
+  {
+    "iata": "ESC",
+    "name": "ESCANABA",
+    "city": "美國埃斯卡諾巴"
+  },
+  {
+    "iata": "EUG",
+    "name": "EUGENE",
+    "city": "美國尤金"
+  },
+  {
+    "iata": "EVV",
+    "name": "EVANSVILLE",
+    "city": "美國埃文斯維爾"
+  },
+  {
+    "iata": "FRM",
+    "name": "FAIRMONT",
+    "city": "美國費爾蒙特"
+  },
+  {
+    "iata": "FAR",
+    "name": "FARGO",
+    "city": "美國法戈"
+  },
+  {
+    "iata": "FMN",
+    "name": "FARMINGTON",
+    "city": "美國法明頓"
+  },
+  {
+    "iata": "FLL",
+    "name": "FORT LAUDERDALE",
+    "city": "美國勞德代爾堡"
+  },
+  {
+    "iata": "FMY",
+    "name": "FORT MYERS-PAGE FIELD",
+    "city": "美國邁爾斯堡"
+  },
+  {
+    "iata": "RSW",
+    "name": "FORT MYERS-SOUTH WEST FLORIDA",
+    "city": "美國邁爾斯堡"
+  },
+  {
+    "iata": "FSM",
+    "name": "FORT SMITH",
+    "city": "美國史密斯堡"
+  },
+  {
+    "iata": "FWA",
+    "name": "FORT WAYNE",
+    "city": "美國韋恩堡"
+  },
+  {
+    "iata": "FAT",
+    "name": "FRESNO",
+    "city": "美國弗雷斯諾"
+  },
+  {
+    "iata": "QWF",
+    "name": "FT. COLLINS BUS SERVICE",
+    "city": "美國科林斯堡"
+  },
+  {
+    "iata": "GCC",
+    "name": "GILLETTE",
+    "city": "美國吉列特"
+  },
+  {
+    "iata": "GNV",
+    "name": "GAINESVILLE",
+    "city": "美國蓋恩斯維爾"
+  },
+  {
+    "iata": "GBG",
+    "name": "GALESBURG",
+    "city": "美國蓋爾斯堡"
+  },
+  {
+    "iata": "GCK",
+    "name": "GARDEN CITY",
+    "city": "美國花園城"
+  },
+  {
+    "iata": "GRI",
+    "name": "GRAND ISLAND",
+    "city": "美國大島"
+  },
+  {
+    "iata": "GJT",
+    "name": "GRAND JUNCTION",
+    "city": "美國大章克申"
+  },
+  {
+    "iata": "GRR",
+    "name": "GRAND RAPIDS",
+    "city": "美國大急流城"
+  },
+  {
+    "iata": "GTF",
+    "name": "GREAT FALLS",
+    "city": "美國大瀑布城"
+  },
+  {
+    "iata": "GRB",
+    "name": "GREEN BAY",
+    "city": "美國綠灣"
+  },
+  {
+    "iata": "GSO",
+    "name": "GREENSBORO-HIGHPT",
+    "city": "美國格林斯伯勒"
+  },
+  {
+    "iata": "GSP",
+    "name": "GREENVL-SPARTANBG",
+    "city": "美國格林維爾/斯帕坦堡"
+  },
+  {
+    "iata": "GUM",
+    "name": "GUAM",
+    "city": "美國關島"
+  },
+  {
+    "iata": "GUC",
+    "name": "GUNNISON",
+    "city": "美國甘尼森"
+  },
+  {
+    "iata": "HRL",
+    "name": "HARLINGEN",
+    "city": "美國哈林根"
+  },
+  {
+    "iata": "HAR",
+    "name": "HARRISBURG SKYPORT",
+    "city": "美國哈里斯堡"
+  },
+  {
+    "iata": "MDT",
+    "name": "HARRISBURG INTL",
+    "city": "美國哈里斯堡"
+  },
+  {
+    "iata": "HFD",
+    "name": "HARTFORD",
+    "city": "美國哈特福德"
+  },
+  {
+    "iata": "HDN",
+    "name": "HAYDEN",
+    "city": "美國海登"
+  },
+  {
+    "iata": "HYS",
+    "name": "HAYS",
+    "city": "美國海斯"
+  },
+  {
+    "iata": "HNL",
+    "name": "HONOLULU(HAWAII)",
+    "city": "美國夏威夷檀香山"
+  },
+  {
+    "iata": "HOU",
+    "name": "HOUSTON-HOBBY",
+    "city": "美國休斯頓"
+  },
+  {
+    "iata": "IAH",
+    "name": "HOUSTON-INTERCONTINENTAL",
+    "city": "美國休斯頓"
+  },
+  {
+    "iata": "HON",
+    "name": "HURON",
+    "city": "美國休倫"
+  },
+  {
+    "iata": "HSV",
+    "name": "HUNTSVIL-DECATUR",
+    "city": "美國亨茨維爾/迪凱特"
+  },
+  {
+    "iata": "IPL",
+    "name": "IMPERIAL",
+    "city": "美國帝國城"
+  },
+  {
+    "iata": "IND",
+    "name": "INDIANAPOLIS",
+    "city": "美國印第安納波利斯"
+  },
+  {
+    "iata": "IYK",
+    "name": "INYOKERN",
+    "city": "美國因約肯"
+  },
+  {
+    "iata": "IMT",
+    "name": "IRON MOUNTAIN",
+    "city": "美國鐵山"
+  },
+  {
+    "iata": "IWD",
+    "name": "IRONWOOD",
+    "city": "美國鐵木"
+  },
+  {
+    "iata": "JAN",
+    "name": "JACKSON",
+    "city": "美國傑克遜"
+  },
+  {
+    "iata": "JAC",
+    "name": "JACKSON",
+    "city": "美國傑克遜"
+  },
+  {
+    "iata": "JAX",
+    "name": "JACKSONVILLE",
+    "city": "美國傑克遜維爾"
+  },
+  {
+    "iata": "JMS",
+    "name": "JAMESTOWN",
+    "city": "美國詹姆斯敦"
+  },
+  {
+    "iata": "TRI",
+    "name": "JOHNSON CTY - KINGPORT",
+    "city": "美國布里斯托爾/金斯波特"
+  },
+  {
+    "iata": "AZO",
+    "name": "KALAMAZOO",
+    "city": "美國卡拉馬祖"
+  },
+  {
+    "iata": "MKC",
+    "name": "KANSAS CITY-DOWNTOWN",
+    "city": "美國堪薩斯城"
+  },
+  {
+    "iata": "MCI",
+    "name": "KANSAS CITY-INTERNATIONAL",
+    "city": "美國堪薩斯城"
+  },
+  {
+    "iata": "ILE",
+    "name": "KILLEEN",
+    "city": "美國基林"
+  },
+  {
+    "iata": "EYW",
+    "name": "KEY WEST",
+    "city": "美國基韋斯特"
+  },
+  {
+    "iata": "TYS",
+    "name": "KNOXVILLE",
+    "city": "美國諾克斯維爾"
+  },
+  {
+    "iata": "LSE",
+    "name": "LA CROSSE",
+    "city": "美國拉克羅斯"
+  },
+  {
+    "iata": "LAF",
+    "name": "LAFAYETTE",
+    "city": "美國拉斐特"
+  },
+  {
+    "iata": "LCH",
+    "name": "LAKE CHARLES",
+    "city": "美國查爾斯湖"
+  },
+  {
+    "iata": "LAN",
+    "name": "LANSING",
+    "city": "美國蘭辛"
+  },
+  {
+    "iata": "LAR",
+    "name": "LARAMIE",
+    "city": "美國拉勒米"
+  },
+  {
+    "iata": "LRD",
+    "name": "LAREDO",
+    "city": "美國拉雷多"
+  },
+  {
+    "iata": "LAS",
+    "name": "LAS VEGAS",
+    "city": "美國拉斯維加斯"
+  },
+  {
+    "iata": "LEX",
+    "name": "LEXINGTON",
+    "city": "美國列克星敦"
+  },
+  {
+    "iata": "LBL",
+    "name": "LIBERAL",
+    "city": "美國利伯勒爾"
+  },
+  {
+    "iata": "LNK",
+    "name": "LINCOLN",
+    "city": "美國林肯"
+  },
+  {
+    "iata": "LIT",
+    "name": "LITTLE ROCK",
+    "city": "美國小岩城"
+  },
+  {
+    "iata": "GGG",
+    "name": "LONGVIEW",
+    "city": "美國朗維尤"
+  },
+  {
+    "iata": "LAX",
+    "name": "LOS ANGELES",
+    "city": "美國洛杉磯"
+  },
+  {
+    "iata": "BUR",
+    "name": "LOS ANGELES-BURBANK",
+    "city": "美國伯班克"
+  },
+  {
+    "iata": "LGB",
+    "name": "LOS ANGELES-LONG BEACH",
+    "city": "美國長灘"
+  },
+  {
+    "iata": "SDF",
+    "name": "LOUISVILLE",
+    "city": "美國路易維爾"
+  },
+  {
+    "iata": "LYH",
+    "name": "LYNCHBURG",
+    "city": "美國林奇堡"
+  },
+  {
+    "iata": "MFE",
+    "name": "MCALLEN",
+    "city": "美國麥卡倫"
+  },
+  {
+    "iata": "MSN",
+    "name": "MADISON",
+    "city": "美國麥迪遜"
+  },
+  {
+    "iata": "MHT",
+    "name": "MANCHESTER",
+    "city": "美國曼徹斯特"
+  },
+  {
+    "iata": "MBL",
+    "name": "MANISTEE",
+    "city": "美國馬尼斯蒂"
+  },
+  {
+    "iata": "MCW",
+    "name": "MASON CITY",
+    "city": "美國梅森城"
+  },
+  {
+    "iata": "MTO",
+    "name": "MATTOON",
+    "city": "美國馬圖恩"
+  },
+  {
+    "iata": "MFR",
+    "name": "MEDFORD",
+    "city": "美國梅德福"
+  },
+  {
+    "iata": "MLB",
+    "name": "MELBOURNE",
+    "city": "美國墨爾本"
+  },
+  {
+    "iata": "MEM",
+    "name": "MEMPHIS",
+    "city": "美國孟菲斯"
+  },
+  {
+    "iata": "MCE",
+    "name": "MERCED",
+    "city": "美國默塞德"
+  },
+  {
+    "iata": "MIA",
+    "name": "MIAMI",
+    "city": "美國邁阿密"
+  },
+  {
+    "iata": "MAF",
+    "name": "MIDLAND",
+    "city": "美國米德蘭"
+  },
+  {
+    "iata": "MSP",
+    "name": "MINNEAPOLIS",
+    "city": "美國明尼阿波利斯"
+  },
+  {
+    "iata": "MKE",
+    "name": "MIWAKEE",
+    "city": "美國密爾瓦基"
+  },
+  {
+    "iata": "MSO",
+    "name": "MISSOULA",
+    "city": "美國米蘇拉"
+  },
+  {
+    "iata": "MOB",
+    "name": "MOBILE",
+    "city": "美國莫比爾"
+  },
+  {
+    "iata": "MOD",
+    "name": "MODESTO",
+    "city": "美國莫德斯托"
+  },
+  {
+    "iata": "MLI",
+    "name": "MOLINE",
+    "city": "美國莫林"
+  },
+  {
+    "iata": "MRY",
+    "name": "MONTEREY",
+    "city": "美國蒙特利"
+  },
+  {
+    "iata": "MGM",
+    "name": "MONTGOMERY",
+    "city": "美國蒙哥馬利"
+  },
+  {
+    "iata": "MTJ",
+    "name": "MONTROSE",
+    "city": "美國蒙特羅斯"
+  },
+  {
+    "iata": "MLU",
+    "name": "MONROE",
+    "city": "美國蒙羅"
+  },
+  {
+    "iata": "MKG",
+    "name": "MUSKEGON",
+    "city": "美國馬斯基岡"
+  },
+  {
+    "iata": "MVN",
+    "name": "MT VERNON",
+    "city": "美國弗農山"
+  },
+  {
+    "iata": "BNA",
+    "name": "NASHVILLE",
+    "city": "美國納許維爾"
+  },
+  {
+    "iata": "ARA",
+    "name": "NEW IBERIA-ACADIANA REGIONAL",
+    "city": "美國新伊比利亞"
+  },
+  {
+    "iata": "LFT",
+    "name": "NEW IBERIA-LAFAYETTE",
+    "city": "美國拉斐特"
+  },
+  {
+    "iata": "MSY",
+    "name": "NEW ORLEANS",
+    "city": "美國紐奧良"
+  },
+  {
+    "iata": "PHF",
+    "name": "NEWPORTNEWS-HAMPT",
+    "city": "美國紐波特紐斯"
+  },
+  {
+    "iata": "JFK",
+    "name": "NEW YORK-J.F.KENNEDY INTL.",
+    "city": "美國紐約"
+  },
+  {
+    "iata": "LGA",
+    "name": "NEW YORK-LA GUARDIA",
+    "city": "美國紐約"
+  },
+  {
+    "iata": "EWR",
+    "name": "NEW YORK-NEWARK INTL",
+    "city": "美國紐約紐華克"
+  },
+  {
+    "iata": "OFK",
+    "name": "NORFOLK",
+    "city": "美國諾福克"
+  },
+  {
+    "iata": "ORF",
+    "name": "NORFOLK",
+    "city": "美國諾福克"
+  },
+  {
+    "iata": "LBF",
+    "name": "NORTH PLATTE",
+    "city": "美國北普拉特"
+  },
+  {
+    "iata": "OAK",
+    "name": "OAKLAND",
+    "city": "美國奧克蘭"
+  },
+  {
+    "iata": "OKC",
+    "name": "OKLAHOMA CITY",
+    "city": "美國奧克拉荷馬城"
+  },
+  {
+    "iata": "OMA",
+    "name": "OMAHA",
+    "city": "美國奧馬哈"
+  },
+  {
+    "iata": "ONT",
+    "name": "ONTARIO",
+    "city": "美國安大略"
+  },
+  {
+    "iata": "MCO",
+    "name": "ORLANDO",
+    "city": "美國奧蘭多"
+  },
+  {
+    "iata": "OSH",
+    "name": "OSHKOSH",
+    "city": "美國奧什科什"
+  },
+  {
+    "iata": "OTM",
+    "name": "OTTUMWA",
+    "city": "美國奧圖姆瓦"
+  },
+  {
+    "iata": "OXR",
+    "name": "OXNARD/VENTURA",
+    "city": "美國奧克斯納德"
+  },
+  {
+    "iata": "PSP",
+    "name": "PALM SPRINGS",
+    "city": "美國棕櫚泉"
+  },
+  {
+    "iata": "PFN",
+    "name": "PANAMA CITY",
+    "city": "美國巴拿馬城"
+  },
+  {
+    "iata": "PSC",
+    "name": "PASCO-RICHLD-KENN",
+    "city": "美國帕斯科"
+  },
+  {
+    "iata": "PNS",
+    "name": "PENSACOLA",
+    "city": "美國彭薩科拉"
+  },
+  {
+    "iata": "PIA",
+    "name": "PEORIA",
+    "city": "美國皮歐立亞"
+  },
+  {
+    "iata": "PHL",
+    "name": "PHILADEPHIA",
+    "city": "美國費城"
+  },
+  {
+    "iata": "PHX",
+    "name": "PHOENIX",
+    "city": "美國鳳凰城"
+  },
+  {
+    "iata": "PIR",
+    "name": "PIERRE",
+    "city": "美國皮爾"
+  },
+  {
+    "iata": "PIT",
+    "name": "PITTSBURGH",
+    "city": "美國匹茲堡"
+  },
+  {
+    "iata": "PDX",
+    "name": "PORTLAND",
+    "city": "美國波特蘭"
+  },
+  {
+    "iata": "PWM",
+    "name": "PORTLAND",
+    "city": "美國波特蘭"
+  },
+  {
+    "iata": "POU",
+    "name": "POUGHKEEPSIE-DUCHESS COUNTY",
+    "city": "美國波基普西"
+  },
+  {
+    "iata": "SWF",
+    "name": "POUGHKEEPSIE-NEWBURGH",
+    "city": "美國紐堡"
+  },
+  {
+    "iata": "PUB",
+    "name": "PUEBLO",
+    "city": "美國普韋布洛"
+  },
+  {
+    "iata": "PUW",
+    "name": "PULLMAN",
+    "city": "美國普爾曼"
+  },
+  {
+    "iata": "RDU",
+    "name": "RALEIGH/DURHAM",
+    "city": "美國羅利/德罕"
+  },
+  {
+    "iata": "RAP",
+    "name": "RAPID CITY",
+    "city": "美國拉皮德城"
+  },
+  {
+    "iata": "RDD",
+    "name": "REDDING",
+    "city": "美國雷丁"
+  },
+  {
+    "iata": "RDM",
+    "name": "REDMOND",
+    "city": "美國雷德蒙德"
+  },
+  {
+    "iata": "RNO",
+    "name": "RENO",
+    "city": "美國里諾"
+  },
+  {
+    "iata": "RIC",
+    "name": "RICHMOND",
+    "city": "美國里士滿"
+  },
+  {
+    "iata": "RIW",
+    "name": "RIVERTON",
+    "city": "美國里弗頓"
+  },
+  {
+    "iata": "PVD",
+    "name": "PROVIDENCE",
+    "city": "美國普羅維登斯"
+  },
+  {
+    "iata": "UIN",
+    "name": "QUINCY",
+    "city": "美國昆西"
+  },
+  {
+    "iata": "ROA",
+    "name": "ROANOKE",
+    "city": "美國羅阿諾克"
+  },
+  {
+    "iata": "RST",
+    "name": "ROCHESTER",
+    "city": "美國羅徹斯特"
+  },
+  {
+    "iata": "ROC",
+    "name": "ROCHESTER",
+    "city": "美國羅徹斯特"
+  },
+  {
+    "iata": "RFD",
+    "name": "ROCKFORD-GREATER ROCKFORD",
+    "city": "美國羅克福德"
+  },
+  {
+    "iata": "ZRF",
+    "name": "ROCKFORD-ROCKFORD PARK & RIDE",
+    "city": "美國羅克福德"
+  },
+  {
+    "iata": "RKS",
+    "name": "ROCK SPRINGS",
+    "city": "美國羅克斯普林斯"
+  },
+  {
+    "iata": "SMF",
+    "name": "SACRAMENTO",
+    "city": "美國沙加緬度"
+  },
+  {
+    "iata": "MBS",
+    "name": "SAGINAW-BAYCITY",
+    "city": "美國薩吉諾"
+  },
+  {
+    "iata": "SAT",
+    "name": "SAN ANTONIO",
+    "city": "美國聖安東尼奧"
+  },
+  {
+    "iata": "SLC",
+    "name": "SALT LAKE CITY",
+    "city": "美國鹽湖城"
+  },
+  {
+    "iata": "SJT",
+    "name": "SAN ANGELO",
+    "city": "美國聖安吉洛"
+  },
+  {
+    "iata": "SAN",
+    "name": "SAN DIEGO",
+    "city": "美國聖地牙哥"
+  },
+  {
+    "iata": "SFO",
+    "name": "SAN FRANCISCO",
+    "city": "美國舊金山"
+  },
+  {
+    "iata": "SJC",
+    "name": "SAN JOSE, CA.",
+    "city": "美國聖荷西"
+  },
+  {
+    "iata": "CSL",
+    "name": "SAN LUIS OBISPO",
+    "city": "美國聖路易斯-奧比斯波"
+  },
+  {
+    "iata": "SBP",
+    "name": "SAN LUIS OBISPO-COUNTY AIRPORT",
+    "city": "美國聖路易斯-奧比斯波"
+  },
+  {
+    "iata": "SNA",
+    "name": "SANTA ANA",
+    "city": "美國聖安娜"
+  },
+  {
+    "iata": "SBA",
+    "name": "SANTA BARBARA",
+    "city": "美國聖塔芭芭拉"
+  },
+  {
+    "iata": "SAF",
+    "name": "SANTA FE",
+    "city": "美國聖塔菲"
+  },
+  {
+    "iata": "SMX",
+    "name": "SANTA MARIA",
+    "city": "美國聖瑪麗亞"
+  },
+  {
+    "iata": "STS",
+    "name": "SANTA ROSA",
+    "city": "美國聖羅莎"
+  },
+  {
+    "iata": "SRQ",
+    "name": "SARASOTA",
+    "city": "美國薩拉索塔"
+  },
+  {
+    "iata": "SAV",
+    "name": "SAVANNAH",
+    "city": "美國薩凡納"
+  },
+  {
+    "iata": "BFF",
+    "name": "SCOTTSBLUFF",
+    "city": "美國斯科茨布拉夫"
+  },
+  {
+    "iata": "AVP",
+    "name": "SCRANTN-WILKESBAR",
+    "city": "美國斯克蘭頓/威爾克斯-巴里"
+  },
+  {
+    "iata": "SEA",
+    "name": "SEATTLE",
+    "city": "美國西雅圖"
+  },
+  {
+    "iata": "SHR",
+    "name": "SHERIDAN",
+    "city": "美國謝里登"
+  },
+  {
+    "iata": "SHV",
+    "name": "SHREVEPORT",
+    "city": "美國什里夫波特"
+  },
+  {
+    "iata": "FSD",
+    "name": "SIOUX FALLS",
+    "city": "美國蘇瀑布"
+  },
+  {
+    "iata": "SBN",
+    "name": "SOUTH BEND",
+    "city": "美國南灣"
+  },
+  {
+    "iata": "SPW",
+    "name": "SPENCER",
+    "city": "美國斯賓塞"
+  },
+  {
+    "iata": "SPI",
+    "name": "SPRINGFIELD",
+    "city": "美國斯普林菲爾德"
+  },
+  {
+    "iata": "SGF",
+    "name": "SPRINGFIELD",
+    "city": "美國斯普林菲爾德"
+  },
+  {
+    "iata": "GEG",
+    "name": "SPOKANE INTERNATIONAL",
+    "city": "美國斯波坎"
+  },
+  {
+    "iata": "STL",
+    "name": "ST. LOUIS",
+    "city": "美國聖路易"
+  },
+  {
+    "iata": "SCE",
+    "name": "STATE COLLEGE",
+    "city": "美國大學城"
+  },
+  {
+    "iata": "SYR",
+    "name": "SYRACUSE(NY)",
+    "city": "美國雪城"
+  },
+  {
+    "iata": "QBF",
+    "name": "VAIL",
+    "city": "美國韋爾"
+  },
+  {
+    "iata": "VIS",
+    "name": "VISALIA",
+    "city": "美國維塞利亞"
+  },
+  {
+    "iata": "TLH",
+    "name": "TALLAHASSEE",
+    "city": "美國塔拉哈西"
+  },
+  {
+    "iata": "TPA",
+    "name": "TAMPA",
+    "city": "美國坦帕"
+  },
+  {
+    "iata": "TEX",
+    "name": "TELLURIDE",
+    "city": "美國特柳賴德"
+  },
+  {
+    "iata": "HUF",
+    "name": "TERRE HAUTE",
+    "city": "美國特雷霍特"
+  },
+  {
+    "iata": "TXK",
+    "name": "TEXARKANA",
+    "city": "美國特克薩卡納"
+  },
+  {
+    "iata": "TOL",
+    "name": "TOLEDO",
+    "city": "美國托萊多"
+  },
+  {
+    "iata": "TVC",
+    "name": "TRAVERSE CITY",
+    "city": "美國特拉弗斯城"
+  },
+  {
+    "iata": "TUS",
+    "name": "TUCSON",
+    "city": "美國圖森"
+  },
+  {
+    "iata": "TUL",
+    "name": "TULSA",
+    "city": "美國塔爾薩"
+  },
+  {
+    "iata": "TYR",
+    "name": "TYLER",
+    "city": "美國泰勒"
+  },
+  {
+    "iata": "ACT",
+    "name": "WACO-MUNICIPAL",
+    "city": "美國韋科"
+  },
+  {
+    "iata": "BWI",
+    "name": "WASHIONTON-BALTIMORE/WASH INTL",
+    "city": "美國華盛頓巴爾的摩"
+  },
+  {
+    "iata": "IAD",
+    "name": "WASHIONTON-DULLES INTL.",
+    "city": "美國華盛頓杜勒斯"
+  },
+  {
+    "iata": "DCA",
+    "name": "WASHIONTON-RONALD REAGAN NATL.",
+    "city": "美國華盛頓雷根"
+  },
+  {
+    "iata": "ALO",
+    "name": "WATERLOO",
+    "city": "美國滑鐵盧"
+  },
+  {
+    "iata": "ATY",
+    "name": "WATERTOWN",
+    "city": "美國沃特敦"
+  },
+  {
+    "iata": "AUW",
+    "name": "WAUSAU-MUNICIPAL",
+    "city": "美國沃索"
+  },
+  {
+    "iata": "CWA",
+    "name": "WAUSAU-CENTRAL WISCONSIN",
+    "city": "美國沃索"
+  },
+  {
+    "iata": "HPN",
+    "name": "WESTCHESTER COUNTY",
+    "city": "美國威斯特徹斯特"
+  },
+  {
+    "iata": "PBI",
+    "name": "WEST PALM BEACH",
+    "city": "美國西棕櫚灘"
+  },
+  {
+    "iata": "ICT",
+    "name": "WICHITA",
+    "city": "美國威奇托"
+  },
+  {
+    "iata": "SPS",
+    "name": "WICHITA FALLS",
+    "city": "美國威奇托福爾斯"
+  },
+  {
+    "iata": "ISN",
+    "name": "WILLISTON",
+    "city": "美國威利斯頓"
+  },
+  {
+    "iata": "WRL",
+    "name": "WORLAND",
+    "city": "美國沃蘭"
+  },
+  {
+    "iata": "YKM",
+    "name": "YAKIMA",
+    "city": "美國亞基馬"
+  },
+  {
+    "iata": "YKN",
+    "name": "YANKTON",
+    "city": "美國揚克頓"
+  },
+  {
+    "iata": "YNG",
+    "name": "YOUNGSTOWN",
+    "city": "美國揚斯敦"
+  },
+  {
+    "iata": "YUM",
+    "name": "YUMA",
+    "city": "美國尤馬"
+  },
+  {
+    "iata": "YBC",
+    "name": "BAIE COMEAU",
+    "city": "加拿大貝克"
+  },
+  {
+    "iata": "YBG",
+    "name": "BAGOTVILLE",
+    "city": "加拿大波哥維"
+  },
+  {
+    "iata": "YYC",
+    "name": "CALGARY",
+    "city": "加拿大卡加立"
+  },
+  {
+    "iata": "YCG",
+    "name": "CASTLEGAR",
+    "city": "加拿大卡司特雷加"
+  },
+  {
+    "iata": "YYG",
+    "name": "CHARLOTTETOWN",
+    "city": "加拿大沙洛特城"
+  },
+  {
+    "iata": "YOD",
+    "name": "COLD LAKE",
+    "city": "加拿大冷湖"
+  },
+  {
+    "iata": "YQQ",
+    "name": "COMOX",
+    "city": "加拿大康英克斯"
+  },
+  {
+    "iata": "YXC",
+    "name": "CRANBROOK",
+    "city": "加拿大克藍布魯克"
+  },
+  {
+    "iata": "YDF",
+    "name": "DEER LAKE",
+    "city": "加拿大鹿湖"
+  },
+  {
+    "iata": "YPR",
+    "name": "DIGBY ISLAND",
+    "city": "加拿大魯伯王子鎮"
+  },
+  {
+    "iata": "YEA",
+    "name": "EDMONTON",
+    "city": "加拿大艾德頓"
+  },
+  {
+    "iata": "YMM",
+    "name": "FORT MCMURRAY",
+    "city": "加拿大福麥木瑞"
+  },
+  {
+    "iata": "YXJ",
+    "name": "FORT SAINT JOHN",
+    "city": "加拿大福聖約翰"
+  },
+  {
+    "iata": "YFC",
+    "name": "FREDERICTON",
+    "city": "加拿大菲德里鎮"
+  },
+  {
+    "iata": "YQX",
+    "name": "GANDER",
+    "city": "加拿大甘德"
+  },
+  {
+    "iata": "YGP",
+    "name": "GASPE",
+    "city": "加拿大加斯佩"
+  },
+  {
+    "iata": "YQU",
+    "name": "GRANDE PRAIRIE",
+    "city": "加拿大格蘭伯瑞爾"
+  },
+  {
+    "iata": "YYR",
+    "name": "GOOSE BAY",
+    "city": "加拿大鵝灣"
+  },
+  {
+    "iata": "YHZ",
+    "name": "HALIFAX",
+    "city": "加拿大哈利法克斯"
+  },
+  {
+    "iata": "YKA",
+    "name": "KAMLOOPS",
+    "city": "加拿大康露市"
+  },
+  {
+    "iata": "YLW",
+    "name": "KELOWNA",
+    "city": "加拿大卡洛那"
+  },
+  {
+    "iata": "YQL",
+    "name": "LETHBRIDGE",
+    "city": "加拿大雷絲橋"
+  },
+  {
+    "iata": "YLL",
+    "name": "LLOYDMINSTER",
+    "city": "加拿大羅明斯特"
+  },
+  {
+    "iata": "YXU",
+    "name": "LONDON",
+    "city": "加拿大倫敦"
+  },
+  {
+    "iata": "YXH",
+    "name": "MEDICINE HAT",
+    "city": "加拿大麥迪森漢"
+  },
+  {
+    "iata": "YQM",
+    "name": "MONCTON",
+    "city": "加拿大蒙克通"
+  },
+  {
+    "iata": "YYY",
+    "name": "MONT JOLI",
+    "city": "加拿大蒙特朱利"
+  },
+  {
+    "iata": "YMQ",
+    "name": "MONTREAL",
+    "city": "加拿大蒙特利爾"
+  },
+  {
+    "iata": "YUL",
+    "name": "MONTREAL",
+    "city": "加拿大蒙特利爾"
+  },
+  {
+    "iata": "YBL",
+    "name": "MUNICIPAL",
+    "city": "加拿大原貝爾河"
+  },
+  {
+    "iata": "YCD",
+    "name": "NANAIMO ARPT",
+    "city": "加拿大娜娜莫"
+  },
+  {
+    "iata": "YYB",
+    "name": "NORTH BAY",
+    "city": "加拿大北灣市"
+  },
+  {
+    "iata": "YOW",
+    "name": "OTTAWA",
+    "city": "加拿大渥太華"
+  },
+  {
+    "iata": "YYF",
+    "name": "PENTICTON",
+    "city": "加拿大攀蒂頓"
+  },
+  {
+    "iata": "YXS",
+    "name": "PRINCE GEORGE",
+    "city": "加拿大喬治王子鎮"
+  },
+  {
+    "iata": "YQB",
+    "name": "QUEBEC",
+    "city": "加拿大魁北克"
+  },
+  {
+    "iata": "YQR",
+    "name": "REGINA",
+    "city": "加拿大瑞吉娜"
+  },
+  {
+    "iata": "YSJ",
+    "name": "SAINT JOHN",
+    "city": "加拿大聖約翰"
+  },
+  {
+    "iata": "YAM",
+    "name": "SAULT STE MARIE",
+    "city": "加拿大所聖瑪利"
+  },
+  {
+    "iata": "YXE",
+    "name": "SASKATOON",
+    "city": "加拿大撒司卡通"
+  },
+  {
+    "iata": "YYD",
+    "name": "SMITHERS",
+    "city": "加拿大使密得斯"
+  },
+  {
+    "iata": "YYT",
+    "name": "ST. JOHNS",
+    "city": "加拿大聖約翰斯"
+  },
+  {
+    "iata": "YSL",
+    "name": "ST LEONARD",
+    "city": "加拿大聖隆那"
+  },
+  {
+    "iata": "YSB",
+    "name": "SUDBURY",
+    "city": "加拿大蘇布瑞"
+  },
+  {
+    "iata": "YQY",
+    "name": "SYDNEY",
+    "city": "加拿大希梨"
+  },
+  {
+    "iata": "YXT",
+    "name": "TERRACE",
+    "city": "加拿大德瑞司"
+  },
+  {
+    "iata": "YQT",
+    "name": "THUNDER BAY",
+    "city": "加拿大雷灣市"
+  },
+  {
+    "iata": "YTS",
+    "name": "TIMMINS",
+    "city": "加拿大丁敏市"
+  },
+  {
+    "iata": "YYZ",
+    "name": "TORONTO",
+    "city": "加拿大多倫多"
+  },
+  {
+    "iata": "YTO",
+    "name": "TORONTO",
+    "city": "加拿大多倫多"
+  },
+  {
+    "iata": "YVO",
+    "name": "VAL D OR",
+    "city": "加拿大瓦多爾"
+  },
+  {
+    "iata": "YVR",
+    "name": "VANCOUVER",
+    "city": "加拿大溫哥華"
+  },
+  {
+    "iata": "YYJ",
+    "name": "VICTORIA",
+    "city": "加拿大維多利亞"
+  },
+  {
+    "iata": "YWK",
+    "name": "WABUSH",
+    "city": "加拿大瓦布希"
+  },
+  {
+    "iata": "YQG",
+    "name": "WINDSOR",
+    "city": "加拿大溫莎"
+  },
+  {
+    "iata": "YWG",
+    "name": "WINNIPEG",
+    "city": "加拿大溫尼伯"
+  },
+  {
+    "iata": "YQI",
+    "name": "YARMOUTH",
+    "city": "加拿大亞茅斯"
+  },
+  {
+    "iata": "YZF",
+    "name": "YELLOWKNIFE",
+    "city": "加拿大黃刀鎮"
+  },
+  {
+    "iata": "AKL",
+    "name": "AUCKLANd",
+    "city": "紐西蘭奧克蘭"
+  },
+  {
+    "iata": "BNE",
+    "name": "BRISBANE",
+    "city": "澳洲布里斯本"
+  },
+  {
+    "iata": "CNS",
+    "name": "CAIRNS",
+    "city": "澳洲凱恩斯"
+  },
+  {
+    "iata": "CBR",
+    "name": "CANBERRA",
+    "city": "澳洲坎培拉"
+  },
+  {
+    "iata": "CHC",
+    "name": "CHRISTCHURCH",
+    "city": "紐西蘭基督城"
+  },
+  {
+    "iata": "DRW",
+    "name": "DARWIN",
+    "city": "澳洲達爾文"
+  },
+  {
+    "iata": "HBA",
+    "name": "HOBART",
+    "city": "澳洲荷巴特"
+  },
+  {
+    "iata": "HTI",
+    "name": "HAMILTON ISLAND",
+    "city": "澳洲哈密爾頓島"
+  },
+  {
+    "iata": "MEL",
+    "name": "MELBOURNE",
+    "city": "澳洲墨爾本"
+  },
+  {
+    "iata": "MIM",
+    "name": "MERIMBULA",
+    "city": "澳洲梅里姆布拉"
+  },
+  {
+    "iata": "NAN",
+    "name": "NADI",
+    "city": "斐濟南地"
+  },
+  {
+    "iata": "NOU",
+    "name": "NOUMEA",
+    "city": "新喀里多尼亞努美亞"
+  },
+  {
+    "iata": "PPG",
+    "name": "PAGO PAGO",
+    "city": "美屬薩摩亞巴哥巴哥"
+  },
+  {
+    "iata": "PPT",
+    "name": "PAPEETE",
+    "city": "法屬玻里尼西亞大溪地"
+  },
+  {
+    "iata": "PER",
+    "name": "PERTH",
+    "city": "澳洲伯斯"
+  },
+  {
+    "iata": "POM",
+    "name": "POTR MORESBY",
+    "city": "巴布亞紐幾內亞摩勒斯比港"
+  },
+  {
+    "iata": "WLG",
+    "name": "WELLINGTON",
+    "city": "紐西蘭威靈頓"
+  },
+  {
+    "iata": "SUV",
+    "name": "SUVA",
+    "city": "斐濟蘇瓦"
+  },
+  {
+    "iata": "SYD",
+    "name": "SYDNEY",
+    "city": "澳洲雪梨"
+  },
+  {
+    "iata": "ABZ",
+    "name": "ABERDEEN",
+    "city": "英國亞伯丁"
+  },
+  {
+    "iata": "AMS",
+    "name": "AMSTERDAM",
+    "city": "荷蘭阿姆斯特丹"
+  },
+  {
+    "iata": "ATH",
+    "name": "ATHENS",
+    "city": "希臘雅典"
+  },
+  {
+    "iata": "ANR",
+    "name": "ANTWERP",
+    "city": "比利時安特衛普"
+  },
+  {
+    "iata": "BUH",
+    "name": "BUCHAREST",
+    "city": "羅馬尼亞布加勒斯特"
+  },
+  {
+    "iata": "BUD",
+    "name": "BUDAPEST",
+    "city": "匈牙利布達佩斯"
+  },
+  {
+    "iata": "BCN",
+    "name": "BARCELONA",
+    "city": "西班牙巴塞隆納"
+  },
+  {
+    "iata": "BFS",
+    "name": "BELFAST",
+    "city": "英國貝爾法斯特"
+  },
+  {
+    "iata": "BEG",
+    "name": "BELGRADE",
+    "city": "塞爾維亞貝爾格勒"
+  },
+  {
+    "iata": "BGO",
+    "name": "BERGEN",
+    "city": "挪威卑爾根"
+  },
+  {
+    "iata": "TXL",
+    "name": "BERLIN",
+    "city": "德國柏林"
+  },
+  {
+    "iata": "BLQ",
+    "name": "BOLOGNA",
+    "city": "義大利波隆那"
+  },
+  {
+    "iata": "BNJ",
+    "name": "BONN",
+    "city": "德國波昂"
+  },
+  {
+    "iata": "BRS",
+    "name": "BRISTOL",
+    "city": "英國布里斯托"
+  },
+  {
+    "iata": "BRU",
+    "name": "BRUSSELS",
+    "city": "比利時布魯塞爾"
+  },
+  {
+    "iata": "CWL",
+    "name": "CARDIFF",
+    "city": "英國卡地夫"
+  },
+  {
+    "iata": "CGN",
+    "name": "COLOGNE",
+    "city": "德國科隆"
+  },
+  {
+    "iata": "CPH",
+    "name": "COPENHAGEN",
+    "city": "丹麥哥本哈根"
+  },
+  {
+    "iata": "DUB",
+    "name": "DUBLIN",
+    "city": "愛爾蘭都柏林"
+  },
+  {
+    "iata": "DUS",
+    "name": "DUSSDOLF",
+    "city": "德國杜塞道夫"
+  },
+  {
+    "iata": "EDI",
+    "name": "EDINBURGH",
+    "city": "英國愛丁堡"
+  },
+  {
+    "iata": "FAO",
+    "name": "FARO",
+    "city": "葡萄牙法魯"
+  },
+  {
+    "iata": "FRA",
+    "name": "FRANKFURT",
+    "city": "德國法蘭克福"
+  },
+  {
+    "iata": "GOA",
+    "name": "GENOA",
+    "city": "義大利熱那亞"
+  },
+  {
+    "iata": "GVA",
+    "name": "GENEVA",
+    "city": "瑞士日內瓦"
+  },
+  {
+    "iata": "GIB",
+    "name": "GIBRALTAR",
+    "city": "直布羅陀"
+  },
+  {
+    "iata": "GLA",
+    "name": "GLASGOW",
+    "city": "英國格拉斯哥"
+  },
+  {
+    "iata": "GOT",
+    "name": "GOTHENBURG",
+    "city": "瑞典哥德堡"
+  },
+  {
+    "iata": "GRZ",
+    "name": "GRAZ",
+    "city": "奧地利格拉茨"
+  },
+  {
+    "iata": "HAM",
+    "name": "HAMBURG",
+    "city": "德國漢堡"
+  },
+  {
+    "iata": "HAJ",
+    "name": "HANOVER",
+    "city": "德國漢諾威"
+  },
+  {
+    "iata": "HUY",
+    "name": "HUMBERSIDE",
+    "city": "英國亨伯賽德"
+  },
+  {
+    "iata": "LHR",
+    "name": "HEATHROW",
+    "city": "英國倫敦"
+  },
+  {
+    "iata": "HEL",
+    "name": "HELSINKI",
+    "city": "芬蘭赫爾辛基"
+  },
+  {
+    "iata": "INN",
+    "name": "INNSBRUCK",
+    "city": "奧地利因斯布魯克"
+  },
+  {
+    "iata": "IST",
+    "name": "ISTANBUL",
+    "city": "土耳其伊斯坦堡"
+  },
+  {
+    "iata": "IEV",
+    "name": "KIEV",
+    "city": "烏克蘭基輔"
+  },
+  {
+    "iata": "KLU",
+    "name": "KLAGENFURT",
+    "city": "奧地利克拉根福"
+  },
+  {
+    "iata": "KBP",
+    "name": "BORISPOL",
+    "city": "烏克蘭鮑里斯波爾"
+  },
+  {
+    "iata": "KRK",
+    "name": "KRAKOW",
+    "city": "波蘭克拉科夫"
+  },
+  {
+    "iata": "LBA",
+    "name": "LEEDS",
+    "city": "英國里茲"
+  },
+  {
+    "iata": "LNZ",
+    "name": "LINZ",
+    "city": "奧地利林茨"
+  },
+  {
+    "iata": "LIS",
+    "name": "LISBON",
+    "city": "葡萄牙里斯本"
+  },
+  {
+    "iata": "LGW",
+    "name": "LONDON-GATWICK",
+    "city": "英國倫敦"
+  },
+  {
+    "iata": "LJU",
+    "name": "LJUBLJANA",
+    "city": "斯洛維尼亞盧比安納"
+  },
+  {
+    "iata": "LUX",
+    "name": "LUXEMBOURG",
+    "city": "盧森堡"
+  },
+  {
+    "iata": "LYS",
+    "name": "LYON",
+    "city": "法國里昂"
+  },
+  {
+    "iata": "MAD",
+    "name": "MADRID",
+    "city": "西班牙馬德里"
+  },
+  {
+    "iata": "AGP",
+    "name": "MALAGA",
+    "city": "西班牙馬拉加"
+  },
+  {
+    "iata": "MAN",
+    "name": "MANCHESTER",
+    "city": "英國曼徹斯特"
+  },
+  {
+    "iata": "MRS",
+    "name": "MARSEILLE",
+    "city": "法國馬賽"
+  },
+  {
+    "iata": "MOW",
+    "name": "MOSCOW",
+    "city": "俄羅斯莫斯科"
+  },
+  {
+    "iata": "MPL",
+    "name": "MONTPELLIER",
+    "city": "法國蒙彼利埃"
+  },
+  {
+    "iata": "MUC",
+    "name": "MUNICH",
+    "city": "德國慕尼黑"
+  },
+  {
+    "iata": "MXP",
+    "name": "MILAN-MALPENSA",
+    "city": "義大利米蘭"
+  },
+  {
+    "iata": "LIN",
+    "name": "MILAN-LINATE",
+    "city": "義大利米蘭"
+  },
+  {
+    "iata": "NAP",
+    "name": "NAPLES",
+    "city": "義大利那不勒斯"
+  },
+  {
+    "iata": "NCL",
+    "name": "NEW CASTLE",
+    "city": "英國新堡"
+  },
+  {
+    "iata": "NCE",
+    "name": "NICE",
+    "city": "法國尼斯"
+  },
+  {
+    "iata": "NWI",
+    "name": "NORWICH",
+    "city": "英國諾里奇"
+  },
+  {
+    "iata": "ODS",
+    "name": "ODESSA",
+    "city": "烏克蘭敖德薩"
+  },
+  {
+    "iata": "OSL",
+    "name": "OSLO",
+    "city": "挪威奧斯陸"
+  },
+  {
+    "iata": "CDG",
+    "name": "PARIS-CHARLES DE GAULLE",
+    "city": "法國巴黎"
+  },
+  {
+    "iata": "ORY",
+    "name": "PARIS-ORLY",
+    "city": "法國巴黎"
+  },
+  {
+    "iata": "PRG",
+    "name": "PRAGUE",
+    "city": "捷克布拉格"
+  },
+  {
+    "iata": "RIX",
+    "name": "RIGA",
+    "city": "拉脫維亞里加"
+  },
+  {
+    "iata": "FCO",
+    "name": "ROME",
+    "city": "義大利羅馬"
+  },
+  {
+    "iata": "SZG",
+    "name": "SALZBURG",
+    "city": "奧地利薩爾茨堡"
+  },
+  {
+    "iata": "SNN",
+    "name": "SHANNON",
+    "city": "愛爾蘭香農"
+  },
+  {
+    "iata": "SOF",
+    "name": "SOFIA",
+    "city": "保加利亞索非亞"
+  },
+  {
+    "iata": "SPU",
+    "name": "SPLIT",
+    "city": "克羅埃西亞斯普利特"
+  },
+  {
+    "iata": "STO",
+    "name": "STOCKHOLM",
+    "city": "瑞典斯德哥爾摩"
+  },
+  {
+    "iata": "LED",
+    "name": "ST PETERSBURG",
+    "city": "俄羅斯聖彼得堡"
+  },
+  {
+    "iata": "STR",
+    "name": "STUTTGART",
+    "city": "德國斯圖加特"
+  },
+  {
+    "iata": "TLL",
+    "name": "TALLINN",
+    "city": "愛沙尼亞塔林"
+  },
+  {
+    "iata": "MME",
+    "name": "TEESSIDE",
+    "city": "英國提賽德"
+  },
+  {
+    "iata": "TSR",
+    "name": "TIMISOARA",
+    "city": "羅馬尼亞蒂米什瓦拉"
+  },
+  {
+    "iata": "TLS",
+    "name": "TOULOUSE",
+    "city": "法國土魯斯"
+  },
+  {
+    "iata": "VRN",
+    "name": "VERONA",
+    "city": "義大利維羅納"
+  },
+  {
+    "iata": "VCE",
+    "name": "VENICE",
+    "city": "義大利威尼斯"
+  },
+  {
+    "iata": "VIE",
+    "name": "VIENNA",
+    "city": "奧地利維也納"
+  },
+  {
+    "iata": "VNO",
+    "name": "VILNIUS",
+    "city": "立陶宛維爾紐斯"
+  },
+  {
+    "iata": "WAW",
+    "name": "WARSAW",
+    "city": "波蘭華沙"
+  },
+  {
+    "iata": "WRO",
+    "name": "WROCLAW",
+    "city": "波蘭弗羅茨瓦夫"
+  },
+  {
+    "iata": "ZAG",
+    "name": "ZAGREB",
+    "city": "克羅埃西亞薩格勒布"
+  },
+  {
+    "iata": "ZRH",
+    "name": "ZURICH",
+    "city": "瑞士蘇黎世"
+  },
+  {
+    "iata": "ACA",
+    "name": "ACAPUCCO",
+    "city": "墨西哥阿卡普爾科"
+  },
+  {
+    "iata": "ASU",
+    "name": "ASUNCION",
+    "city": "巴拉圭亞松森"
+  },
+  {
+    "iata": "BOG",
+    "name": "BOGOTA",
+    "city": "哥倫比亞波哥大"
+  },
+  {
+    "iata": "BUE",
+    "name": "BUENDS AIRES",
+    "city": "阿根廷布宜諾斯艾利斯"
+  },
+  {
+    "iata": "BSB",
+    "name": "BRASILIA",
+    "city": "巴西巴西利亞"
+  },
+  {
+    "iata": "BGI",
+    "name": "BRIDGE TOWN",
+    "city": "巴貝多橋鎮"
+  },
+  {
+    "iata": "CCS",
+    "name": "CARACAS",
+    "city": "委內瑞拉加拉加斯"
+  },
+  {
+    "iata": "CAY",
+    "name": "CAYENNE",
+    "city": "法屬圭亞那卡宴"
+  },
+  {
+    "iata": "GRG",
+    "name": "GEORGE TOWN",
+    "city": "蓋亞那喬治市"
+  },
+  {
+    "iata": "GUA",
+    "name": "GUATEMALA CITY",
+    "city": "瓜地馬拉瓜地馬拉市"
+  },
+  {
+    "iata": "HAV",
+    "name": "HAVANA",
+    "city": "古巴哈瓦那"
+  },
+  {
+    "iata": "KIN",
+    "name": "KINGSTON",
+    "city": "牙買加京士頓"
+  },
+  {
+    "iata": "LPB",
+    "name": "LA PAZ",
+    "city": "玻利維亞拉巴斯"
+  },
+  {
+    "iata": "LIM",
+    "name": "LIMA",
+    "city": "秘魯利馬"
+  },
+  {
+    "iata": "MGA",
+    "name": "MANAGUA",
+    "city": "尼加拉瓜馬拿瓜"
+  },
+  {
+    "iata": "MAO",
+    "name": "MANAUS",
+    "city": "巴西瑪瑙斯"
+  },
+  {
+    "iata": "MAY",
+    "name": "MANGROVE CAY",
+    "city": "巴哈馬紅樹灣"
+  },
+  {
+    "iata": "MEX",
+    "name": "MEXICO CITY",
+    "city": "墨西哥墨西哥城"
+  },
+  {
+    "iata": "MVD",
+    "name": "MONTEBIDEO",
+    "city": "烏拉圭蒙特維多"
+  },
+  {
+    "iata": "MBJ",
+    "name": "MONTEGO BAY",
+    "city": "牙買加蒙特哥灣"
+  },
+  {
+    "iata": "PTY",
+    "name": "PANAMA CITY",
+    "city": "巴拿馬巴拿馬城"
+  },
+  {
+    "iata": "PBM",
+    "name": "PARAMARIBO",
+    "city": "蘇利南巴拉馬利波"
+  },
+  {
+    "iata": "PAP",
+    "name": "PORT AU PRINCE",
+    "city": "海地太子港"
+  },
+  {
+    "iata": "POS",
+    "name": "PORT OF SPAIN",
+    "city": "千里達及托巴哥西班牙港"
+  },
+  {
+    "iata": "UIO",
+    "name": "QUITO",
+    "city": "厄瓜多基多"
+  },
+  {
+    "iata": "REL",
+    "name": "RECIFE",
+    "city": "巴西累西腓"
+  },
+  {
+    "iata": "RIO",
+    "name": "RIO DE JANEIRO",
+    "city": "巴西里約熱內盧"
+  },
+  {
+    "iata": "SJO",
+    "name": "SAN JOSE",
+    "city": "哥斯大黎加聖約瑟"
+  },
+  {
+    "iata": "SJU",
+    "name": "SAN JUAN",
+    "city": "波多黎各聖胡安"
+  },
+  {
+    "iata": "SAO",
+    "name": "SAO PAULO(GRU)",
+    "city": "巴西聖保羅"
+  },
+  {
+    "iata": "SAL",
+    "name": "SAN SALVADOR",
+    "city": "薩爾瓦多聖薩爾вадор"
+  },
+  {
+    "iata": "SCL",
+    "name": "SANTIAGO",
+    "city": "智利聖地牙哥"
+  },
+  {
+    "iata": "SDQ",
+    "name": "SANTO DOMINGO",
+    "city": "多明尼加聖多明哥"
+  },
+  {
+    "iata": "TGU",
+    "name": "TEGUCIGALPA",
+    "city": "宏都拉斯德古斯加巴"
+  },
+  {
+    "iata": "ACA",
+    "name": "ACAPULCO",
+    "city": "墨西哥阿卡普爾科"
+  },
+  {
+    "iata": "ABD",
+    "name": "ABADAN",
+    "city": "伊朗阿巴丹"
+  },
+  {
+    "iata": "ABJ",
+    "name": "ABIDJAN",
+    "city": "象牙海岸阿必尚"
+  },
+  {
+    "iata": "AUH",
+    "name": "ABU DHABI",
+    "city": "阿拉伯聯合大公國阿布達比"
+  },
+  {
+    "iata": "ABV",
+    "name": "ABUJA",
+    "city": "奈及利亞阿布加"
+  },
+  {
+    "iata": "ACC",
+    "name": "ACCRA",
+    "city": "迦納阿克拉"
+  },
+  {
+    "iata": "ADD",
+    "name": "ADDIS ABABA",
+    "city": "衣索比亞阿迪斯阿魯巴"
+  },
+  {
+    "iata": "ADE",
+    "name": "ADEN",
+    "city": "葉門亞丁"
+  },
+  {
+    "iata": "ALG",
+    "name": "ALGIERS",
+    "city": "阿爾及利亞阿爾及爾"
+  },
+  {
+    "iata": "AMM",
+    "name": "AMMAN",
+    "city": "約旦安曼"
+  },
+  {
+    "iata": "ANK",
+    "name": "ANKARA",
+    "city": "土耳其安卡拉"
+  },
+  {
+    "iata": "BGW",
+    "name": "BAGHDAD",
+    "city": "伊拉克巴格達"
+  },
+  {
+    "iata": "BAH",
+    "name": "BAHRAIN",
+    "city": "巴林"
+  },
+  {
+    "iata": "BKO",
+    "name": "BAMAKO",
+    "city": "馬利巴馬科"
+  },
+  {
+    "iata": "BGF",
+    "name": "BAN-GUI",
+    "city": "中非共和國班基"
+  },
+  {
+    "iata": "BEY",
+    "name": "BEIRUT",
+    "city": "黎巴嫩貝魯特"
+  },
+  {
+    "iata": "BLZ",
+    "name": "BLANTYRE",
+    "city": "馬拉威布蘭太"
+  },
+  {
+    "iata": "BZV",
+    "name": "BRAXXABILLE",
+    "city": "剛果布拉薩市"
+  },
+  {
+    "iata": "CAI",
+    "name": "CAIRO",
+    "city": "埃及開羅"
+  },
+  {
+    "iata": "CPT",
+    "name": "CAPETOWN",
+    "city": "南非開普敦"
+  },
+  {
+    "iata": "CAS",
+    "name": "CASABLANCA",
+    "city": "摩洛哥卡薩布蘭卡"
+  },
+  {
+    "iata": "CKY",
+    "name": "CONAKRY",
+    "city": "幾內亞柯那克里"
+  },
+  {
+    "iata": "COO",
+    "name": "COTONOU",
+    "city": "貝南柯多努"
+  },
+  {
+    "iata": "DKR",
+    "name": "DAKAR",
+    "city": "塞內加爾達卡"
+  },
+  {
+    "iata": "DAM",
+    "name": "DAMASCUS",
+    "city": "敘利亞大馬士革"
+  },
+  {
+    "iata": "DAR",
+    "name": "DAR ES SALAAM",
+    "city": "坦尚尼亞達累斯薩拉姆"
+  },
+  {
+    "iata": "DHA",
+    "name": "DHAHRAN",
+    "city": "沙烏地阿拉伯達蘭"
+  },
+  {
+    "iata": "DOH",
+    "name": "DOHA",
+    "city": "卡達杜哈"
+  },
+  {
+    "iata": "DXB",
+    "name": "DUBAI",
+    "city": "阿拉伯聯合大公國杜拜"
+  },
+  {
+    "iata": "EBB",
+    "name": "ENTEBBE/KAMPALA",
+    "city": "烏干達恩特比/坎帕拉"
+  },
+  {
+    "iata": "FTL",
+    "name": "FORT LAMY",
+    "city": "查德拉米堡"
+  },
+  {
+    "iata": "FNA",
+    "name": "FREETOWN",
+    "city": "獅子山自由城"
+  },
+  {
+    "iata": "HRE",
+    "name": "HARARE",
+    "city": "辛巴威哈拉雷"
+  },
+  {
+    "iata": "HBT",
+    "name": "HAFR ALBATIN",
+    "city": "沙烏地阿拉伯哈夫爾巴廷"
+  },
+  {
+    "iata": "IST",
+    "name": "ISTANBUL",
+    "city": "土耳其伊斯坦堡"
+  },
+  {
+    "iata": "JED",
+    "name": "JEDDAH",
+    "city": "沙烏地阿拉伯吉達"
+  },
+  {
+    "iata": "JNB",
+    "name": "JOHANNESBURG",
+    "city": "南非約翰尼斯堡"
+  },
+  {
+    "iata": "KRT",
+    "name": "KHARTOUM",
+    "city": "蘇丹喀土穆"
+  },
+  {
+    "iata": "FIA",
+    "name": "KINSHASA",
+    "city": "剛果民主共和國金夏沙"
+  },
+  {
+    "iata": "KWI",
+    "name": "KUWAIT",
+    "city": "科威特"
+  },
+  {
+    "iata": "LOS",
+    "name": "LAGOS",
+    "city": "奈及利亞拉哥斯"
+  },
+  {
+    "iata": "LPA",
+    "name": "LASPALMAS",
+    "city": "西班牙拉斯巴馬斯"
+  },
+  {
+    "iata": "LBV",
+    "name": "LIBREVILLE",
+    "city": "加彭自由市"
+  },
+  {
+    "iata": "LLW",
+    "name": "LILONGWE",
+    "city": "馬拉威里郎威"
+  },
+  {
+    "iata": "LFW",
+    "name": "LOME",
+    "city": "多哥洛美"
+  },
+  {
+    "iata": "LUM",
+    "name": "LOURENCO MAROUES",
+    "city": "莫三比克魯倫素馬凱斯"
+  },
+  {
+    "iata": "LAD",
+    "name": "LUAN DA",
+    "city": "安哥拉盧安達"
+  },
+  {
+    "iata": "LUN",
+    "name": "LUSAKA",
+    "city": "尚比亞路沙卡"
+  },
+  {
+    "iata": "MLA",
+    "name": "MALTA",
+    "city": "馬爾他"
+  },
+  {
+    "iata": "MTS",
+    "name": "MANZINI",
+    "city": "史瓦帝尼曼齊尼"
+  },
+  {
+    "iata": "MSU",
+    "name": "MASERU",
+    "city": "賴索托馬塞魯"
+  },
+  {
+    "iata": "MRU",
+    "name": "MAURITIUS",
+    "city": "模里西斯"
+  },
+  {
+    "iata": "MGQ",
+    "name": "MOGADISHU",
+    "city": "索馬利亞摩加迪休"
+  },
+  {
+    "iata": "MLW",
+    "name": "MONROVIA",
+    "city": "賴比瑞亞蒙羅維亞"
+  },
+  {
+    "iata": "MCT",
+    "name": "MUSCAT",
+    "city": "阿曼馬斯開特"
+  },
+  {
+    "iata": "NBO",
+    "name": "NAIROBI",
+    "city": "肯亞奈洛比"
+  },
+  {
+    "iata": "NDJ",
+    "name": "N’DJAMENA",
+    "city": "查德恩將納"
+  },
+  {
+    "iata": "NIM",
+    "name": "NIAMEY",
+    "city": "尼日尼阿美"
+  },
+  {
+    "iata": "OUA",
+    "name": "OUAGADOUGOU",
+    "city": "布吉納法索瓦加杜古"
+  },
+  {
+    "iata": "WDH",
+    "name": "WINDHOEK",
+    "city": "納米比亞溫得和克"
+  },
+  {
+    "iata": "RAK",
+    "name": "MARRAKECH",
+    "city": "摩洛哥馬拉喀什"
+  },
+  {
+    "iata": "RUH",
+    "name": "RIYADH",
+    "city": "沙烏地阿拉伯利雅德"
+  },
+  {
+    "iata": "SAY",
+    "name": "SALISBURY",
+    "city": "辛巴威索爾茲伯里"
+  },
+  {
+    "iata": "SEC",
+    "name": "SERRE CHEVALIER",
+    "city": "法國塞爾舍瓦利耶"
+  },
+  {
+    "iata": "TNG",
+    "name": "TANGIER",
+    "city": "摩洛哥丹吉爾"
+  },
+  {
+    "iata": "TNR",
+    "name": "TANANARIVE",
+    "city": "馬達加斯加塔那那利佛"
+  },
+  {
+    "iata": "THR",
+    "name": "TEHRAN",
+    "city": "伊朗德黑蘭"
+  },
+  {
+    "iata": "TLV",
+    "name": "TELAVIV",
+    "city": "以色列特拉維夫"
+  },
+  {
+    "iata": "TIP",
+    "name": "TRIPOLI",
+    "city": "利比亞的黎波里"
+  },
+  {
+    "iata": "TUN",
+    "name": "TUNIS",
+    "city": "突尼西亞突尼斯"
+  },
+  {
+    "iata": "YAO",
+    "name": "YAOUNDE",
+    "city": "喀麥隆雅恩德"
+  }
+]

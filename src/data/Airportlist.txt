@@ -1,0 +1,1336 @@
+台灣
+TPE: TAIPEI-CHIANG KAI SHEK, 台灣桃園
+
+CYI: CHIAYI, 台灣嘉義
+
+CMJ: CHIMAY, 台灣七美
+
+GNI: GREEN ISLAND, 台灣綠島
+
+HUN: HUALIEN, 台灣花蓮
+
+KHH: KAOHSIUNG, 台灣高雄
+
+KNH: KINMEN, 台灣金門
+
+MZG: MAKUNG, 台灣馬公
+
+MFK: MATSU, 台灣馬祖
+
+KYD: ORCHID ISLAND, 台灣蘭嶼
+
+PIF: PINGTUNG, 台灣屏東
+
+WOT: WON-AN, 台灣望安
+
+TSA: SUNG SHAN - TAIPEI CITY, 台灣松山
+
+TXG: TAICHUNG, 台灣台中
+
+TTT: TAITUNG, 台灣台東
+
+TNN: TAINAN, 台灣台南
+
+中國
+BHY: BEIHAI, 中國北海
+
+PEK: BEIJING, 中國北京
+
+CAN: CANTON, 中國廣州
+
+CGQ: CHANGCHUN, 中國長春
+
+CSX: CHANGSHA, 中國長沙
+
+CTU: CHENGTU, 中國成都
+
+CKG: CHONGQING, 中國重慶
+
+DLC: DALIAN, 中國大連
+
+DYG: DAYONG, 中國張家界
+
+FOC: FOOCHOW, 中國福州
+
+KWL: GUILIN, 中國桂林
+
+KWE: GUIYANG, 中國貴陽
+
+HAK: HAIKOU, 中國海口
+
+HGH: HANGCHOW, 中國杭州
+
+HRB: HARBIN, 中國哈爾濱
+
+HFE: HEFEI, 中國合肥
+
+TNA: JINAN, 中國濟南
+
+KMG: KUNMING, 中國昆明
+
+LHW: LANZHOU, 中國蘭州
+
+LYA: LUOYANG, 中國洛陽
+
+MXZ: MEIXIAN, 中國梅縣
+
+KHN: NANCHANG, 中國南昌
+
+SYX: SANYA, 中國三亞
+
+SHA: SHANGHAI, 中國上海
+
+SHE: SHENYANG, 中國瀋陽
+
+SZX: SHENZHEN, 中國深圳
+
+SJW: SHIJIAZHUANG, 中國石家莊
+
+SWA: SWATOW, 中國汕頭
+
+TYN: TAIYUAN, 中國太原
+
+TSN: TIANJIN, 中國天津
+
+TAO: TSINGTAO, 中國青島
+
+TXN: TUNXI, 中國黃山
+
+URC: URUMQI, 中國烏魯木齊
+
+WNZ: WENZHOU, 中國溫州
+
+WUH: WUHAN, 中國武漢
+
+XMN: XIAMEN, 中國廈門
+
+SIA: XIAN, 中國西安
+
+XIY: XIANYANG, 中國襄陽
+
+YNT: YANTAI, 中國煙台
+
+CGO: ZHENGZHOU, 中國鄭州
+
+ZHA: ZHANJIANG, 中國湛江
+
+ZUH: ZHUHAI, 中國珠海
+
+港澳日韓
+HKG: HONG KONG, 香港
+
+MFM: MACAU, 澳門
+
+SEL: SEOU, 南韓首爾
+
+PUS: PUSAN, 南韓釜山
+
+CTS: CHITOSE, 日本千歲
+
+FUK: FUKUOKA, 日本福岡
+
+HKD: HAKODATE, 日本函館
+
+HND: HANEDA, 日本東京羽田
+
+NGO: NAGOYA, 日本名古屋
+
+NRT: NARITA, 日本東京成田
+
+OKA: OKINAWA, 日本沖繩
+
+KIX: OSAKA-KANSAI INTERNATIONAL, 日本大阪
+
+SPK: SAPPORO, 日本札幌
+
+東南亞
+BAG: BAGUIO, 菲律賓碧瑤
+
+BWN: BANDAR SERI BEGAWAN, 汶萊
+
+BKK: BANGKOK, 泰國曼谷
+
+BOM: BOMBAY, 印度孟買
+
+CCU: CALCUTTA, 印度加爾各答
+
+CEB: CEBU, 菲律賓宿霧
+
+CNX: CHIANG MAI, 泰國清邁
+
+CGP: CHITTAGON, 孟加拉吉大港
+
+CMB: COLOMBO, 斯里蘭卡可倫坡
+
+DAC: DACCA, 孟加拉達卡
+
+DVO: DAVAO, 菲律賓達沃
+
+DEL: DELHI, 印度德里
+
+DPS: DENPASAR, 印尼巴里島
+
+DIL: DILI, 印尼帝利
+
+HAN: HANOI, 越南河內
+
+IPH: IPOH, 馬來西亞怡保
+
+CGK: JAKARTA, 印尼雅加達
+
+KBL: KABUL, 阿富汗喀布爾
+
+KHI: KARACHI, 巴基斯坦喀拉蚩
+
+KTM: KATHMANDU, 尼泊爾加德滿都
+
+BKI: KOTA KINABALU, 馬來西亞亞庇
+
+KUL: KUALA LUMPUR, 馬來西亞吉隆坡
+
+MDC: MANADO, 印尼馬納多
+
+MNL: MANILA, 菲律賓馬尼拉
+
+AMI: MATARAM, 印尼馬塔蘭
+
+MES: MEDAN, 印尼棉蘭
+
+INU: NAURU, 諾魯諾魯
+
+PDG: PADANG, 印尼巴東
+
+PLM: PALEMBANG, 印尼巨港
+
+PKU: PEKANBARU, 印尼北干巴魯
+
+PEN: PENANG, 馬來西亞檳城
+
+PNH: PHNOM PENH, 柬埔寨金邊
+
+HKT: PHUKET, 泰國普吉島
+
+RGN: RANGOON, 緬甸仰光
+
+SGN: SAIGON, 越南胡志明市
+
+SPN: SAIPAN, 塞班塞班
+
+SBW: SIBU, 馬來西亞詩巫
+
+SIN: SINGAPORE, 新加坡
+
+SOC: SOLO CITY, 印尼梭羅
+
+SUB: SURABAYA, 印尼泗水
+
+TBU: TONGATAPU, 東加王國東加塔布
+
+VTE: VIENTIANE, 寮國永珍
+
+美國
+ABI: ABILENE, 美國阿比林
+
+ABR: ABERDEEN, 美國阿伯丁
+
+CAK: AKRON/CANTON, 美國阿克倫/坎頓
+
+ALS: ALAMOSA, 美國阿拉莫薩
+
+ALB: ALBANY-SCHENCTADY, 美國奧爾巴尼
+
+ABQ: ALBUOERQUE, 美國阿波寇爾克
+
+AEX: ALEXANDRIA, 美國亞歷山大
+
+ABE: ALLENTOWN-BTHLEHM, 美國阿倫敦
+
+AIA: ALLIANCE, 美國聯盟市
+
+AMA: AMARILLO, 美國阿馬里洛
+
+ANC: ANCHORAGE, 美國安克拉治
+
+ATW: APPLETON, 美國阿普爾頓
+
+ACV: ARCATA, 美國阿克塔
+
+AVL: ASHEVLE-HENDSNVLE, 美國阿什維爾
+
+ASE: ASPEN, 美國阿斯彭
+
+ATL: ATLANTA, 美國亞特蘭大
+
+AGS: AUGUSTA, 美國奧古斯塔
+
+AUS: AUSTIN, 美國奧斯丁
+
+BFL: BAKERSFIELD, 美國貝克斯菲爾德
+
+BGR: BANGOR, 美國班戈
+
+BTR: BATON ROUGE - RYAN, 美國巴頓魯日
+
+BPT: BEAUMONT-PTARTHUR-JEFFERSON, 美國博蒙特
+
+ZBV: BEAVER CREEK VAN SVC, 美國比弗克里克
+
+BLI: BELLINGHAM, 美國貝靈漢
+
+BIL: BILLINGS, 美國比林斯
+
+BGM: BINGHAMTON, 美國賓漢頓
+
+BHM: BIRMINGHAM, 美國伯明罕
+
+BOI: BOISE, 美國波夕
+
+BOS: BOSTON, 美國波士頓
+
+BZN: BOZEMAN, 美國波茲曼
+
+BMI: BLOOMINGTON-NORMAL, 美國布盧明頓
+
+BMG: BLOOMINGTON, 美國布盧明頓
+
+BDL: BRADLEY INTL–HARTFORD, 美國哈特福德
+
+BKX: BROOKINGS, 美國布魯金斯
+
+BUF: BUFFALO, 美國水牛城
+
+BRL: BURLINGTON, 美國伯靈頓
+
+BTV: BURLINGTON, 美國伯靈頓
+
+MDH: CARBONDALE, 美國卡本代爾
+
+CLD: CARLSBAD, 美國卡爾斯巴德
+
+CPR: CASPER, 美國卡斯珀
+
+CID: CEDAR RAPIDS, 美國錫達拉皮茲
+
+CYS: CHEYENNE, 美國夏延
+
+CDR: CHADRON, 美國查德倫
+
+CMI: CHAMPAIGN, 美國尚佩恩
+
+CHS: CHARLESTON, 美國查爾斯頓
+
+CRW: CHARLESTON, 美國查爾斯頓
+
+CLT: CHARLOTTE, 美國夏洛特
+
+CHO: CHARLOTTESVILLE, 美國夏洛茨維爾
+
+CHA: CHATTANOOGA-LOVELL FIELD, 美國查塔努加
+
+ORD: CHICAGO-O HARE INTER., 美國芝加哥
+
+CIC: CHICO, 美國奇科
+
+CVG: CINCINNATI, 美國辛辛那提
+
+COD: CODY/YELLOWSTONE, 美國科迪
+
+COS: COLORADO SPRINGS, 美國科羅拉多泉
+
+CAE: COLUMBIA, 美國哥倫比亞
+
+CSG: COLUMBUS, 美國哥倫布
+
+CMH: COLUMBUS, 美國哥倫布
+
+UBS: COLUMBUS-GOLDEN TRIANGLE REG., 美國哥倫布
+
+SBP: COUNTY AIRPORT, 美國聖路易斯-奧比斯波
+
+CRP: CORPUS CHRISTI, 美國科珀斯克里斯蒂
+
+CEZ: CORTEZ, 美國科爾特斯
+
+CLE: CLEVELAND, 美國克利夫蘭
+
+CEC: CRESCENT CITY, 美國新月城
+
+DFW: DALLAS,TX, 美國達拉斯
+
+DAY: DAYTON, 美國代頓
+
+DAB: DAYTONA BEACH, 美國代托納比奇
+
+DEC: DECATUR, 美國迪凱特
+
+DEN: DENVER, 美國丹佛
+
+DVL: DEVILS LAKE, 美國魔鬼湖
+
+DSM: DES MOINES, 美國狄蒙
+
+DTW: DETROIT, 美國底特律
+
+DIK: DICKINSON, 美國狄金森
+
+DDC: DODGE CITY, 美國道奇城
+
+DBQ: DUBUQUE, 美國迪比克
+
+DRO: DURANGO, 美國杜蘭戈
+
+EGE: EAGLE, 美國伊格爾
+
+ELP: EL PASO, 美國埃爾帕索
+
+ELM: ELMIRA, 美國埃爾邁拉
+
+ESC: ESCANABA, 美國埃斯卡諾巴
+
+EUG: EUGENE, 美國尤金
+
+EVV: EVANSVILLE, 美國埃文斯維爾
+
+FRM: FAIRMONT, 美國費爾蒙特
+
+FAR: FARGO, 美國法戈
+
+FMN: FARMINGTON, 美國法明頓
+
+FLL: FORT LAUDERDALE, 美國勞德代爾堡
+
+FMY: FORT MYERS-PAGE FIELD, 美國邁爾斯堡
+
+RSW: FORT MYERS-SOUTH WEST FLORIDA, 美國邁爾斯堡
+
+FSM: FORT SMITH, 美國史密斯堡
+
+FWA: FORT WAYNE, 美國韋恩堡
+
+FAT: FRESNO, 美國弗雷斯諾
+
+QWF: FT. COLLINS BUS SERVICE, 美國科林斯堡
+
+GCC: GILLETTE, 美國吉列特
+
+GNV: GAINESVILLE, 美國蓋恩斯維爾
+
+GBG: GALESBURG, 美國蓋爾斯堡
+
+GCK: GARDEN CITY, 美國花園城
+
+GRI: GRAND ISLAND, 美國大島
+
+GJT: GRAND JUNCTION, 美國大章克申
+
+GRR: GRAND RAPIDS, 美國大急流城
+
+GTF: GREAT FALLS, 美國大瀑布城
+
+GRB: GREEN BAY, 美國綠灣
+
+GSO: GREENSBORO-HIGHPT, 美國格林斯伯勒
+
+GSP: GREENVL-SPARTANBG, 美國格林維爾/斯帕坦堡
+
+GUM: GUAM, 美國關島
+
+GUC: GUNNISON, 美國甘尼森
+
+HRL: HARLINGEN, 美國哈林根
+
+HAR: HARRISBURG SKYPORT, 美國哈里斯堡
+
+MDT: HARRISBURG INTL, 美國哈里斯堡
+
+HFD: HARTFORD, 美國哈特福德
+
+HDN: HAYDEN, 美國海登
+
+HYS: HAYS, 美國海斯
+
+HNL: HONOLULU(HAWAII), 美國夏威夷檀香山
+
+HOU: HOUSTON-HOBBY, 美國休斯頓
+
+IAH: HOUSTON-INTERCONTINENTAL, 美國休斯頓
+
+HON: HURON, 美國休倫
+
+HSV: HUNTSVIL-DECATUR, 美國亨茨維爾/迪凱特
+
+IPL: IMPERIAL, 美國帝國城
+
+IND: INDIANAPOLIS, 美國印第安納波利斯
+
+IYK: INYOKERN, 美國因約肯
+
+IMT: IRON MOUNTAIN, 美國鐵山
+
+IWD: IRONWOOD, 美國鐵木
+
+JAN: JACKSON, 美國傑克遜
+
+JAC: JACKSON, 美國傑克遜
+
+JAX: JACKSONVILLE, 美國傑克遜維爾
+
+JMS: JAMESTOWN, 美國詹姆斯敦
+
+TRI: JOHNSON CTY - KINGPORT, 美國布里斯托爾/金斯波特
+
+AZO: KALAMAZOO, 美國卡拉馬祖
+
+MKC: KANSAS CITY-DOWNTOWN, 美國堪薩斯城
+
+MCI: KANSAS CITY-INTERNATIONAL, 美國堪薩斯城
+
+ILE: KILLEEN, 美國基林
+
+EYW: KEY WEST, 美國基韋斯特
+
+TYS: KNOXVILLE, 美國諾克斯維爾
+
+LSE: LA CROSSE, 美國拉克羅斯
+
+LAF: LAFAYETTE, 美國拉斐特
+
+LCH: LAKE CHARLES, 美國查爾斯湖
+
+LAN: LANSING, 美國蘭辛
+
+LAR: LARAMIE, 美國拉勒米
+
+LRD: LAREDO, 美國拉雷多
+
+LAS: LAS VEGAS, 美國拉斯維加斯
+
+LEX: LEXINGTON, 美國列克星敦
+
+LBL: LIBERAL, 美國利伯勒爾
+
+LNK: LINCOLN, 美國林肯
+
+LIT: LITTLE ROCK, 美國小岩城
+
+GGG: LONGVIEW, 美國朗維尤
+
+LAX: LOS ANGELES, 美國洛杉磯
+
+BUR: LOS ANGELES-BURBANK, 美國伯班克
+
+LGB: LOS ANGELES-LONG BEACH, 美國長灘
+
+SDF: LOUISVILLE, 美國路易維爾
+
+LYH: LYNCHBURG, 美國林奇堡
+
+MFE: MCALLEN, 美國麥卡倫
+
+MSN: MADISON, 美國麥迪遜
+
+MHT: MANCHESTER, 美國曼徹斯特
+
+MBL: MANISTEE, 美國馬尼斯蒂
+
+MCW: MASON CITY, 美國梅森城
+
+MTO: MATTOON, 美國馬圖恩
+
+MFR: MEDFORD, 美國梅德福
+
+MLB: MELBOURNE, 美國墨爾本
+
+MEM: MEMPHIS, 美國孟菲斯
+
+MCE: MERCED, 美國默塞德
+
+MIA: MIAMI, 美國邁阿密
+
+MAF: MIDLAND, 美國米德蘭
+
+MSP: MINNEAPOLIS, 美國明尼阿波利斯
+
+MKE: MIWAKEE, 美國密爾瓦基
+
+MSO: MISSOULA, 美國米蘇拉
+
+MOB: MOBILE, 美國莫比爾
+
+MOD: MODESTO, 美國莫德斯托
+
+MLI: MOLINE, 美國莫林
+
+MRY: MONTEREY, 美國蒙特利
+
+MGM: MONTGOMERY, 美國蒙哥馬利
+
+MTJ: MONTROSE, 美國蒙特羅斯
+
+MLU: MONROE, 美國蒙羅
+
+MKG: MUSKEGON, 美國馬斯基岡
+
+MVN: MT VERNON, 美國弗農山
+
+BNA: NASHVILLE, 美國納許維爾
+
+ARA: NEW IBERIA-ACADIANA REGIONAL, 美國新伊比利亞
+
+LFT: NEW IBERIA-LAFAYETTE, 美國拉斐特
+
+MSY: NEW ORLEANS, 美國紐奧良
+
+PHF: NEWPORTNEWS-HAMPT, 美國紐波特紐斯
+
+JFK: NEW YORK-J.F.KENNEDY INTL., 美國紐約
+
+LGA: NEW YORK-LA GUARDIA, 美國紐約
+
+EWR: NEW YORK-NEWARK INTL, 美國紐約紐華克
+
+OFK: NORFOLK, 美國諾福克
+
+ORF: NORFOLK, 美國諾福克
+
+LBF: NORTH PLATTE, 美國北普拉特
+
+OAK: OAKLAND, 美國奧克蘭
+
+OKC: OKLAHOMA CITY, 美國奧克拉荷馬城
+
+OMA: OMAHA, 美國奧馬哈
+
+ONT: ONTARIO, 美國安大略
+
+MCO: ORLANDO, 美國奧蘭多
+
+OSH: OSHKOSH, 美國奧什科什
+
+OTM: OTTUMWA, 美國奧圖姆瓦
+
+OXR: OXNARD/VENTURA, 美國奧克斯納德
+
+PSP: PALM SPRINGS, 美國棕櫚泉
+
+PFN: PANAMA CITY, 美國巴拿馬城
+
+PSC: PASCO-RICHLD-KENN, 美國帕斯科
+
+PNS: PENSACOLA, 美國彭薩科拉
+
+PIA: PEORIA, 美國皮歐立亞
+
+PHL: PHILADEPHIA, 美國費城
+
+PHX: PHOENIX, 美國鳳凰城
+
+PIR: PIERRE, 美國皮爾
+
+PIT: PITTSBURGH, 美國匹茲堡
+
+PDX: PORTLAND, 美國波特蘭
+
+PWM: PORTLAND, 美國波特蘭
+
+POU: POUGHKEEPSIE-DUCHESS COUNTY, 美國波基普西
+
+SWF: POUGHKEEPSIE-NEWBURGH, 美國紐堡
+
+PUB: PUEBLO, 美國普韋布洛
+
+PUW: PULLMAN, 美國普爾曼
+
+RDU: RALEIGH/DURHAM, 美國羅利/德罕
+
+RAP: RAPID CITY, 美國拉皮德城
+
+RDD: REDDING, 美國雷丁
+
+RDM: REDMOND, 美國雷德蒙德
+
+RNO: RENO, 美國里諾
+
+RIC: RICHMOND, 美國里士滿
+
+RIW: RIVERTON, 美國里弗頓
+
+PVD: PROVIDENCE, 美國普羅維登斯
+
+UIN: QUINCY, 美國昆西
+
+ROA: ROANOKE, 美國羅阿諾克
+
+RST: ROCHESTER, 美國羅徹斯特
+
+ROC: ROCHESTER, 美國羅徹斯特
+
+RFD: ROCKFORD-GREATER ROCKFORD, 美國羅克福德
+
+ZRF: ROCKFORD-ROCKFORD PARK & RIDE, 美國羅克福德
+
+RKS: ROCK SPRINGS, 美國羅克斯普林斯
+
+SMF: SACRAMENTO, 美國沙加緬度
+
+MBS: SAGINAW-BAYCITY, 美國薩吉諾
+
+SAT: SAN ANTONIO, 美國聖安東尼奧
+
+SLC: SALT LAKE CITY, 美國鹽湖城
+
+SJT: SAN ANGELO, 美國聖安吉洛
+
+SAN: SAN DIEGO, 美國聖地牙哥
+
+SFO: SAN FRANCISCO, 美國舊金山
+
+SJC: SAN JOSE, CA., 美國聖荷西
+
+CSL: SAN LUIS OBISPO, 美國聖路易斯-奧比斯波
+
+SBP: SAN LUIS OBISPO-COUNTY AIRPORT, 美國聖路易斯-奧比斯波
+
+SNA: SANTA ANA, 美國聖安娜
+
+SBA: SANTA BARBARA, 美國聖塔芭芭拉
+
+SAF: SANTA FE, 美國聖塔菲
+
+SMX: SANTA MARIA, 美國聖瑪麗亞
+
+STS: SANTA ROSA, 美國聖羅莎
+
+SRQ: SARASOTA, 美國薩拉索塔
+
+SAV: SAVANNAH, 美國薩凡納
+
+BFF: SCOTTSBLUFF, 美國斯科茨布拉夫
+
+AVP: SCRANTN-WILKESBAR, 美國斯克蘭頓/威爾克斯-巴里
+
+SEA: SEATTLE, 美國西雅圖
+
+SHR: SHERIDAN, 美國謝里登
+
+SHV: SHREVEPORT, 美國什里夫波特
+
+FSD: SIOUX FALLS, 美國蘇瀑布
+
+SBN: SOUTH BEND, 美國南灣
+
+SPW: SPENCER, 美國斯賓塞
+
+SPI: SPRINGFIELD, 美國斯普林菲爾德
+
+SGF: SPRINGFIELD, 美國斯普林菲爾德
+
+GEG: SPOKANE INTERNATIONAL, 美國斯波坎
+
+STL: ST. LOUIS, 美國聖路易
+
+SCE: STATE COLLEGE, 美國大學城
+
+SYR: SYRACUSE(NY), 美國雪城
+
+QBF: VAIL, 美國韋爾
+
+VIS: VISALIA, 美國維塞利亞
+
+TLH: TALLAHASSEE, 美國塔拉哈西
+
+TPA: TAMPA, 美國坦帕
+
+TEX: TELLURIDE, 美國特柳賴德
+
+HUF: TERRE HAUTE, 美國特雷霍特
+
+TXK: TEXARKANA, 美國特克薩卡納
+
+TOL: TOLEDO, 美國托萊多
+
+TVC: TRAVERSE CITY, 美國特拉弗斯城
+
+TUS: TUCSON, 美國圖森
+
+TUL: TULSA, 美國塔爾薩
+
+TYR: TYLER, 美國泰勒
+
+ACT: WACO-MUNICIPAL, 美國韋科
+
+BWI: WASHIONTON-BALTIMORE/WASH INTL, 美國華盛頓巴爾的摩
+
+IAD: WASHIONTON-DULLES INTL., 美國華盛頓杜勒斯
+
+DCA: WASHIONTON-RONALD REAGAN NATL., 美國華盛頓雷根
+
+ALO: WATERLOO, 美國滑鐵盧
+
+ATY: WATERTOWN, 美國沃特敦
+
+AUW: WAUSAU-MUNICIPAL, 美國沃索
+
+CWA: WAUSAU-CENTRAL WISCONSIN, 美國沃索
+
+HPN: WESTCHESTER COUNTY, 美國威斯特徹斯特
+
+PBI: WEST PALM BEACH, 美國西棕櫚灘
+
+ICT: WICHITA, 美國威奇托
+
+SPS: WICHITA FALLS, 美國威奇托福爾斯
+
+ISN: WILLISTON, 美國威利斯頓
+
+WRL: WORLAND, 美國沃蘭
+
+YKM: YAKIMA, 美國亞基馬
+
+YKN: YANKTON, 美國揚克頓
+
+YNG: YOUNGSTOWN, 美國揚斯敦
+
+YUM: YUMA, 美國尤馬
+
+
+加拿大
+YBC: BAIE COMEAU, 加拿大貝克
+
+YBG: BAGOTVILLE, 加拿大波哥維
+
+YYC: CALGARY, 加拿大卡加立
+
+YCG: CASTLEGAR, 加拿大卡司特雷加
+
+YYG: CHARLOTTETOWN, 加拿大沙洛特城
+
+YOD: COLD LAKE, 加拿大冷湖
+
+YQQ: COMOX, 加拿大康英克斯
+
+YXC: CRANBROOK, 加拿大克藍布魯克
+
+YDF: DEER LAKE, 加拿大鹿湖
+
+YPR: DIGBY ISLAND, 加拿大魯伯王子鎮
+
+YEA: EDMONTON, 加拿大艾德頓
+
+YMM: FORT MCMURRAY, 加拿大福麥木瑞
+
+YXJ: FORT SAINT JOHN, 加拿大福聖約翰
+
+YFC: FREDERICTON, 加拿大菲德里鎮
+
+YQX: GANDER, 加拿大甘德
+
+YGP: GASPE, 加拿大加斯佩
+
+YQU: GRANDE PRAIRIE, 加拿大格蘭伯瑞爾
+
+YYR: GOOSE BAY, 加拿大鵝灣
+
+YHZ: HALIFAX, 加拿大哈利法克斯
+
+YKA: KAMLOOPS, 加拿大康露市
+
+YLW: KELOWNA, 加拿大卡洛那
+
+YQL: LETHBRIDGE, 加拿大雷絲橋
+
+YLL: LLOYDMINSTER, 加拿大羅明斯特
+
+YXU: LONDON, 加拿大倫敦
+
+YXH: MEDICINE HAT, 加拿大麥迪森漢
+
+YQM: MONCTON, 加拿大蒙克通
+
+YYY: MONT JOLI, 加拿大蒙特朱利
+
+YMQ: MONTREAL, 加拿大蒙特利爾
+
+YUL: MONTREAL, 加拿大蒙特利爾
+
+YBL: MUNICIPAL, 加拿大原貝爾河
+
+YCD: NANAIMO ARPT, 加拿大娜娜莫
+
+YYB: NORTH BAY, 加拿大北灣市
+
+YOW: OTTAWA, 加拿大渥太華
+
+YYF: PENTICTON, 加拿大攀蒂頓
+
+YXS: PRINCE GEORGE, 加拿大喬治王子鎮
+
+YQB: QUEBEC, 加拿大魁北克
+
+YQR: REGINA, 加拿大瑞吉娜
+
+YSJ: SAINT JOHN, 加拿大聖約翰
+
+YAM: SAULT STE MARIE, 加拿大所聖瑪利
+
+YXE: SASKATOON, 加拿大撒司卡通
+
+YYD: SMITHERS, 加拿大使密得斯
+
+YYT: ST. JOHNS, 加拿大聖約翰斯
+
+YSL: ST LEONARD, 加拿大聖隆那
+
+YSB: SUDBURY, 加拿大蘇布瑞
+
+YQY: SYDNEY, 加拿大希梨
+
+YXT: TERRACE, 加拿大德瑞司
+
+YQT: THUNDER BAY, 加拿大雷灣市
+
+YTS: TIMMINS, 加拿大丁敏市
+
+YYZ: TORONTO, 加拿大多倫多
+
+YTO: TORONTO, 加拿大多倫多
+
+YVO: VAL D OR, 加拿大瓦多爾
+
+YVR: VANCOUVER, 加拿大溫哥華
+
+YYJ: VICTORIA, 加拿大維多利亞
+
+YWK: WABUSH, 加拿大瓦布希
+
+YQG: WINDSOR, 加拿大溫莎
+
+YWG: WINNIPEG, 加拿大溫尼伯
+
+YQI: YARMOUTH, 加拿大亞茅斯
+
+YZF: YELLOWKNIFE, 加拿大黃刀鎮
+
+紐澳
+AKL: AUCKLANd, 紐西蘭奧克蘭
+
+BNE: BRISBANE, 澳洲布里斯本
+
+CNS: CAIRNS, 澳洲凱恩斯
+
+CBR: CANBERRA, 澳洲坎培拉
+
+CHC: CHRISTCHURCH, 紐西蘭基督城
+
+DRW: DARWIN, 澳洲達爾文
+
+HBA: HOBART, 澳洲荷巴特
+
+HTI: HAMILTON ISLAND, 澳洲哈密爾頓島
+
+MEL: MELBOURNE, 澳洲墨爾本
+
+MIM: MERIMBULA, 澳洲梅里姆布拉
+
+NAN: NADI, 斐濟南地
+
+NOU: NOUMEA, 新喀里多尼亞努美亞
+
+PPG: PAGO PAGO, 美屬薩摩亞巴哥巴哥
+
+PPT: PAPEETE, 法屬玻里尼西亞大溪地
+
+PER: PERTH, 澳洲伯斯
+
+POM: POTR MORESBY, 巴布亞紐幾內亞摩勒斯比港
+
+WLG: WELLINGTON, 紐西蘭威靈頓
+
+SUV: SUVA, 斐濟蘇瓦
+
+SYD: SYDNEY, 澳洲雪梨
+
+歐洲
+ABZ: ABERDEEN, 英國亞伯丁
+
+AMS: AMSTERDAM, 荷蘭阿姆斯特丹
+
+ATH: ATHENS, 希臘雅典
+
+ANR: ANTWERP, 比利時安特衛普
+
+BUH: BUCHAREST, 羅馬尼亞布加勒斯特
+
+BUD: BUDAPEST, 匈牙利布達佩斯
+
+BCN: BARCELONA, 西班牙巴塞隆納
+
+BFS: BELFAST, 英國貝爾法斯特
+
+BEG: BELGRADE, 塞爾維亞貝爾格勒
+
+BGO: BERGEN, 挪威卑爾根
+
+TXL: BERLIN, 德國柏林
+
+BLQ: BOLOGNA, 義大利波隆那
+
+BNJ: BONN, 德國波昂
+
+BRS: BRISTOL, 英國布里斯托
+
+BRU: BRUSSELS, 比利時布魯塞爾
+
+CWL: CARDIFF, 英國卡地夫
+
+CGN: COLOGNE, 德國科隆
+
+CPH: COPENHAGEN, 丹麥哥本哈根
+
+DUB: DUBLIN, 愛爾蘭都柏林
+
+DUS: DUSSDOLF, 德國杜塞道夫
+
+EDI: EDINBURGH, 英國愛丁堡
+
+FAO: FARO, 葡萄牙法魯
+
+FRA: FRANKFURT, 德國法蘭克福
+
+GOA: GENOA, 義大利熱那亞
+
+GVA: GENEVA, 瑞士日內瓦
+
+GIB: GIBRALTAR, 直布羅陀
+
+GLA: GLASGOW, 英國格拉斯哥
+
+GOT: GOTHENBURG, 瑞典哥德堡
+
+GRZ: GRAZ, 奧地利格拉茨
+
+HAM: HAMBURG, 德國漢堡
+
+HAJ: HANOVER, 德國漢諾威
+
+HUY: HUMBERSIDE, 英國亨伯賽德
+
+LHR: HEATHROW, 英國倫敦
+
+HEL: HELSINKI, 芬蘭赫爾辛基
+
+INN: INNSBRUCK, 奧地利因斯布魯克
+
+IST: ISTANBUL, 土耳其伊斯坦堡
+
+IEV: KIEV, 烏克蘭基輔
+
+KLU: KLAGENFURT, 奧地利克拉根福
+
+KBP: BORISPOL, 烏克蘭鮑里斯波爾
+
+KRK: KRAKOW, 波蘭克拉科夫
+
+LBA: LEEDS, 英國里茲
+
+LNZ: LINZ, 奧地利林茨
+
+LIS: LISBON, 葡萄牙里斯本
+
+LGW: LONDON-GATWICK, 英國倫敦
+
+LJU: LJUBLJANA, 斯洛維尼亞盧比安納
+
+LUX: LUXEMBOURG, 盧森堡
+
+LYS: LYON, 法國里昂
+
+MAD: MADRID, 西班牙馬德里
+
+AGP: MALAGA, 西班牙馬拉加
+
+MAN: MANCHESTER, 英國曼徹斯特
+
+MRS: MARSEILLE, 法國馬賽
+
+MOW: MOSCOW, 俄羅斯莫斯科
+
+MPL: MONTPELLIER, 法國蒙彼利埃
+
+MUC: MUNICH, 德國慕尼黑
+
+MXP: MILAN-MALPENSA, 義大利米蘭
+
+LIN: MILAN-LINATE, 義大利米蘭
+
+NAP: NAPLES, 義大利那不勒斯
+
+NCL: NEW CASTLE, 英國新堡
+
+NCE: NICE, 法國尼斯
+
+NWI: NORWICH, 英國諾里奇
+
+ODS: ODESSA, 烏克蘭敖德薩
+
+OSL: OSLO, 挪威奧斯陸
+
+CDG: PARIS-CHARLES DE GAULLE, 法國巴黎
+
+ORY: PARIS-ORLY, 法國巴黎
+
+PRG: PRAGUE, 捷克布拉格
+
+RIX: RIGA, 拉脫維亞里加
+
+FCO: ROME, 義大利羅馬
+
+SZG: SALZBURG, 奧地利薩爾茨堡
+
+SNN: SHANNON, 愛爾蘭香農
+
+SOF: SOFIA, 保加利亞索非亞
+
+SPU: SPLIT, 克羅埃西亞斯普利特
+
+STO: STOCKHOLM, 瑞典斯德哥爾摩
+
+LED: ST PETERSBURG, 俄羅斯聖彼得堡
+
+STR: STUTTGART, 德國斯圖加特
+
+TLL: TALLINN, 愛沙尼亞塔林
+
+MME: TEESSIDE, 英國提賽德
+
+TSR: TIMISOARA, 羅馬尼亞蒂米什瓦拉
+
+TLS: TOULOUSE, 法國土魯斯
+
+VRN: VERONA, 義大利維羅納
+
+VCE: VENICE, 義大利威尼斯
+
+VIE: VIENNA, 奧地利維也納
+
+VNO: VILNIUS, 立陶宛維爾紐斯
+
+WAW: WARSAW, 波蘭華沙
+
+WRO: WROCLAW, 波蘭弗羅茨瓦夫
+
+ZAG: ZAGREB, 克羅埃西亞薩格勒布
+
+ZRH: ZURICH, 瑞士蘇黎世
+
+中南美洲
+ACA: ACAPUCCO, 墨西哥阿卡普爾科
+
+ASU: ASUNCION, 巴拉圭亞松森
+
+BOG: BOGOTA, 哥倫比亞波哥大
+
+BUE: BUENDS AIRES, 阿根廷布宜諾斯艾利斯
+
+BSB: BRASILIA, 巴西巴西利亞
+
+BGI: BRIDGE TOWN, 巴貝多橋鎮
+
+CCS: CARACAS, 委內瑞拉加拉加斯
+
+CAY: CAYENNE, 法屬圭亞那卡宴
+
+GRG: GEORGE TOWN, 蓋亞那喬治市
+
+GUA: GUATEMALA CITY, 瓜地馬拉瓜地馬拉市
+
+HAV: HAVANA, 古巴哈瓦那
+
+KIN: KINGSTON, 牙買加京士頓
+
+LPB: LA PAZ, 玻利維亞拉巴斯
+
+LIM: LIMA, 秘魯利馬
+
+MGA: MANAGUA, 尼加拉瓜馬拿瓜
+
+MAO: MANAUS, 巴西瑪瑙斯
+
+MAY: MANGROVE CAY, 巴哈馬紅樹灣
+
+MEX: MEXICO CITY, 墨西哥墨西哥城
+
+MVD: MONTEBIDEO, 烏拉圭蒙特維多
+
+MBJ: MONTEGO BAY, 牙買加蒙特哥灣
+
+PTY: PANAMA CITY, 巴拿馬巴拿馬城
+
+PBM: PARAMARIBO, 蘇利南巴拉馬利波
+
+PAP: PORT AU PRINCE, 海地太子港
+
+POS: PORT OF SPAIN, 千里達及托巴哥西班牙港
+
+UIO: QUITO, 厄瓜多基多
+
+REL: RECIFE, 巴西累西腓
+
+RIO: RIO DE JANEIRO, 巴西里約熱內盧
+
+SJO: SAN JOSE, 哥斯大黎加聖約瑟
+
+SJU: SAN JUAN, 波多黎各聖胡安
+
+SAO: SAO PAULO(GRU), 巴西聖保羅
+
+SAL: SAN SALVADOR, 薩爾瓦多聖薩爾瓦多
+
+SCL: SANTIAGO, 智利聖地牙哥
+
+SDQ: SANTO DOMINGO, 多明尼加聖多明哥
+
+TGU: TEGUCIGALPA, 宏都拉斯德古斯加巴
+
+非洲
+ACA: ACAPULCO, 墨西哥阿卡普爾科
+
+ABD: ABADAN, 伊朗阿巴丹
+
+ABJ: ABIDJAN, 象牙海岸阿必尚
+
+AUH: ABU DHABI, 阿拉伯聯合大公國阿布達比
+
+ABV: ABUJA, 奈及利亞阿布加
+
+ACC: ACCRA, 迦納阿克拉
+
+ADD: ADDIS ABABA, 衣索比亞阿迪斯阿魯巴
+
+ADE: ADEN, 葉門亞丁
+
+ALG: ALGIERS, 阿爾及利亞阿爾及爾
+
+AMM: AMMAN, 約旦安曼
+
+ANK: ANKARA, 土耳其安卡拉
+
+BGW: BAGHDAD, 伊拉克巴格達
+
+BAH: BAHRAIN, 巴林
+
+BKO: BAMAKO, 馬利巴馬科
+
+BGF: BAN-GUI, 中非共和國班基
+
+BEY: BEIRUT, 黎巴嫩貝魯特
+
+BLZ: BLANTYRE, 馬拉威布蘭太
+
+BZV: BRAXXABILLE, 剛果布拉薩市
+
+CAI: CAIRO, 埃及開羅
+
+CPT: CAPETOWN, 南非開普敦
+
+CAS: CASABLANCA, 摩洛哥卡薩布蘭卡
+
+CKY: CONAKRY, 幾內亞柯那克里
+
+COO: COTONOU, 貝南柯多努
+
+DKR: DAKAR, 塞內加爾達卡
+
+DAM: DAMASCUS, 敘利亞大馬士革
+
+DAR: DAR ES SALAAM, 坦尚尼亞達累斯薩拉姆
+
+DHA: DHAHRAN, 沙烏地阿拉伯達蘭
+
+DOH: DOHA, 卡達杜哈
+
+DXB: DUBAI, 阿拉伯聯合大公國杜拜
+
+EBB: ENTEBBE/KAMPALA, 烏干達恩特比/坎帕拉
+
+FTL: FORT LAMY, 查德拉米堡
+
+FNA: FREETOWN, 獅子山自由城
+
+HRE: HARARE, 辛巴威哈拉雷
+
+HBT: HAFR ALBATIN, 沙烏地阿拉伯哈夫爾巴廷
+
+IST: ISTANBUL, 土耳其伊斯坦堡
+
+JED: JEDDAH, 沙烏地阿拉伯吉達
+
+JNB: JOHANNESBURG, 南非約翰尼斯堡
+
+KRT: KHARTOUM, 蘇丹喀土穆
+
+FIA: KINSHASA, 剛果民主共和國金夏沙
+
+KWI: KUWAIT, 科威特
+
+LOS: LAGOS, 奈及利亞拉哥斯
+
+LPA: LASPALMAS, 西班牙拉斯巴馬斯
+
+LBV: LIBREVILLE, 加彭自由市
+
+LLW: LILONGWE, 馬拉威里郎威
+
+LFW: LOME, 多哥洛美
+
+LUM: LOURENCO MAROUES, 莫三比克魯倫素馬凱斯
+
+LAD: LUAN DA, 安哥拉盧安達
+
+LUN: LUSAKA, 尚比亞路沙卡
+
+MLA: MALTA, 馬爾他
+
+MTS: MANZINI, 史瓦帝尼曼齊尼
+
+MSU: MASERU, 賴索托馬塞魯
+
+MRU: MAURITIUS, 模里西斯
+
+MGQ: MOGADISHU, 索馬利亞摩加迪休
+
+MLW: MONROVIA, 賴比瑞亞蒙羅維亞
+
+MCT: MUSCAT, 阿曼馬斯開特
+
+NBO: NAIROBI, 肯亞奈洛比
+
+NDJ: N’DJAMENA, 查德恩將納
+
+NIM: NIAMEY, 尼日尼阿美
+
+OUA: OUAGADOUGOU, 布吉納法索瓦加杜古
+
+WDH: WINDHOEK, 納米比亞溫得和克
+
+RAK: MARRAKECH, 摩洛哥馬拉喀什
+
+RUH: RIYADH, 沙烏地阿拉伯利雅德
+
+SAY: SALISBURY, 辛巴威索爾茲伯里
+
+SEC: SERRE CHEVALIER, 法國塞爾舍瓦利耶
+
+TNG: TANGIER, 摩洛哥丹吉爾
+
+TNR: TANANARIVE, 馬達加斯加塔那那利佛
+
+THR: TEHRAN, 伊朗德黑蘭
+
+TLV: TELAVIV, 以色列特拉維夫
+
+TIP: TRIPOLI, 利比亞的黎波里
+
+TUN: TUNIS, 突尼西亞突尼斯
+
+YAO: YAOUNDE, 喀麥隆雅恩德
