@@ -3,4 +3,4 @@
 
 [dev]
   command = "npm run dev"
-  targetPort = 5173
+  targetPort = 3000

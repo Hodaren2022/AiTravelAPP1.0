@@ -59,77 +59,51 @@ const pdfMakeReady = new Promise((resolve, reject) => {
       // 2. 主模組載入成功後，載入字體模組
       return import('pdfmake/build/vfs_fonts');
     }).then(module => {
-      // ****** 新增 console.log 來檢查 vfs_fonts 模組的實際結構 ******
-      console.log('Loaded vfs_fonts module:', module);
-      // ******************************************************************
-
-      // 檢查 pdfMakeInstance 是否已經成功載入
+      // 確保 pdfMakeInstance 已載入
       if (!pdfMakeInstance) {
         console.error('pdfMakeInstance 在字體載入後為空');
         throw new Error('pdfMake物件初始化失敗');
       }
 
-      // 嘗試多種可能的路徑來獲取vfs字體數據並註冊
+      // 嘗試從 vfs_fonts 模組中直接獲取 vfs
+      // 根據 pdfmake 的打包方式，vfs 可能在 module.pdfMake.vfs 或 module.default.pdfMake.vfs
       if (module && module.pdfMake && module.pdfMake.vfs) {
-        // 路徑 1: module.pdfMake.vfs
         pdfMakeInstance.vfs = module.pdfMake.vfs;
-        console.log('pdfMake 字體 (vfs) 從 module.pdfMake.vfs 載入並註冊完成');
-        resolve(pdfMakeInstance);
-      } else if (module && module.vfs) {
-        // 路徑 2: module.vfs (較少見，但有可能)
-        pdfMakeInstance.vfs = module.vfs;
-        console.log('pdfMake 字體 (vfs) 從 module.vfs 載入並註冊完成');
-        resolve(pdfMakeInstance);
-      } else if (module && module.default && module.default.vfs) {
-        // 路徑 3: module.default.vfs (如果 vfs_fonts 是 default export)
-        pdfMakeInstance.vfs = module.default.vfs;
-        console.log('pdfMake 字體 (vfs) 從 module.default.vfs 載入並註冊完成');
-        resolve(pdfMakeInstance);
-      } else if (window && window.pdfMake && window.pdfMake.vfs) {
-        // 路徑 4: 檢查全局 window.pdfMake.vfs (如果 vfs_fonts 是通過 script 標籤載入的)
-        pdfMakeInstance.vfs = window.pdfMake.vfs;
-        console.log('pdfMake 字體 (vfs) 使用全局 window.pdfMake.vfs');
-        resolve(pdfMakeInstance);
+        console.log('pdfMake vfs 從 module.pdfMake.vfs 載入並註冊完成');
+      } else if (module && module.default && module.default.pdfMake && module.default.pdfMake.vfs) {
+        pdfMakeInstance.vfs = module.default.pdfMake.vfs;
+        console.log('pdfMake vfs 從 module.default.pdfMake.vfs 載入並註冊完成');
       } else {
-        // 路徑 5: 嘗試遍歷模組的所有屬性，尋找可能的vfs對象
-        let vfsFound = false;
-
-        // 遍歷第一層屬性
-        for (const key in module) {
-          if (module[key] && typeof module[key] === 'object') {
-            // 檢查是否有vfs屬性
-            if (module[key].vfs) {
-              pdfMakeInstance.vfs = module[key].vfs;
-              console.log(`pdfMake 字體 (vfs) 從 module[${key}].vfs 載入並註冊完成`);
-              vfsFound = true;
-              break;
-            }
-
-            // 檢查第二層屬性
-            for (const subKey in module[key]) {
-              if (module[key][subKey] && typeof module[key][subKey] === 'object' && module[key][subKey].vfs) {
-                pdfMakeInstance.vfs = module[key][subKey].vfs;
-                console.log(`pdfMake 字體 (vfs) 從 module[${key}][${subKey}].vfs 載入並註冊完成`);
-                vfsFound = true;
-                break;
-              }
-            }
-
-            if (vfsFound) break;
-          }
-        }
-
-        if (vfsFound) {
-          resolve(pdfMakeInstance);
-        } else {
-          // 如果以上所有檢查都失敗，則字體載入或結構異常
-          console.warn('無法找到有效的vfs字體路徑，將使用默認字體');
-          // 設置一個空的vfs對象，讓pdfMake使用默認字體
-          pdfMakeInstance.vfs = pdfMakeInstance.vfs || {};
-          console.log('設置空的vfs對象，將使用默認字體 (可能導致中文亂碼)');
-          resolve(pdfMakeInstance);
-        }
+        console.warn('無法找到有效的vfs字體路徑，將使用默認字體。');
+        // 設置一個空的vfs對象，讓pdfMake使用默認字體
+        pdfMakeInstance.vfs = pdfMakeInstance.vfs || {};
       }
+
+      // 定義字體
+      // 注意：如果需要顯示中文字符，您需要在此處添加中文字體配置
+      // 例如：
+      // 'NotoSansSC': {
+      //   normal: 'path/to/NotoSansSC-Regular.ttf',
+      //   bold: 'path/to/NotoSansSC-Bold.ttf',
+      //   // ... 其他字重
+      // }
+      // 這些字體文件需要被正確地包含在您的專案中，並可能需要額外的處理（例如轉換為base64）
+      // 如果沒有配置中文字體，PDF 中的中文字符可能會顯示為亂碼或方塊。
+      pdfMakeInstance.fonts = {
+        Roboto: {
+          normal: 'Roboto-Regular.ttf',
+          bold: 'Roboto-Medium.ttf',
+          italics: 'Roboto-Italics.ttf',
+          bolditalics: 'Roboto-MediumItalics.ttf'
+        }
+        // 在這裡添加您的中文字體配置
+        // Example:
+        // 'CustomChineseFont': {
+        //   normal: 'data:font/ttf;base64,...', // Base64 encoded font data
+        //   bold: 'data:font/ttf;base64,...'
+        // }
+      };
+      resolve(pdfMakeInstance);
     }).catch(err => {
       // 捕獲前面任何一個環節（載入主模組、載入字體）的錯誤
       console.error('pdfMake或字體載入過程中出錯 (來自 Promise 鏈):', err);

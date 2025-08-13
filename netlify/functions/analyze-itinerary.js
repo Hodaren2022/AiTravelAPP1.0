@@ -23,6 +23,27 @@ const JSON_SCHEMA = `
       "arrivalTime": "HH:MM",
       "duration": "string"
     }
+  ],
+  "hotels": [
+    {
+      "id": "string",
+      "name": "string",
+      "checkInDate": "YYYY-MM-DD",
+      "checkOutDate": "YYYY-MM-DD",
+      "address": "string",
+      "contact": "string",
+      "notes": "string"
+    }
+  ],
+  "dailyItinerary": [
+    {
+      "id": "string",
+      "date": "YYYY-MM-DD",
+      "location": "string",
+      "activity": "string",
+      "time": "HH:MM",
+      "notes": "string"
+    }
   ]
 }
 `;
@@ -31,6 +52,10 @@ const getJsonPrompt = (text) => `
 請分析以下旅遊行程文字，並嚴格按照這個 JSON 格式回傳結果。請確保所有欄位都是 string 格式。
 如果資訊不存在，請回傳空字串 ""。
 請不要包含任何 markdown 語法或前後的註解，只需要純粹的 JSON 物件。
+
+請特別注意提取航班、住宿和每日行程的詳細資訊。
+對於住宿，請提供飯店名稱、入住/退房日期、地址、聯絡方式和備註。
+對於每日行程，請提供日期、地點、活動和時間。
 
 JSON 格式:
 ${JSON_SCHEMA}
@@ -53,17 +78,24 @@ export const handler = async (event) => {
       return { statusCode: 400, body: 'Bad Request: text is required' };
     }
 
-    const model = genAI.getGenerativeModel({ name: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const prompt = getJsonPrompt(text);
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const responseText = await response.text();
 
+    // 嘗試從 Markdown 程式碼區塊中提取 JSON 字串
+    let jsonString = responseText;
+    const jsonMatch = responseText.match(/```json\n([\s\S]*?)\n```/);
+    if (jsonMatch && jsonMatch[1]) {
+      jsonString = jsonMatch[1];
+    }
+
     // 嘗試解析 AI 回傳的 JSON 字串
     let parsedJson;
     try {
-      parsedJson = JSON.parse(responseText);
+      parsedJson = JSON.parse(jsonString);
     } catch (e) {
       console.error("Failed to parse JSON from AI response:", responseText);
       throw new Error("AI 回傳的格式不正確，無法解析。");
