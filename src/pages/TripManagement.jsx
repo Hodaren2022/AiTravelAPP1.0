@@ -339,7 +339,7 @@ const TripManagement = () => {
     }
     setIsAiLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/.netlify/functions/analyze-itinerary`, {
+      const response = await fetch(`/.netlify/functions/analyze-itinerary`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
