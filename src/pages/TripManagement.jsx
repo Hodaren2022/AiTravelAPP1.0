@@ -86,13 +86,30 @@ const FlightTable = styled.table`
 `;
 const ButtonGroup = styled.div` display: flex; gap: 0.5rem; margin-top: 1rem; justify-content: flex-end; `;
 const Button = styled.button`
-  background-color: ${props => props.$fixedBlue ? '#3498db' : (props.$primary ? '#3498db' : (props.$danger ? '#e74c3c' : '#bdc3c7'))};
+  background-color: ${props => 
+    props.$choiceButton ? '#3498db' : // Default blue for choice buttons
+    (props.$primary ? '#3498db' : 
+    (props.$danger ? '#e74c3c' : '#bdc3c7'))
+  };
   color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 4px;
   cursor: pointer; font-weight: bold;
-  transition: ${props => props.$fixedBlue ? 'none' : 'background-color 0.2s'}; /* No transition for fixed blue */
+  transition: background-color 0.2s ease; /* Always transition background-color */
   font-size: var(--font-size-body);
+
   &:hover {
-    ${props => props.$fixedBlue ? 'opacity: 1;' : 'opacity: 0.9;'} /* No opacity change for fixed blue */
+    background-color: ${props => 
+      props.$choiceButton ? '#27ae60' : // Green on hover for choice buttons
+      (props.$primary ? '#2980b9' : 
+      (props.$danger ? '#c0392b' : '#95a5a6'))
+    };
+  }
+
+  &:active {
+    background-color: ${props => 
+      props.$choiceButton ? '#27ae60' : // Green on active for choice buttons (same as hover for simplicity)
+      (props.$primary ? '#2980b9' : 
+      (props.$danger ? '#c0392b' : '#95a5a6'))
+    };
   }
 `;
 const ToastBackdrop = styled.div`
@@ -499,8 +516,8 @@ const TripManagement = () => {
               <CloseButton onClick={() => setIsChoiceModalOpen(false)}>&times;</CloseButton>
               <h3 style={{ textAlign: 'center', marginBottom: '2rem' }}>選擇新增方式</h3>
               <ButtonGroup style={{ justifyContent: 'center', gap: '1rem' }}>
-                <Button onClick={openAddModal} style={{ padding: '1rem 2rem' }}>手動輸入行程</Button>
-                <Button onClick={openAiModal} $primary style={{ padding: '1rem 2rem' }}>AI 辨識行程</Button>
+                <Button onClick={openAddModal} $choiceButton style={{ padding: '1rem 2rem' }}>手動輸入行程</Button>
+                <Button onClick={openAiModal} $choiceButton style={{ padding: '1rem 2rem' }}>AI 辨識行程</Button>
               </ButtonGroup>
             </ModalContent>
           </ModalBackdrop>
