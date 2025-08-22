@@ -155,7 +155,7 @@ function App() {
       <FontStyleInjector /> {/* 在這裡注入全域字體樣式 */}
       <AppContainer>
         <Header>
-          <h1>旅遊應用程序</h1>
+          <h1>旅遊應用程序 v1.1Ai</h1>
         </Header>
         
         <Navigation>
@@ -177,7 +177,7 @@ function App() {
         </MainContent>
         
         <Footer>
-          <p>&copy; {new Date().getFullYear()} 旅遊應用程序</p>
+          <p>&copy; {new Date().getFullYear()} 旅遊應用程序 v1.1Ai</p>
         </Footer>
       </AppContainer>
     </TripProvider>

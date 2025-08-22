@@ -70,9 +70,9 @@ const Button = styled.button`
 const QuickTextButton = styled.button.attrs({
   type: 'button' // 設置按鈕類型為button，防止在表單中自動提交
 })`
-  background-color: ${props => props.negative ? '#ffebee' : '#e3f2fd'};
-  color: ${props => props.negative ? '#c62828' : '#1565c0'};
-  border: 1px solid ${props => props.negative ? '#ffcdd2' : '#bbdefb'};
+  background-color: ${props => props.$negative ? '#ffebee' : '#e3f2fd'};
+  color: ${props => props.$negative ? '#c62828' : '#1565c0'};
+  border: 1px solid ${props => props.$negative ? '#ffcdd2' : '#bbdefb'};
   border-radius: 4px;
   padding: 0.3rem 0.6rem;
   margin: 0.2rem;
@@ -81,7 +81,7 @@ const QuickTextButton = styled.button.attrs({
   transition: all 0.2s;
 
   &:hover {
-    background-color: ${props => props.negative ? '#ffcdd2' : '#bbdefb'};
+    background-color: ${props => props.$negative ? '#ffcdd2' : '#bbdefb'};
   }
 `
 
@@ -408,7 +408,7 @@ const TravelNotes = () => {
               <div>
                 <label>負面評價詞：</label>
                 <QuickTextSection>
-                  {negativeWords.map(word => (<QuickTextButton key={word} negative onClick={() => handleQuickTextClick(word)}>{word}</QuickTextButton>))}
+                  {negativeWords.map(word => (<QuickTextButton key={word} $negative onClick={() => handleQuickTextClick(word)}>{word}</QuickTextButton>))}
                 </QuickTextSection>
               </div>
             </QuickTextContainer>

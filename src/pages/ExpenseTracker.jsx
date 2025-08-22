@@ -137,14 +137,13 @@ const DescriptionTag = styled.span`
   }
 `;
 
+const StyledSelect = styled.select`
+  font-size: 16px;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+`;
 
-// 貨幣對選項
-const currencyPairs = [
-  { id: 'TWD_JPY', name: '台幣 → 日幣', fromCode: 'TWD', toCode: 'JPY' },
-  { id: 'TWD_USD', name: '台幣 → 美金', fromCode: 'TWD', toCode: 'USD' },
-  { id: 'TWD_CNY', name: '台幣 → 人民幣', fromCode: 'TWD', toCode: 'CNY' },
-  { id: 'TWD_KRW', name: '台幣 → 韓元', fromCode: 'TWD', toCode: 'KRW' }
-];
 
 // 預設的消費描述選項
 const defaultDescriptions = ["早餐", "午餐", "晚餐", "交通", "點心", "飲料", "伴手", "禮物", "門票"];
@@ -160,7 +159,7 @@ const ExpenseTracker = () => {
   });
 
   // 貨幣轉換相關狀態
-  const [selectedPair, setSelectedPair] = useState(currencyPairs[0].id);
+  const [selectedPair, setSelectedPair] = useState('TWD_JPY');
   const [fromAmount, setFromAmount] = useState('');
   const [toAmount, setToAmount] = useState('');
   const [exchangeRates, setExchangeRates] = useState({});
@@ -169,21 +168,54 @@ const ExpenseTracker = () => {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // 自訂匯率相關狀態
+  const [customCurrencyCode, setCustomCurrencyCode] = useState('');
+  const [customCurrencyRate, setCustomCurrencyRate] = useState('');
+  const [savedCustomCurrencyPairs, setSavedCustomCurrencyPairs] = useState(() => {
+    const saved = localStorage.getItem('savedCustomCurrencyPairs');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+
   // 新增消費記錄相關狀態
   const [newExpense, setNewExpense] = useState({
     description: '',
     amount: '', // 這個欄位似乎沒有被直接使用於表單，可以考慮是否移除
     date: new Date().toISOString().split('T')[0], // 這裡仍然只儲存日期用於日期輸入框
-    currencyPair: currencyPairs[0].id, // 這個欄位似乎沒有被直接使用於表單，可以考慮是否移除
+    currencyPair: 'TWD_JPY', // 這個欄位似乎沒有被直接使用於表單，可以考慮是否移除
     fromAmount: '', // 這個欄位似乎沒有被直接使用於表單，可以考慮是否移除
     toAmount: '', // 這個欄位似乎沒有被直接使用於表單，可以考慮是否移除
     rate: '' // 這個欄位似乎沒有被直接使用於表單，可以考慮是否移除
   });
 
+  // 動態貨幣對選項
+  const allCurrencyPairs = [
+    { id: 'TWD_JPY', name: '台幣 → 日幣', fromCode: 'TWD', toCode: 'JPY' },
+    { id: 'TWD_USD', name: '台幣 → 美金', fromCode: 'TWD', toCode: 'USD' },
+    { id: 'TWD_CNY', name: '台幣 → 人民幣', fromCode: 'TWD', toCode: 'CNY' },
+    { id: 'TWD_KRW', name: '台幣 → 韓元', fromCode: 'TWD', toCode: 'KRW' },
+    { id: 'TWD_MOP', name: '台幣 → 澳門元', fromCode: 'TWD', toCode: 'MOP' },
+    ...savedCustomCurrencyPairs.map(pair => ({
+        id: `TWD_${pair.toCode}`,
+        name: `台幣 → ${pair.toCode} (自訂)`,
+        fromCode: 'TWD',
+        toCode: pair.toCode,
+        rate: pair.rate
+    })),
+    { id: 'TWD_CUSTOM_NEW', name: '自訂匯率 (新增)', fromCode: 'TWD', toCode: 'CUSTOM_NEW' }
+  ];
+
+
   // 保存消費記錄到localStorage
   useEffect(() => {
     localStorage.setItem('expenses', JSON.stringify(expenses));
   }, [expenses]);
+
+  // 保存自訂匯率到localStorage
+  useEffect(() => {
+    localStorage.setItem('savedCustomCurrencyPairs', JSON.stringify(savedCustomCurrencyPairs));
+  }, [savedCustomCurrencyPairs]);
+
 
   // 獲取匯率數據
   const fetchExchangeRates = async () => {
@@ -204,7 +236,8 @@ const ExpenseTracker = () => {
         JPY: data.rates.JPY || 4.32,   // 台幣對日幣
         USD: data.rates.USD || 0.032,  // 台幣對美元
         CNY: data.rates.CNY || 0.23,   // 台幣對人民幣
-        KRW: data.rates.KRW || 42.5    // 台幣對韓元
+        KRW: data.rates.KRW || 42.5,    // 台幣對韓元
+        MOP: data.rates.MOP || 0.25    // 台幣對澳門元
       };
 
       setExchangeRates(rates);
@@ -219,7 +252,8 @@ const ExpenseTracker = () => {
         JPY: 4.32,   // 1台幣約等於4.32日幣
         USD: 0.032,  // 1台幣約等於0.032美元
         CNY: 0.23,   // 1台幣約等於0.23人民幣
-        KRW: 42.5    // 1台幣約等於42.5韓元
+        KRW: 42.5,    // 1台幣約等於42.5韓元
+        MOP: 0.25    // 1台幣約等於0.25澳門元
       };
       
       const lastRates = localStorage.getItem('lastExchangeRates');
@@ -260,26 +294,50 @@ const ExpenseTracker = () => {
 
   // 處理貨幣對選擇變更
   const handlePairChange = (e) => {
-    setSelectedPair(e.target.value);
+    const selectedValue = e.target.value;
+    setSelectedPair(selectedValue);
     setFromAmount('');
     setToAmount('');
-    // 如果正在使用手動匯率，切換貨幣對時可以考慮重置手動匯率或提示用戶
-    // setManualRate('');
+
+    if (selectedValue === 'TWD_CUSTOM_NEW') {
+        setUseManualRate(true);
+        setCustomCurrencyCode('');
+        setCustomCurrencyRate('');
+        setManualRate('');
+    } else {
+        const selectedPairObject = allCurrencyPairs.find(p => p.id === selectedValue);
+        if (selectedPairObject && selectedPairObject.rate) { // It's a saved custom pair
+            setUseManualRate(true);
+            setCustomCurrencyCode(selectedPairObject.toCode);
+            setCustomCurrencyRate(selectedPairObject.rate.toString());
+            setManualRate(selectedPairObject.rate.toString());
+        } else { // It's a standard pair
+            setUseManualRate(false);
+            setCustomCurrencyCode('');
+            setCustomCurrencyRate('');
+            setManualRate('');
+        }
+    }
   };
 
   // 獲取當前選擇的貨幣對
   const getCurrentPair = () => {
-    return currencyPairs.find(pair => pair.id === selectedPair) || currencyPairs[0]; // 提供預設值以防意外
+    return allCurrencyPairs.find(pair => pair.id === selectedPair) || allCurrencyPairs[0];
   };
 
   // 獲取當前匯率
   const getCurrentRate = () => {
+    const pair = getCurrentPair();
+    if (pair.id === 'TWD_CUSTOM_NEW') {
+        return parseFloat(customCurrencyRate) || 0;
+    }
+    if (pair.rate) { // Saved custom pair
+        return pair.rate;
+    }
     if (useManualRate && manualRate) {
       const parsedManualRate = parseFloat(manualRate);
       if (!isNaN(parsedManualRate)) return parsedManualRate;
     }
-
-    const pair = getCurrentPair();
     return exchangeRates[pair.toCode] || 0;
   };
 
@@ -379,6 +437,47 @@ const ExpenseTracker = () => {
     setNewExpense(prev => ({ ...prev, description: description }));
   };
 
+  // 儲存自訂匯率
+  const handleSaveCustomPair = () => {
+    if (!customCurrencyCode || !customCurrencyRate || isNaN(parseFloat(customCurrencyRate))) {
+        alert('請輸入有效的自訂貨幣代碼和匯率');
+        return;
+    }
+    const newPair = {
+        toCode: customCurrencyCode.toUpperCase(),
+        rate: parseFloat(customCurrencyRate)
+    };
+
+    setSavedCustomCurrencyPairs(prev => {
+        const existingIndex = prev.findIndex(p => p.toCode === newPair.toCode);
+        if (existingIndex > -1) {
+            const updated = [...prev];
+            updated[existingIndex] = newPair;
+            return updated;
+        } else {
+            return [...prev, newPair];
+        }
+    });
+
+    setSelectedPair(`TWD_${newPair.toCode}`);
+    setManualRate(newPair.rate.toString());
+  };
+
+  // 刪除自訂匯率
+  const handleDeleteCustomPair = () => {
+      const pair = getCurrentPair();
+      if (!pair || !pair.rate) return; // Not a custom pair
+
+      if (window.confirm(`確定要刪除 ${pair.toCode} 這個自訂匯率嗎？`)) {
+          setSavedCustomCurrencyPairs(prev => prev.filter(p => p.toCode !== pair.toCode));
+          setSelectedPair('TWD_JPY'); // Reset to default
+          setCustomCurrencyCode('');
+          setCustomCurrencyRate('');
+          setManualRate('');
+          setUseManualRate(false);
+      }
+  };
+
 
   // 記錄當前轉換
   const recordExpense = () => {
@@ -431,7 +530,7 @@ const ExpenseTracker = () => {
       amount: '',
       // Keep the date input as today's date by default for the next entry
       date: new Date().toISOString().split('T')[0],
-      currencyPair: currencyPairs[0].id,
+      currencyPair: 'TWD_JPY',
       fromAmount: '',
       toAmount: '',
       rate: ''
@@ -486,6 +585,7 @@ const ExpenseTracker = () => {
 
   const currentPairDetails = getCurrentPair();
   const currentEffectiveRate = getCurrentRate();
+  const selectedPairObject = allCurrencyPairs.find(p => p.id === selectedPair);
 
 
   // 計算總花費（以新台幣為單位）
@@ -505,7 +605,7 @@ const ExpenseTracker = () => {
 
       <FormGroup>
         <label htmlFor="trip">選擇行程:</label>
-        <select
+        <StyledSelect
           id="trip"
           value={selectedTripId || ''}
           onChange={handleTripChange}
@@ -516,7 +616,7 @@ const ExpenseTracker = () => {
               {trip.name} ({trip.startDate} 至 {trip.endDate})
             </option>
           ))}
-        </select>
+        </StyledSelect>
       </FormGroup>
       
       {selectedTripId && (
@@ -535,18 +635,47 @@ const ExpenseTracker = () => {
 
             <FormGroup>
               <label htmlFor="currencyPair">選擇貨幣對:</label>
-              <select
+              <StyledSelect
                 id="currencyPair"
                 value={selectedPair}
                 onChange={handlePairChange}
               >
-                {currencyPairs.map(pair => (
+                {allCurrencyPairs.map(pair => (
                   <option key={pair.id} value={pair.id}>
                     {pair.name}
                   </option>
                 ))}
-              </select>
+              </StyledSelect>
             </FormGroup>
+
+            {selectedPair === 'TWD_CUSTOM_NEW' && (
+                <Card>
+                    <FormGroup>
+                        <label htmlFor="customCurrencyCode">自訂貨幣代碼 (例如: EUR):</label>
+                        <input
+                            type="text"
+                            id="customCurrencyCode"
+                            value={customCurrencyCode}
+                            onChange={(e) => setCustomCurrencyCode(e.target.value)}
+                            placeholder="3位英文代碼"
+                            maxLength="3"
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <label htmlFor="customCurrencyRate">自訂匯率 (1 TWD = ?):</label>
+                        <input
+                            type="number"
+                            id="customCurrencyRate"
+                            value={customCurrencyRate}
+                            onChange={(e) => setCustomCurrencyRate(e.target.value)}
+                            placeholder="輸入匯率"
+                            min="0"
+                            step="0.0001"
+                        />
+                    </FormGroup>
+                    <Button $primary onClick={handleSaveCustomPair}>儲存自訂匯率</Button>
+                </Card>
+            )}
 
             <CurrencyConverterContainer>
               <CurrencyRow>
@@ -566,7 +695,7 @@ const ExpenseTracker = () => {
                 <div style={{ alignSelf: 'flex-end', padding: '0.5rem' }}>→</div>
 
                 <InputGroup>
-                  <label htmlFor="toAmount">{currentPairDetails.toCode}:</label>
+                  <label htmlFor="toAmount">{currentPairDetails.toCode === 'CUSTOM_NEW' ? (customCurrencyCode || '??') : currentPairDetails.toCode}:</label>
                   <input
                     type="number"
                     id="toAmount"
@@ -597,10 +726,20 @@ const ExpenseTracker = () => {
                 >
                   {isLoading ? '更新中...' : '刷新匯率'}
                 </Button>
+                {selectedPairObject && selectedPairObject.rate && selectedPairObject.toCode !== 'CUSTOM_NEW' && (
+                    <Button
+                        type="button"
+                        $danger
+                        onClick={handleDeleteCustomPair}
+                        style={{ padding: '0.5rem', fontSize: '0.8rem' }}
+                    >
+                        刪除此匯率
+                    </Button>
+                )}
               </ButtonGroup>
 
 
-              {useManualRate ? (
+              {useManualRate && selectedPair !== 'TWD_CUSTOM_NEW' ? (
                 <FormGroup style={{ marginTop: '0.5rem' }}>
                   <label htmlFor="manualRate">自訂匯率 (1 {currentPairDetails.fromCode} = ? {currentPairDetails.toCode}):</label>
                   <input
@@ -616,7 +755,7 @@ const ExpenseTracker = () => {
               ) : (
                 <RateInfoText>
                   <span>
-                    當前匯率: 1 {currentPairDetails.fromCode} = {currentEffectiveRate > 0 ? currentEffectiveRate.toFixed(4) : 'N/A'} {currentPairDetails.toCode}
+                    當前匯率: 1 {currentPairDetails.fromCode} = {currentEffectiveRate > 0 ? currentEffectiveRate.toFixed(4) : 'N/A'} {currentPairDetails.toCode === 'CUSTOM_NEW' ? (customCurrencyCode || '??') : currentPairDetails.toCode}
                   </span>
                   {lastUpdated && (
                     <span>(更新時間: {lastUpdated.toLocaleTimeString()})</span>

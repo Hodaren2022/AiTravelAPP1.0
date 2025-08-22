@@ -3,3 +3,134 @@
 後端處理 (OCR)： App 的後端伺服器接收到文件後，將其發送給 OCR 服務進行文字辨識。OCR 服務會回傳辨識出來的文字內容，以及這些文字在圖片中的位置資訊（例如：每個字或詞的座標範圍）。
 
 是否可以聯動航班資訊---目前尚未研究出免費資源
+
+
+
+我希望在這個程式裡新增一個功能，這個功能整合在TripManagement頁面的"+"按鈕裡，"+"按鈕按下後出現兩個選項:"手動輸入行程""Ai辨識行程"，當按下手動輸入行程時，則以現行的行程新增方式不更動，當按下Ai辨識行程時，跳出一個文字輸入框，使用者可以在此輸入框中輸入各種行程資訊，當完成時，Ai可以自動辨識輸入內容並半自動的幫使用者按照不同資訊欄位頁面去新增填上資訊，所謂半自動指的是，每一個要新增的資訊皆要使用者按下確認後才進行新增動作，此Ai功能使用GitHub Models的GPT-4o免費模型來執行
+
+
+
+執行netlify dev出現以下訊息 Still waiting for server on port 5173 to be ready. Are you sure this is the correct port? Change this with the targetPort option in your netlify.toml.網頁端錯誤為:Failed to load resource: the server responded with a status of 404 (Not Found)Understand this error
+TripManagement.jsx:372 AI 分析失敗: Error: 伺服器錯誤: 404
+    at handleAiSubmit (TripManagement.jsx:351:15)
+handleAiSubmit @ TripManagement.jsx:372Understand this error
+
+
+將.env填入API key會導致github跳出警示
+
+
+
+出現以下提示:
+
+﻿
+:8888/.netlify/functions/analyze-itinerary:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)Understand this error
+TripManagement.jsx:372 AI 分析失敗: Error: 伺服器錯誤: 500
+    at handleAiSubmit (TripManagement.jsx:351:15)
+
+react-router-dom.js?v=e4c5dd4a:4410 ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+warnOnce @ react-router-dom.js?v=e4c5dd4a:4410Understand this warning
+react-router-dom.js?v=e4c5dd4a:4410 ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+﻿
+DataManagement.jsx:126 無法找到有效的vfs字體路徑，將使用默認字體
+(anonymous)	@	DataManagement.jsx:126
+
+ Loaded function analyze-itinerary
+(node:4020) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Request from ::1: POST /.netlify/functions/analyze-itinerary
+Failed to parse JSON from AI response: ```json
+{
+  "tripName": "澳門進出張家界 國家森林公園8天",
+  "destination": "張家界, 鳳凰古城, 長沙",
+  "startDate": "2024-08-13",
+  "endDate": "2024-08-20",
+  "description": "澳門進出張家界國家森林公園8天行程，包含張家界國家森林公園、天門山、鳳凰古城等景點，並包含餐食、交通、導遊及住宿。",
+  "flights": [
+    {
+      "id": "1",
+      "date": "2024-08-13",
+      "airline": "BR",
+      "flightNumber": "805",
+      "departureCity": "RMQ",
+      "arrivalCity": "MFM",
+      "departureTime": "16:40",
+      "arrivalTime": "18:35",
+      "duration": ""
+    },
+    {
+      "id": "2",
+      "date": "2024-08-20",
+      "airline": "BR",
+      "flightNumber": "806",
+      "departureCity": "MFM",
+      "arrivalCity": "RMQ",
+      "departureTime": "20:10",
+      "arrivalTime": "22:05",
+      "duration": ""
+    }
+  ]
+}
+```
+Error processing request: Error: AI 回傳的格式不正確，無法解析。
+    at Object.handler (C:\Users\BRO\AppData\Local\Temp\tmp-4020-Bj25YL101Sts\file:\D:\Ai%20software%20DEV\AiTravelAPP1.0\netlify\functions\analyze-itinerary.js:69:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+Response with status 500 in 2514 ms.
+
+
+
+目前只辨識和填入了TripManagement頁面，我希望可以將所有有用訊息各自分別對應填入到對應的頁面，例如辨識出住宿旅館就填入到旅館資訊，辨識出日期加地點而非機場則填入每日行程資訊...等等    
+
+
+
+
+
+顯示以下訊息console.log('原始活動列表:', window.selectedTripItinerary);
+undefined
+ console.log('排序後活動列表:', window.sortedActivities);
+undefined
+ console.log('原始活動列表:', window.selectedTripItinerary);
+undefined
+ 1     console.log('原始活動列表:', window.selectedTripItinerary);
+   2     console.log('排序後活動列表:', window.sortedActivities);
+VM474:1 Uncaught SyntaxError: Unexpected identifier 'console'Understand this error
+console.log
+ƒ log() { [native code] }
+
+
+
+
+我想解決這些警告
+
+ client.ts:19 [vite] connecting...
+chunk-VRHMX22Y.js?v=e4c5dd4a:21580 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+react-router-dom.js?v=e4c5dd4a:4410 ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+warnOnce @ react-router-dom.js?v=e4c5dd4a:4410Understand this warning
+react-router-dom.js?v=e4c5dd4a:4410 ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+warnOnce @ react-router-dom.js?v=e4c5dd4a:4410Understand this warning
+client.ts:155 [vite] connected.
+DataManagement.jsx:37 pdfmake 從 module.default 載入完成
+DataManagement.jsx:63 Loaded vfs_fonts module: Object
+DataManagement.jsx:126 無法找到有效的vfs字體路徑，將使用默認字體
+(anonymous) @ DataManagement.jsx:126Understand this warning
+DataManagement.jsx:129 設置空的vfs對象，將使用默認字體 (可能導致中文亂碼)
+
+
+
+我在本地端測試都正常，但是上傳至github並且用netlify開啟網頁後就顯示以下訊息  
+
+(index):1 Access to fetch at 'http://localhost:8888/.netlify/functions/analyze-itinerary' from origin 'https://aitravelapp10.netlify.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+localhost:8888/.netl…analyze-itinerary:1 
+ Failed to load resource: net::ERR_FAILED
+index-bc3186c9.js:184 AI 分析失敗: TypeError: Failed to fetch
+    at Ge (index-bc3186c9.js:184:3428)
+    at Object._m (index-bc3186c9.js:37:9855)
+    at Hm (index-bc3186c9.js:37:10009)
+    at Gm (index-bc3186c9.js:37:10066)
+    at Fc (index-bc3186c9.js:37:31466)
+    at lf (index-bc3186c9.js:37:31883)
+    at index-bc3186c9.js:37:36796
+    at Js (index-bc3186c9.js:40:36881)
+    at Rd (index-bc3186c9.js:37:8991)
+    at No (index-bc3186c9.js:37:33170)
+Ge	@	index-bc3186c9.js:184
