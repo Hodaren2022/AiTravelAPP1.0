@@ -135,6 +135,7 @@ const TravelNotes = () => {
     content: '',
     date: new Date().toISOString().split('T')[0],
     location: '',
+    address: '', // New field for formatted address,
     weather: '',
     temperature: ''
   };
@@ -144,6 +145,39 @@ const TravelNotes = () => {
   const [gpsStatus, setGpsStatus] = useState('');
   const [weatherStatus, setWeatherStatus] = useState('');
   const [sortNewestFirst, setSortNewestFirst] = useState(true); // 新增排序狀態
+
+  const fetchAddressData = async (latitude, longitude) => {
+    try {
+        setGpsStatus('正在獲取地址...');
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=zh-TW`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        if (data && data.address) {
+            const { country, state, city, town, village } = data.address;
+            const displayCity = city || state || town || village || '';
+            const displayAddress = `${country || ''} ${displayCity} ${data.address.suburb || data.address.road || ''}`.trim();
+            setNewNote(prev => ({
+                ...prev,
+                address: displayAddress,
+                location: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`
+            }));
+            setGpsStatus('地址已獲取');
+        } else {
+            throw new Error('無法解析地址');
+        }
+    } catch (error) {
+        console.error('獲取地址失敗:', error);
+        setGpsStatus('無法獲取地址');
+        // Fallback to just lat/lon
+        setNewNote(prev => ({
+            ...prev,
+            location: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
+            address: ''
+        }));
+    }
+  };
 
   // Debug: Log newNote whenever it changes
   useEffect(() => {
@@ -164,12 +198,8 @@ const TravelNotes = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setNewNote(prev => ({
-            ...prev,
-            location: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`
-          }));
-          setGpsStatus('位置已獲取');
-          fetchWeatherData(latitude, longitude);
+          fetchAddressData(latitude, longitude); // Fetch address
+          fetchWeatherData(latitude, longitude); // Fetch weather
         },
         (error) => {
           console.error('獲取位置失敗:', error);
@@ -223,12 +253,8 @@ const TravelNotes = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setNewNote(prev => ({
-            ...prev,
-            location: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`
-          }));
-          setGpsStatus('位置已更新');
-          fetchWeatherData(latitude, longitude);
+          fetchAddressData(latitude, longitude); // Fetch address
+          fetchWeatherData(latitude, longitude); // Fetch weather
         },
         (error) => {
           console.error('重新獲取位置失敗:', error);
@@ -339,6 +365,8 @@ const TravelNotes = () => {
   // For existing notes, user can save with old data or refresh.
   const isFetchingInitialData = !isEditing && (gpsStatus.includes('正在') || weatherStatus.includes('正在') || weatherStatus === '等待位置信息...');
 
+  const displayLocation = newNote.address ? `${newNote.address} (${newNote.location})` : newNote.location;
+
   return (
     <Container>
       <h2>旅遊筆記</h2>
@@ -368,7 +396,7 @@ const TravelNotes = () => {
             <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginTop: '1rem' }}>
               <div style={{ flex: 1 }}>
                 <label htmlFor="location">地點 {gpsStatus && <small>({gpsStatus})</small>}</label>
-                <input type="text" id="location" name="location" value={newNote.location} onChange={handleInputChange} placeholder="位置資訊" />
+                <input type="text" id="location" name="location" value={displayLocation} onChange={handleInputChange} placeholder="位置資訊" />
               </div>
               <Button type="button" $primary onClick={refreshLocationAndWeather} style={{ marginTop: '20px', padding: '0.3rem 0.6rem', fontSize:'0.9rem' }}>
                 重新獲取
@@ -454,7 +482,7 @@ const TravelNotes = () => {
                   </div>
                   {note.location && (
                     <p style={{ color: '#555', fontSize: '0.9rem', marginBottom: '0.3rem', marginTop: '0.3rem' }}>
-                      <strong>地點:</strong> {note.location}
+                      <strong>地點:</strong> {note.address ? `${note.address} (${note.location})` : note.location}
                     </p>
                   )}
                   {(note.weather || note.temperature) && (
