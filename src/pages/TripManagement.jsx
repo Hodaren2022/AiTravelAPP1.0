@@ -428,19 +428,45 @@ const TripManagement = () => {
       }
       return 0;
     };
-    const departureOffset = parseTimezoneOffset(departureTimezone);
-    const arrivalOffset = parseTimezoneOffset(arrivalTimezone);
-    const departureDate = new Date(`2000-01-01T${departureTime || '00:00'}:00Z`);
-    const arrivalDate = new Date(`2000-01-01T${arrivalTime || '00:00'}:00Z`);
-    departureDate.setHours(departureDate.getHours() - departureOffset);
-    arrivalDate.setHours(arrivalDate.getHours() - arrivalOffset);
-    if (arrivalDate < departureDate) {
-      arrivalDate.setDate(arrivalDate.getDate() + 1);
+
+    const departureOffsetHours = parseTimezoneOffset(departureTimezone);
+    const arrivalOffsetHours = parseTimezoneOffset(arrivalTimezone);
+
+    // 檢查時間是否為有效格式
+    if (!departureTime || !arrivalTime || !departureTime.match(/^\d{2}:\d{2}$/) || !arrivalTime.match(/^\d{2}:\d{2}$/)) {
+      return '';
     }
-    const durationMs = arrivalDate - departureDate;
-    if (isNaN(durationMs) || durationMs < 0) return ''
+
+    // 將時間和時區轉換為毫秒數
+    // 建立一個固定的 UTC 基準點
+    const baseDate = new Date('2000-01-01T00:00:00Z').getTime();
+
+    // 計算起飛時間的毫秒數（在 UTC 基準點上加上時間和時區偏移）
+    const [depHour, depMin] = departureTime.split(':').map(Number);
+    const departureMs = baseDate + (depHour * 60 + depMin) * 60 * 1000 - departureOffsetHours * 60 * 60 * 1000;
+
+    // 計算抵達時間的毫秒數（在 UTC 基準點上加上時間和時區偏移）
+    const [arrHour, arrMin] = arrivalTime.split(':').map(Number);
+    let arrivalMs = baseDate + (arrHour * 60 + arrMin) * 60 * 1000 - arrivalOffsetHours * 60 * 60 * 1000;
+
+    // 處理跨日問題：如果抵達時間在數值上小於起飛時間，則代表至少跨了一天
+    // 這裡不再假設只跨一天，而是直接判斷時間戳大小
+    if (arrivalMs < departureMs) {
+      // 假設最少跨一天
+      arrivalMs += 24 * 60 * 60 * 1000;
+    }
+    
+    // 計算時間差（毫秒）
+    const durationMs = arrivalMs - departureMs;
+
+    // 檢查是否為有效數字
+    if (isNaN(durationMs) || durationMs < 0) {
+      return '';
+    }
+
     const hours = Math.floor(durationMs / 3600000);
     const minutes = Math.floor((durationMs % 3600000) / 60000);
+
     return `${hours}小時${minutes}分`;
   };
 
