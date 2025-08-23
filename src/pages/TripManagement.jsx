@@ -236,6 +236,10 @@ const TripManagement = () => {
   const { trips, setTrips, selectedTripId, setSelectedTripId } = useTrip();
   const cardsContainerRef = useRef(null);
   const cardRefs = useRef({});
+  const isScrollingProgrammatically = useRef(false);
+  const scrollTimeoutRef = useRef(null);
+  const isUserScrolling = useRef(false);
+  const touchStartRef = useRef(null);
   const [sortOrder, setSortOrder] = useState('desc');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '' });
@@ -272,38 +276,99 @@ const TripManagement = () => {
     if (!container || trips.length === 0) return;
 
     const handleScroll = () => {
-      const containerRect = container.getBoundingClientRect();
-      const containerCenter = containerRect.left + containerRect.width / 2;
+      // 如果是程式化滾動，不觸發自動選定邏輯
+      if (isScrollingProgrammatically.current) {
+        return;
+      }
       
-      let closestCard = null;
-      let closestDistance = Infinity;
+      // 清除之前的定時器
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
       
-      // 找出最接近中心的卡片
-      Object.entries(cardRefs.current).forEach(([tripId, cardElement]) => {
-        if (cardElement) {
-          const cardRect = cardElement.getBoundingClientRect();
-          const cardCenter = cardRect.left + cardRect.width / 2;
-          const distance = Math.abs(cardCenter - containerCenter);
-          
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestCard = tripId;
-          }
+      // 延遲執行選定邏輯，避免滾動過程中頻繁觸發
+      scrollTimeoutRef.current = setTimeout(() => {
+        // 如果用戶正在手動滾動，延後處理
+        if (isUserScrolling.current) {
+          return;
         }
-      });
-      
-      // 只有當最接近的卡片真的在容器範圍內時才選定
-      if (closestCard && closestDistance < 200) {
-        setSelectedTripId(closestCard);
+        
+        const containerRect = container.getBoundingClientRect();
+        const containerCenter = containerRect.left + containerRect.width / 2;
+        
+        let closestCard = null;
+        let closestDistance = Infinity;
+        
+        // 找出最接近中心的卡片
+        Object.entries(cardRefs.current).forEach(([tripId, cardElement]) => {
+          if (cardElement) {
+            const cardRect = cardElement.getBoundingClientRect();
+            const cardCenter = cardRect.left + cardRect.width / 2;
+            const distance = Math.abs(cardCenter - containerCenter);
+            
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestCard = tripId;
+            }
+          }
+        });
+        
+        // 只有當最接近的卡片真的在容器範圍內且與當前選定不同時才選定
+        if (closestCard && closestDistance < 200 && closestCard !== selectedTripId) {
+          setSelectedTripId(closestCard);
+        }
+      }, 150); // 150ms 延遲
+    };
+
+    const handleTouchStart = (e) => {
+      isUserScrolling.current = true;
+      touchStartRef.current = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+      if (touchStartRef.current !== null) {
+        isUserScrolling.current = true;
       }
     };
 
-    container.addEventListener('scroll', handleScroll);
-    // 初始選定
-    handleScroll();
+    const handleTouchEnd = () => {
+      // 觸控結束後延遲重置，讓滾動慣性完成
+      setTimeout(() => {
+        isUserScrolling.current = false;
+        touchStartRef.current = null;
+      }, 300);
+    };
+
+    const handleMouseDown = () => {
+      isUserScrolling.current = true;
+    };
+
+    const handleMouseUp = () => {
+      setTimeout(() => {
+        isUserScrolling.current = false;
+      }, 300);
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+    container.addEventListener('mousedown', handleMouseDown);
+    container.addEventListener('mouseup', handleMouseUp);
     
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [trips, setSelectedTripId]);
+    // 清理函數
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener('mousedown', handleMouseDown);
+      container.removeEventListener('mouseup', handleMouseUp);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [trips, selectedTripId, setSelectedTripId]);
 
   // 當 selectedTripId 從其他頁面改變時，滾動到對應卡片
   useEffect(() => {
@@ -315,6 +380,9 @@ const TripManagement = () => {
       const containerRect = container.getBoundingClientRect();
       const cardRect = selectedCard.getBoundingClientRect();
       
+      // 標記為程式化滾動
+      isScrollingProgrammatically.current = true;
+      
       // 計算需要滾動的距離，讓卡片居中
       const scrollLeft = selectedCard.offsetLeft - (containerRect.width / 2) + (cardRect.width / 2);
       
@@ -322,6 +390,11 @@ const TripManagement = () => {
         left: scrollLeft,
         behavior: 'smooth'
       });
+      
+      // 滾動完成後重置標記（延遲足夠長時間確保滾動完成）
+      setTimeout(() => {
+        isScrollingProgrammatically.current = false;
+      }, 800); // 增加延遲時間以確保滾動動畫完成
     }
   }, [selectedTripId]);
 
