@@ -18,16 +18,27 @@ const Container = styled.div`
 const CardsContainer = styled.div`
   display: flex; overflow-x: auto; gap: 1rem; padding: 1rem 0;
   scrollbar-width: thin; scrollbar-color: #ccc #f1f1f1;
+  scroll-behavior: smooth;
   &::-webkit-scrollbar { height: 8px; }
   &::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
   &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 `;
 const TripCard = styled.div`
   flex: 0 0 300px; background-color: white; border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 1.5rem;
+  box-shadow: ${props => props.$selected ? '0 8px 20px rgba(52, 152, 219, 0.3)' : '0 4px 8px rgba(0, 0, 0, 0.1)'};
+  border: ${props => props.$selected ? '2px solid #3498db' : '2px solid transparent'};
+  padding: 1.5rem;
   display: flex; flex-direction: column; justify-content: space-between;
-  transition: transform 0.2s ease-in-out;
-  &:hover { transform: translateY(-5px); }
+  transition: all 0.3s ease-in-out;
+  transform: ${props => props.$selected ? 'translateY(-10px)' : 'translateY(0)'};
+  opacity: ${props => props.$selected ? '1' : '0.6'};
+  filter: ${props => props.$selected ? 'none' : 'brightness(0.85)'};
+  
+  &:hover {
+    transform: ${props => props.$selected ? 'translateY(-10px)' : 'translateY(-5px)'};
+    opacity: ${props => props.$selected ? '1' : '0.8'};
+    filter: ${props => props.$selected ? 'none' : 'brightness(0.95)'};
+  }
 `;
 
 const CardBodyText = styled.p`
@@ -222,7 +233,9 @@ const AutocompleteInput = ({ airports, value, onChange, onSelect, placeholder, n
 const taiwanAirlines = ['中華航空', '長榮航空', '立榮航空', '華信航空', '台灣虎航', '星宇航空', '遠東航空', '其他'];
 
 const TripManagement = () => {
-  const { trips, setTrips, setSelectedTripId } = useTrip();
+  const { trips, setTrips, selectedTripId, setSelectedTripId } = useTrip();
+  const cardsContainerRef = useRef(null);
+  const cardRefs = useRef({});
   const [sortOrder, setSortOrder] = useState('desc');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [toast, setToast] = useState({ show: false, message: '' });
@@ -252,6 +265,65 @@ const TripManagement = () => {
     }
     return () => bodyClassList.remove('modal-open');
   }, [isModalOpen, isChoiceModalOpen, isAiModalOpen]);
+
+  // 卡片選定邏輯：監聽滾動事件，自動選定中間的卡片
+  useEffect(() => {
+    const container = cardsContainerRef.current;
+    if (!container || trips.length === 0) return;
+
+    const handleScroll = () => {
+      const containerRect = container.getBoundingClientRect();
+      const containerCenter = containerRect.left + containerRect.width / 2;
+      
+      let closestCard = null;
+      let closestDistance = Infinity;
+      
+      // 找出最接近中心的卡片
+      Object.entries(cardRefs.current).forEach(([tripId, cardElement]) => {
+        if (cardElement) {
+          const cardRect = cardElement.getBoundingClientRect();
+          const cardCenter = cardRect.left + cardRect.width / 2;
+          const distance = Math.abs(cardCenter - containerCenter);
+          
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestCard = tripId;
+          }
+        }
+      });
+      
+      // 只有當最接近的卡片真的在容器範圍內時才選定
+      if (closestCard && closestDistance < 200) {
+        setSelectedTripId(closestCard);
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    // 初始選定
+    handleScroll();
+    
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [trips, setSelectedTripId]);
+
+  // 當 selectedTripId 從其他頁面改變時，滾動到對應卡片
+  useEffect(() => {
+    if (!selectedTripId || !cardsContainerRef.current) return;
+    
+    const selectedCard = cardRefs.current[selectedTripId];
+    if (selectedCard) {
+      const container = cardsContainerRef.current;
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = selectedCard.getBoundingClientRect();
+      
+      // 計算需要滾動的距離，讓卡片居中
+      const scrollLeft = selectedCard.offsetLeft - (containerRect.width / 2) + (cardRect.width / 2);
+      
+      container.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+      });
+    }
+  }, [selectedTripId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -473,12 +545,17 @@ const TripManagement = () => {
           </Button>
         </div>
 
-        <CardsContainer>
+        <CardsContainer ref={cardsContainerRef}>
           {trips.length === 0 ? (
             <EmptyCard>尚未新增行程</EmptyCard>
           ) : (
             sortTrips(trips).map(trip => (
-              <TripCard key={trip.id}>
+              <TripCard 
+                key={trip.id}
+                ref={el => cardRefs.current[trip.id] = el}
+                $selected={selectedTripId === trip.id}
+                onClick={() => setSelectedTripId(trip.id)}
+              >
                 <div>
                   <h4>{trip.name}</h4>
                   <DestinationDisplay><strong>目的地:</strong> {trip.destination}</DestinationDisplay>
@@ -499,8 +576,8 @@ const TripManagement = () => {
                   )}
                 </div>
                 <ButtonGroup>
-                  <Button $primary onClick={() => handleEdit(trip)}>編輯</Button>
-                  <Button $danger onClick={() => handleDelete(trip.id)}>刪除</Button>
+                  <Button $primary onClick={(e) => { e.stopPropagation(); handleEdit(trip); }}>編輯</Button>
+                  <Button $danger onClick={(e) => { e.stopPropagation(); handleDelete(trip.id); }}>刪除</Button>
                 </ButtonGroup>
               </TripCard>
             ))
