@@ -251,7 +251,7 @@ const TripManagement = () => {
   const [isAiLoading, setIsAiLoading] = useState(false); // Loading state for AI
 
   const initialTripState = { id: '', name: '', destination: '', startDate: '', endDate: '', description: '', flights: [], hotels: [], dailyItinerary: [] };
-  const initialFlightState = { date: '', airline: '', flightNumber: '', departureCity: '', arrivalCity: '', departureTime: '', arrivalTime: '', departureTimezone: 'UTC+8 (台灣)', arrivalTimezone: 'UTC+8 (台灣)', customAirline: '', duration: '' };
+  const initialFlightState = { date: '', airline: '', flightNumber: '', departureCity: '', arrivalCity: '', departureTime: '', arrivalTime: '', departureTimezone: 'UTC+8 (CST：台灣 / 中原標準)', arrivalTimezone: 'UTC+8 (CST：台灣 / 中原標準)', customAirline: '', duration: '' };
 
   const [newTrip, setNewTrip] = useState(initialTripState);
   const [newFlight, setNewFlight] = useState(initialFlightState);
@@ -413,7 +413,21 @@ const TripManagement = () => {
   };
 
   const calculateFlightDuration = (departureTime, arrivalTime, departureTimezone, arrivalTimezone) => {
-    const parseTimezoneOffset = (tz) => tz ? parseFloat(tz.match(/UTC([+-]?\d+(\.\d+)?)/)?.[1] || 0) : 0;
+    const parseTimezoneOffset = (tz) => {
+      if (!tz) return 0;
+      // 支援更多時區格式的解析
+      const match = tz.match(/UTC([+-]?\d+(?::\d+)?(?:\.\d+)?)/);
+      if (match) {
+        const offsetStr = match[1];
+        // 處理小時:分鐘格式 (如 +5:30, -3:30)
+        if (offsetStr.includes(':')) {
+          const [hours, minutes] = offsetStr.split(':');
+          return parseFloat(hours) + (parseFloat(minutes) / 60) * (hours.startsWith('-') ? -1 : 1);
+        }
+        return parseFloat(offsetStr);
+      }
+      return 0;
+    };
     const departureOffset = parseTimezoneOffset(departureTimezone);
     const arrivalOffset = parseTimezoneOffset(arrivalTimezone);
     const departureDate = new Date(`2000-01-01T${departureTime || '00:00'}:00Z`);
@@ -439,21 +453,45 @@ const TripManagement = () => {
   }, [newFlight.departureTime, newFlight.arrivalTime, newFlight.departureTimezone, newFlight.arrivalTimezone]);
 
   const generateTimezoneOptions = () => {
-    const timezones = [];
-    const timezoneCountries = {
-      '-12': '', '-11': '(美屬薩摩亞)', '-10': '(夏威夷)', '-9': '(阿拉斯加)', '-8': '(美國西岸)', '-7': '(美國山區)', '-6': '(美國中部)', '-5': '(美國東岸)', '-4': '(大西洋)', '-3': '(巴西)', '-2': '', '-1': '', '0': '(格林威治)', '1': '(中歐)', '2': '(東歐)', '3': '(莫斯科)', '4': '(杜拜)', '5': '(巴基斯坦)', '5.5': '(印度)', '6': '(孟加拉)', '7': '(泰國)', '8': '(台灣)', '9': '(日韓)', '10': '(澳洲東部)', '11': '', '12': '(紐西蘭)', '13': '', '14': ''
-    };
-    for (let i = -12; i <= 14; i++) {
-      if (i === 5) {
-        timezones.push(`UTC+5 ${timezoneCountries['5']}`);
-        timezones.push(`UTC+5.5 ${timezoneCountries['5.5']}`);
-        continue;
-      }
-      const sign = i >= 0 ? '+' : '';
-      const annotation = timezoneCountries[i.toString()] || '';
-      timezones.push(`UTC${sign}${i} ${annotation}`);
-    }
-    return timezones;
+    return [
+      'UTC-12 (IDLW：國際換日線)',
+      'UTC-11 (SST：美屬薩摩亞標準時間)',
+      'UTC-10 (HST：夏威夷－阿留申標準時間)',
+      'UTC-9:30 (MIT：馬克薩斯群島標準時間)',
+      'UTC-9 (AKST：阿拉斯加標準時間)',
+      'UTC-8 (PST：太平洋標準時間)',
+      'UTC-7 (MST：北美山區標準時間)',
+      'UTC-6 (CST：北美中部標準時間)',
+      'UTC-5 (EST：北美東部標準時間)',
+      'UTC-4 (AST：大西洋標準時間)',
+      'UTC-3:30 (NST：紐芬蘭島標準時間)',
+      'UTC-3 (BRT：巴西利亞標準時間)',
+      'UTC-2 (FNT：費爾南多·迪諾羅尼亞群島標準時間)',
+      'UTC-1 (CVT：維德角標準時間)',
+      'UTC (WET：歐洲西部時區，GMT：格林威治標準時間)',
+      'UTC+1 (CET：歐洲中部)',
+      'UTC+2 (EET：歐洲東部)',
+      'UTC+3 (MSK：歐洲極東／莫斯科)',
+      'UTC+3:30 (IRST：伊朗)',
+      'UTC+4 (GST：海灣)',
+      'UTC+4:30 (AFT：阿富汗)',
+      'UTC+5 (PKT：巴基斯坦)',
+      'UTC+5:30 (IST：印度)',
+      'UTC+5:45 (NPT：尼泊爾)',
+      'UTC+6 (BHT：孟加拉)',
+      'UTC+6:30 (MMT：緬甸)',
+      'UTC+7 (ICT：中南半島)',
+      'UTC+8 (CST：台灣 / 中原標準)',
+      'UTC+9 (JST：日本)',
+      'UTC+9:30 (ACST：澳洲中部)',
+      'UTC+10 (AEST：澳洲東部)',
+      'UTC+10:30 (LHST：豪勳爵群島)',
+      'UTC+11 (VUT：萬那杜)',
+      'UTC+12 (NZST：紐西蘭)',
+      'UTC+12:45 (CHAST：查塔姆群島)',
+      'UTC+13 (PHOT：鳳凰群島)',
+      'UTC+14 (LINT：萊恩群島)'
+    ];
   };
   const timezoneOptions = generateTimezoneOptions();
 
