@@ -194,6 +194,7 @@ const ExpenseTracker = () => {
     { id: 'TWD_USD', name: '台幣 → 美金', fromCode: 'TWD', toCode: 'USD' },
     { id: 'TWD_CNY', name: '台幣 → 人民幣', fromCode: 'TWD', toCode: 'CNY' },
     { id: 'TWD_KRW', name: '台幣 → 韓元', fromCode: 'TWD', toCode: 'KRW' },
+    { id: 'TWD_THB', name: '台幣 → 泰銖', fromCode: 'TWD', toCode: 'THB' },
     { id: 'TWD_MOP', name: '台幣 → 澳門元', fromCode: 'TWD', toCode: 'MOP' },
     ...savedCustomCurrencyPairs.map(pair => ({
         id: `TWD_${pair.toCode}`,
@@ -237,6 +238,7 @@ const ExpenseTracker = () => {
         USD: data.rates.USD || 0.032,  // 台幣對美元
         CNY: data.rates.CNY || 0.23,   // 台幣對人民幣
         KRW: data.rates.KRW || 42.5,    // 台幣對韓元
+        THB: data.rates.THB || 1.05,    // 台幣對泰銖
         MOP: data.rates.MOP || 0.25    // 台幣對澳門元
       };
 
@@ -253,6 +255,7 @@ const ExpenseTracker = () => {
         USD: 0.032,  // 1台幣約等於0.032美元
         CNY: 0.23,   // 1台幣約等於0.23人民幣
         KRW: 42.5,    // 1台幣約等於42.5韓元
+        THB: 1.05,    // 1台幣約等於1.05泰銖
         MOP: 0.25    // 1台幣約等於0.25澳門元
       };
       
