@@ -69,6 +69,7 @@ const Button = styled.button`
     props.$primary ? '#3498db' :
     props.$active ? '#3498db' : // 手動匯率按鈕啟用時的顏色
     props.$danger ? '#e74c3c' : // 刪除按鈕的顏色
+    props.$secondary ? '#95a5a6' : // 次要按鈕的顏色
     '#ccc'}; /* 預設或非活動狀態的顏色 */
   color: white;
   border: none;
@@ -144,6 +145,38 @@ const StyledSelect = styled.select`
   border: 1px solid #ccc;
 `;
 
+// 新增編輯模式的樣式組件
+const EditForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+`;
+
+const EditRow = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+`;
+
+const EditInputGroup = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const EditActions = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+`;
+
 
 // 預設的消費描述選項
 const defaultDescriptions = ["早餐", "午餐", "晚餐", "交通", "點心", "飲料", "伴手", "禮物", "門票"];
@@ -174,6 +207,14 @@ const ExpenseTracker = () => {
   const [savedCustomCurrencyPairs, setSavedCustomCurrencyPairs] = useState(() => {
     const saved = localStorage.getItem('savedCustomCurrencyPairs');
     return saved ? JSON.parse(saved) : [];
+  });
+
+  // 編輯模式相關狀態
+  const [editingExpenseId, setEditingExpenseId] = useState(null);
+  const [editFormData, setEditFormData] = useState({
+    description: '',
+    date: '',
+    time: ''
   });
 
 
@@ -602,6 +643,85 @@ const ExpenseTracker = () => {
 
   const totalExpense = calculateTotalExpense();
 
+  // 編輯功能相關函數
+  // 啟動編輯模式
+  const startEditing = (expense) => {
+    setEditingExpenseId(expense.id);
+    
+    // 從dateTime中提取日期和時間
+    let date = '';
+    let time = '';
+    
+    if (expense.dateTime) {
+      const dateTime = new Date(expense.dateTime);
+      date = dateTime.toISOString().split('T')[0];
+      time = dateTime.toTimeString().slice(0, 5); // 取 HH:MM 格式
+    } else {
+      date = expense.date;
+      time = '12:00'; // 默認時間
+    }
+    
+    setEditFormData({
+      description: expense.description,
+      date: date,
+      time: time
+    });
+  };
+
+  // 處理編輯表單輸入變更
+  const handleEditInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // 保存編輯
+  const saveEdit = () => {
+    if (!selectedTripId || !editingExpenseId) return;
+    
+    // 驗證輸入
+    if (!editFormData.description) {
+      alert('請填寫消費描述');
+      return;
+    }
+    
+    if (!editFormData.date) {
+      alert('請選擇日期');
+      return;
+    }
+    
+    // 合併日期和時間
+    const dateTimeString = `${editFormData.date}T${editFormData.time}:00`;
+    const newDateTime = new Date(dateTimeString).toISOString();
+    
+    setExpenses(prev => {
+      const updated = { ...prev };
+      if (updated[selectedTripId]) {
+        updated[selectedTripId] = updated[selectedTripId].map(expense => {
+          if (expense.id === editingExpenseId) {
+            return {
+              ...expense,
+              description: editFormData.description,
+              date: editFormData.date,
+              dateTime: newDateTime
+            };
+          }
+          return expense;
+        });
+      }
+      return updated;
+    });
+    
+    // 退出編輯模式
+    setEditingExpenseId(null);
+    setEditFormData({ description: '', date: '', time: '' });
+  };
+
+  // 取消編輯
+  const cancelEdit = () => {
+    setEditingExpenseId(null);
+    setEditFormData({ description: '', date: '', time: '' });
+  };
+
   return (
     <Container>
       <h2>消費追蹤</h2>
@@ -814,21 +934,76 @@ const ExpenseTracker = () => {
               <ExpenseList>
                 {sortedExpenses.map(expense => (
                   <ExpenseItem key={expense.id}>
-                    <div>
-                      <div><strong>{expense.description}</strong></div>
-                      <div style={{ fontSize: '0.9rem', color: '#666' }}>
-                        <ExpenseAmount>
-                          {expense.fromAmount.toFixed(2)} {expense.fromCurrency} =
-                          {expense.toAmount.toFixed(2)} {expense.toCurrency}
-                        </ExpenseAmount>
-                        <span> · 匯率: {expense.rate.toFixed(4)} · </span>
-                        <span>
-                          {/* Use formatDateTime for new data (has dateTime) or formatDateOnly for old data (only has date) */}
-                          {expense.dateTime ? formatDateTime(expense.dateTime) : formatDateOnly(expense.date)}
-                        </span>
+                    {editingExpenseId === expense.id ? (
+                      // 編輯模式
+                      <EditForm>
+                        <EditRow>
+                          <EditInputGroup>
+                            <label>描述:</label>
+                            <input
+                              type="text"
+                              name="description"
+                              value={editFormData.description}
+                              onChange={handleEditInputChange}
+                              placeholder="消費描述"
+                            />
+                          </EditInputGroup>
+                        </EditRow>
+                        
+                        <EditRow>
+                          <EditInputGroup>
+                            <label>日期:</label>
+                            <input
+                              type="date"
+                              name="date"
+                              value={editFormData.date}
+                              onChange={handleEditInputChange}
+                            />
+                          </EditInputGroup>
+                          
+                          <EditInputGroup>
+                            <label>時間:</label>
+                            <input
+                              type="time"
+                              name="time"
+                              value={editFormData.time}
+                              onChange={handleEditInputChange}
+                            />
+                          </EditInputGroup>
+                        </EditRow>
+                        
+                        <EditActions>
+                          <Button $secondary onClick={cancelEdit}>取消</Button>
+                          <Button $primary onClick={saveEdit}>保存</Button>
+                        </EditActions>
+                      </EditForm>
+                    ) : (
+                      // 顯示模式
+                      <div style={{ flex: 1 }}>
+                        <div><strong>{expense.description}</strong></div>
+                        <div style={{ fontSize: '0.9rem', color: '#666' }}>
+                          <ExpenseAmount>
+                            {expense.fromAmount.toFixed(2)} {expense.fromCurrency} =
+                            {expense.toAmount.toFixed(2)} {expense.toCurrency}
+                          </ExpenseAmount>
+                          <span> · 匯率: {expense.rate.toFixed(4)} · </span>
+                          <span>
+                            {/* Use formatDateTime for new data (has dateTime) or formatDateOnly for old data (only has date) */}
+                            {expense.dateTime ? formatDateTime(expense.dateTime) : formatDateOnly(expense.date)}
+                          </span>
+                        </div>
                       </div>
+                    )}
+                    <div>
+                      {editingExpenseId === expense.id ? (
+                        <Button $secondary onClick={cancelEdit}>取消</Button>
+                      ) : (
+                        <>
+                          <Button $secondary onClick={() => startEditing(expense)} style={{ marginRight: '0.5rem' }}>編輯</Button>
+                          <Button $danger onClick={() => deleteExpense(expense.id)}>刪除</Button>
+                        </>
+                      )}
                     </div>
-                    <Button $danger onClick={() => deleteExpense(expense.id)}>刪除</Button>
                   </ExpenseItem>
                 ))}
               </ExpenseList>
