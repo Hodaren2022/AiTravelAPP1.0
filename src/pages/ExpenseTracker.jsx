@@ -550,9 +550,22 @@ const ExpenseTracker = () => {
     const expense = {
       id: Date.now().toString(),
       description: newExpense.description,
-      // Capture current date AND time for recording
-      // Using new Date().toISOString() captures the exact moment of recording
-      dateTime: new Date().toISOString(),
+      // Capture date and time for recording.
+      // If the user selected a date in the form (`newExpense.date`), use that date
+      // combined with the current time so the record's day matches the user's selection.
+      // If no date was selected, fall back to the current moment.
+      dateTime: (() => {
+        const now = new Date();
+        if (newExpense.date) {
+          const pad = (n) => n.toString().padStart(2, '0');
+          const hh = pad(now.getHours());
+          const mm = pad(now.getMinutes());
+          const ss = pad(now.getSeconds());
+          const localDateTime = `${newExpense.date}T${hh}:${mm}:${ss}`;
+          return new Date(localDateTime).toISOString();
+        }
+        return now.toISOString();
+      })(),
       // Also keep the date field from the form for the input display
       date: newExpense.date,
       currencyPair: selectedPair,
@@ -995,9 +1008,7 @@ const ExpenseTracker = () => {
                       </div>
                     )}
                     <div>
-                      {editingExpenseId === expense.id ? (
-                        <Button $secondary onClick={cancelEdit}>取消</Button>
-                      ) : (
+                      {editingExpenseId === expense.id ? null : (
                         <>
                           <Button $secondary onClick={() => startEditing(expense)} style={{ marginRight: '0.5rem' }}>編輯</Button>
                           <Button $danger onClick={() => deleteExpense(expense.id)}>刪除</Button>
