@@ -41,8 +41,8 @@ const AppContainer = styled.div`
 `;
 
 const Header = styled.header`
-  background-color: #2c3e50;
-  color: white;
+  background-color: var(--theme-2, #2c3e50);
+  color: var(--theme-4, white);
   padding: 1rem;
   text-align: center;
 `;
@@ -50,7 +50,7 @@ const Header = styled.header`
 const MainContent = styled.main`
   flex: 1;
   padding: 1rem;
-  background-color: #f5f5f5;
+  background-color: var(--theme-1, #f5f5f5);
   
   @media (max-width: 768px) {
     padding: 0.8rem 0.5rem;
@@ -58,7 +58,7 @@ const MainContent = styled.main`
 `;
 
 const Navigation = styled.nav`
-  background-color: #34495e;
+  background-color: var(--theme-3, #34495e);
   padding: 0.5rem;
   display: flex;
   justify-content: space-around;
@@ -78,17 +78,17 @@ const Navigation = styled.nav`
 `;
 
 const NavItem = styled(NavLink)`
-  color: white;
+  color: var(--theme-4, white);
   text-decoration: none;
   padding: 0.5rem;
   border-radius: 4px;
   
   &.active {
-    background-color: #1abc9c;
+    background-color: var(--theme-2, #1abc9c);
   }
   
   &:hover {
-    background-color: #3498db;
+    background-color: var(--theme-2, #3498db);
   }
   
   @media (max-width: 768px) {
@@ -155,7 +155,7 @@ function App() {
       <FontStyleInjector /> {/* 在這裡注入全域字體樣式 */}
       <AppContainer>
         <Header>
-          <h1>旅遊應用程序 v1.1Ai</h1>
+          <h1>旅遊應用程序 v1.2Ai</h1>
         </Header>
         
         <Navigation>

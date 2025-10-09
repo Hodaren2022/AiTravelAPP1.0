@@ -129,6 +129,96 @@ const StorageDetails = styled.div` display: grid; grid-template-columns: repeat(
 const StorageItem = styled.div` display: flex; justify-content: space-between; padding: 0.25rem 0; border-bottom: 1px solid #eee; &:last-child { border-bottom: none; } `;
 const RefreshButton = styled.button` background-color: #95a5a6; color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-left: auto; `;
 
+// Color theme selection styled components
+const PaletteGrid = styled.div`
+  display: grid;
+  /* single column on desktop to avoid side-by-side overlap */
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+`;
+
+const PaletteCard = styled.div`
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 0.6rem;
+  display: grid;
+  grid-template-columns: 1fr minmax(160px, 220px); /* content | actions */
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+  min-height: 56px;
+  transition: box-shadow 0.15s ease, transform 0.08s ease;
+  &:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+`;
+
+const SwatchRow = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-shrink: 0;
+`;
+
+const Swatch = styled.div`
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.08);
+  flex-shrink: 0;
+`;
+
+const PaletteLabel = styled.div`
+  font-size: 0.95rem;
+  color: #333;
+  margin-left: 0.75rem;
+  white-space: nowrap; /* prevent vertical wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const SelectedMark = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #1abc9c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+`;
+
+// Inline button for palette actions (no extra top margin)
+const InlineButton = styled(Button)`
+  margin-top: 0;
+  padding: 0.35rem 0.6rem;
+  min-width: 64px;
+  font-size: 0.9rem;
+`;
+
+// Action group to align buttons in the same column
+const ActionGroup = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 220px; /* fixed column width for alignment */
+  flex-shrink: 0;
+  @media (max-width: 600px) {
+    /* on small screens, allow actions to flow and align right below content */
+    min-width: auto;
+    justify-content: flex-end;
+    width: 100%;
+    padding-left: 6px;
+  }
+`;
+
 const availablePages = [
   { id: 'tripManagement', name: '行程管理', path: '/', default: true },
   { id: 'dailyItinerary', name: '每日行程', path: '/daily', default: true },
@@ -156,7 +246,36 @@ const defaultFontSizes = {
 };
 
 const Settings = () => {
-  const { fontSizes, setFontSizes } = useTrip();
+  const { fontSizes, setFontSizes, previewThemeFn, applyThemeFn, clearThemeFn, appliedTheme } = useTrip();
+
+  // color palettes
+  const colorPalettes = [
+    { id: 'pink', name: '粉紅色系', colors: ['#FCF9EA','#BADFDB','#FFA4A4','#FFBDBD'] },
+    { id: 'violet', name: '紫羅蘭', colors: ['#4E56C0','#9B5DE0','#D78FEE','#FDCFFA'] },
+    { id: 'lightPurple', name: '淺紫調', colors: ['#FFF2E0','#C0C9EE','#A2AADB','#898AC4'] },
+    { id: 'sunset', name: '強烈晚霞', colors: ['#FFB200','#EB5B00','#D91656','#640D5F'] },
+    { id: 'matureOrange', name: '成熟橘', colors: ['#32012F','#524C42','#E2DFD0','#F97300'] }
+  ];
+
+  const [colorTheme, setColorTheme] = useState(appliedTheme ? appliedTheme.id : null);
+
+  useEffect(() => {
+    setColorTheme(appliedTheme ? appliedTheme.id : null);
+  }, [appliedTheme]);
+
+  const handlePreview = (p) => {
+    previewThemeFn(p);
+  };
+
+  const handleApply = (p) => {
+    applyThemeFn(p);
+    setColorTheme(p.id);
+  };
+
+  const handleClear = () => {
+    clearThemeFn();
+    setColorTheme(null);
+  };
 
   const [pageSettings, setPageSettings] = useState(() => {
     const savedSettings = localStorage.getItem('pageSettings');
@@ -271,6 +390,34 @@ const Settings = () => {
         ))}
         <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
             <Button onClick={resetFontSizes} style={{backgroundColor: '#95a5a6'}}>重置字體</Button>
+        </div>
+
+        <div style={{ marginTop: '1rem' }}>
+          <h4>介面色調</h4>
+          <p>選擇一組配色，系統會儲存你的選擇以供跨頁面使用：</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+            <div />
+            <div>
+              <Button onClick={handleClear} style={{ backgroundColor: '#e74c3c' }}>清除色調</Button>
+            </div>
+          </div>
+          <PaletteGrid>
+            {colorPalettes.map(p => (
+              <PaletteCard key={p.id} style={{ borderColor: colorTheme === p.id ? '#1abc9c' : undefined }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <SwatchRow>
+                    {p.colors.map((c, idx) => <Swatch key={idx} style={{ backgroundColor: c }} />)}
+                  </SwatchRow>
+                  <PaletteLabel>{p.name}</PaletteLabel>
+                </div>
+                <ActionGroup>
+                  <InlineButton onClick={() => handlePreview(p)} style={{ backgroundColor: '#95a5a6' }}>預覽</InlineButton>
+                  <InlineButton onClick={() => handleApply(p)}>套用</InlineButton>
+                  {colorTheme === p.id ? <SelectedMark>✓</SelectedMark> : <div style={{ width:20 }} />}
+                </ActionGroup>
+              </PaletteCard>
+            ))}
+          </PaletteGrid>
         </div>
       </Card>
 
