@@ -743,7 +743,7 @@ const TripManagement = () => {
             <ModalContent onClick={e => e.stopPropagation()}>
               <CloseButton onClick={closeAiModal}>&times;</CloseButton>
               <h3>AI 辨識行程</h3>
-              <p style={{ margin: '1rem 0', color: '#666' }}>請在下方貼上您的行程文字，AI 將嘗試自動為您分析並填入表單。</p>
+              <p style={{ margin: '1rem 0', color: '#666' }}>請在下方貼上您的行程文字，AI 將嘗試自動為您分析並填入表單。<br/>建議可以使用Gemini或ChatGPT等App將各種旅遊文件整理成有條理的文字資訊貼於下方</p>
               <textarea
                 style={{ width: '100%', minHeight: '250px', marginTop: '1rem', padding: '0.75rem', border: '1px solid #ccc', borderRadius: '4px', fontSize: '1rem', boxSizing: 'border-box' }}
                 value={aiInputText}
