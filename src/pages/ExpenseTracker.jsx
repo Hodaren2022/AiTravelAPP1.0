@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useTrip } from '../contexts/TripContext';
 
@@ -191,6 +191,12 @@ const ExpenseTracker = () => {
     return savedExpenses ? JSON.parse(savedExpenses) : {};
   });
 
+  // 為每個行程記憶選擇的幣別對
+  const [tripCurrencyPreferences, setTripCurrencyPreferences] = useState(() => {
+    const savedPreferences = localStorage.getItem('tripCurrencyPreferences');
+    return savedPreferences ? JSON.parse(savedPreferences) : {};
+  });
+
   // 貨幣轉換相關狀態
   const [selectedPair, setSelectedPair] = useState('TWD_JPY');
   const [fromAmount, setFromAmount] = useState('');
@@ -230,7 +236,7 @@ const ExpenseTracker = () => {
   });
 
   // 動態貨幣對選項
-  const allCurrencyPairs = [
+  const allCurrencyPairs = useMemo(() => [
     { id: 'TWD_JPY', name: '台幣 → 日幣', fromCode: 'TWD', toCode: 'JPY' },
     { id: 'TWD_USD', name: '台幣 → 美金', fromCode: 'TWD', toCode: 'USD' },
     { id: 'TWD_CNY', name: '台幣 → 人民幣', fromCode: 'TWD', toCode: 'CNY' },
@@ -245,7 +251,7 @@ const ExpenseTracker = () => {
         rate: pair.rate
     })),
     { id: 'TWD_CUSTOM_NEW', name: '自訂匯率 (新增)', fromCode: 'TWD', toCode: 'CUSTOM_NEW' }
-  ];
+  ], [savedCustomCurrencyPairs]);
 
 
   // 保存消費記錄到localStorage
@@ -257,6 +263,11 @@ const ExpenseTracker = () => {
   useEffect(() => {
     localStorage.setItem('savedCustomCurrencyPairs', JSON.stringify(savedCustomCurrencyPairs));
   }, [savedCustomCurrencyPairs]);
+
+  // 保存行程幣別偏好到localStorage
+  useEffect(() => {
+    localStorage.setItem('tripCurrencyPreferences', JSON.stringify(tripCurrencyPreferences));
+  }, [tripCurrencyPreferences]);
 
 
   // 獲取匯率數據
@@ -322,24 +333,72 @@ const ExpenseTracker = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  // 當選擇的行程改變時，載入該行程記憶的幣別選擇
+  useEffect(() => {
+    if (selectedTripId) {
+      // 確保選定行程的消費記錄存在
+      if (!expenses[selectedTripId]) {
+        setExpenses(prev => ({
+          ...prev,
+          [selectedTripId]: []
+        }));
+      }
+      
+      // 載入該行程記憶的幣別選擇
+      if (tripCurrencyPreferences[selectedTripId]) {
+        setSelectedPair(tripCurrencyPreferences[selectedTripId]);
+        
+        // 如果是自訂匯率，需要設置相關狀態
+        const savedPairId = tripCurrencyPreferences[selectedTripId];
+        const savedPair = allCurrencyPairs.find(p => p.id === savedPairId);
+        if (savedPair && savedPair.rate) {
+          setUseManualRate(true);
+          setCustomCurrencyCode(savedPair.toCode);
+          setCustomCurrencyRate(savedPair.rate.toString());
+          setManualRate(savedPair.rate.toString());
+        } else if (savedPairId === 'TWD_CUSTOM_NEW') {
+          setUseManualRate(true);
+        } else {
+          // 對於標準幣別對，確保不使用手動匯率
+          setUseManualRate(false);
+          setCustomCurrencyCode('');
+          setCustomCurrencyRate('');
+          setManualRate('');
+        }
+      } else {
+        // 如果沒有記憶的幣別選擇，使用預設值
+        setSelectedPair('TWD_JPY');
+        setUseManualRate(false);
+        setCustomCurrencyCode('');
+        setCustomCurrencyRate('');
+        setManualRate('');
+      }
+      
+      // 清空金額輸入
+      setFromAmount('');
+      setToAmount('');
+    }
+  }, [selectedTripId, expenses, allCurrencyPairs, tripCurrencyPreferences]);
+
   // 處理行程選擇變更
   const handleTripChange = (e) => {
     const tripId = e.target.value;
     setSelectedTripId(tripId);
-
-    // 確保選定行程的消費記錄存在
-    if (tripId && !expenses[tripId]) {
-      setExpenses(prev => ({
-        ...prev,
-        [tripId]: []
-      }));
-    }
   };
 
   // 處理貨幣對選擇變更
   const handlePairChange = (e) => {
     const selectedValue = e.target.value;
     setSelectedPair(selectedValue);
+    
+    // 記住這個行程的幣別選擇
+    if (selectedTripId) {
+      setTripCurrencyPreferences(prev => ({
+        ...prev,
+        [selectedTripId]: selectedValue
+      }));
+    }
+    
     setFromAmount('');
     setToAmount('');
 
@@ -504,6 +563,15 @@ const ExpenseTracker = () => {
     });
 
     setSelectedPair(`TWD_${newPair.toCode}`);
+    
+    // 記住這個行程的幣別選擇
+    if (selectedTripId) {
+      setTripCurrencyPreferences(prev => ({
+        ...prev,
+        [selectedTripId]: `TWD_${newPair.toCode}`
+      }));
+    }
+    
     setManualRate(newPair.rate.toString());
   };
 
@@ -514,7 +582,16 @@ const ExpenseTracker = () => {
 
       if (window.confirm(`確定要刪除 ${pair.toCode} 這個自訂匯率嗎？`)) {
           setSavedCustomCurrencyPairs(prev => prev.filter(p => p.toCode !== pair.toCode));
-          setSelectedPair('TWD_JPY'); // Reset to default
+          setSelectedPair('TWD_JPY');
+          
+          // 更新行程的幣別選擇記憶
+          if (selectedTripId) {
+            setTripCurrencyPreferences(prev => ({
+              ...prev,
+              [selectedTripId]: 'TWD_JPY'
+            }));
+          }
+          
           setCustomCurrencyCode('');
           setCustomCurrencyRate('');
           setManualRate('');
