@@ -958,48 +958,24 @@ const ExpenseTracker = () => {
     setExpandedCategory(expandedCategory === categoryName ? null : categoryName);
   };
 
-  // 更新下一次分類時間顯示（每秒更新一次，顯示動態倒計時）
+  // 修改自動分類的 useEffect，每 5 秒分類並設定下一次分類時間
   useEffect(() => {
     if (!selectedTripId) return;
-    
-    const updateTimer = setInterval(() => {
-      const now = new Date();
-      // 計算下一次分類時間（距離現在最近的5秒間隔）
-      // 因為是每5秒執行一次，所以下一次是當前時間+5秒
-      setNextCategorizationTime(new Date(now.getTime() + 5000));
-    }, 1000); // 每秒更新一次顯示
-    
-    return () => clearInterval(updateTimer);
-  }, [selectedTripId]);
-
-  // 每5秒自動分析未分類的消費記錄
-  useEffect(() => {
-    if (!selectedTripId) return;
-
-    // 設置5秒間隔
+    // 進入頁面時預設下一次分類時間
+    setNextCategorizationTime(new Date(Date.now() + 5000));
     const intervalId = setInterval(async () => {
-      // 使用函數式更新獲取最新的expenses狀態
       setExpenses(prevExpenses => {
         const currentExpenses = prevExpenses[selectedTripId] || [];
         if (currentExpenses.length === 0) return prevExpenses;
-
-        // 找出所有沒有分類或分類為"其他"的消費記錄（但描述不是空的）
         const currentUncategorized = currentExpenses.filter(expense => 
           expense.description && (!expense.category || expense.category === '其他')
         );
-
-        if (currentUncategorized.length === 0) return prevExpenses; // 沒有需要分類的記錄
-
-        // 批量處理未分類的記錄（每次處理一個，避免過載）
-        const expenseToCategorize = currentUncategorized[0]; // 每次只處理第一個
-        
-        // 異步處理分類
+        if (currentUncategorized.length === 0) return prevExpenses;
+        const expenseToCategorize = currentUncategorized[0];
         categorizeExpense(expenseToCategorize.description).then(category => {
-          // 更新最後一次分類時間
           const now = new Date();
           setLastCategorizationTime(now);
-          
-          // 如果AI分類結果不是"其他"，則更新記錄
+          setNextCategorizationTime(new Date(now.getTime() + 5000)); // 這裡設定!!
           if (category && category !== '其他') {
             setExpenses(prev => {
               const updated = { ...prev };
@@ -1016,13 +992,11 @@ const ExpenseTracker = () => {
         }).catch(error => {
           console.error('自動分類失敗:', error);
         });
-
-        return prevExpenses; // 立即返回，不等待異步操作
+        return prevExpenses;
       });
-    }, 5000); // 每5秒執行一次
-
+    }, 5000);
     return () => clearInterval(intervalId);
-  }, [selectedTripId]); // 只在選定行程改變時重新設置間隔
+  }, [selectedTripId]);
 
   // 繪製圓餅圖
   const renderPieChart = () => {
