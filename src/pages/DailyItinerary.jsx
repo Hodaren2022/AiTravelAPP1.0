@@ -141,6 +141,7 @@ const DailyItinerary = () => {
   const handleEdit = (activity) => {
     setNewActivity(activity);
     setIsEditing(true);
+    setIsModalOpen(true);
   };
   
   const handleDelete = (date, activityId) => {
