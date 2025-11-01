@@ -1,6 +1,7 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import { useTrip } from '../contexts/TripContext';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   max-width: 800px;
@@ -958,24 +959,23 @@ const ExpenseTracker = () => {
     setExpandedCategory(expandedCategory === categoryName ? null : categoryName);
   };
 
-  // 修改自動分類的 useEffect，每 5 秒分類並設定下一次分類時間
-  useEffect(() => {
+  const location = useLocation();
+  const classifyIntervalRef = useRef(null);
+
+  // 處理AI批次分類的函式
+  const runAiCategorization = async () => {
     if (!selectedTripId) return;
-    // 進入頁面時預設下一次分類時間
-    setNextCategorizationTime(new Date(Date.now() + 5000));
-    const intervalId = setInterval(async () => {
-      setExpenses(prevExpenses => {
-        const currentExpenses = prevExpenses[selectedTripId] || [];
-        if (currentExpenses.length === 0) return prevExpenses;
-        const currentUncategorized = currentExpenses.filter(expense => 
-          expense.description && (!expense.category || expense.category === '其他')
-        );
-        if (currentUncategorized.length === 0) return prevExpenses;
-        const expenseToCategorize = currentUncategorized[0];
+    setExpenses(prevExpenses => {
+      const currentExpenses = prevExpenses[selectedTripId] || [];
+      if (currentExpenses.length === 0) return prevExpenses;
+      const currentUncategorized = currentExpenses.filter(expense => 
+        expense.description && (!expense.category || expense.category === '其他')
+      );
+      if (currentUncategorized.length === 0) return prevExpenses;
+      currentUncategorized.forEach(expenseToCategorize => {
         categorizeExpense(expenseToCategorize.description).then(category => {
           const now = new Date();
           setLastCategorizationTime(now);
-          setNextCategorizationTime(new Date(now.getTime() + 5000)); // 這裡設定!!
           if (category && category !== '其他') {
             setExpenses(prev => {
               const updated = { ...prev };
@@ -992,11 +992,38 @@ const ExpenseTracker = () => {
         }).catch(error => {
           console.error('自動分類失敗:', error);
         });
-        return prevExpenses;
       });
-    }, 5000);
-    return () => clearInterval(intervalId);
-  }, [selectedTripId]);
+      return prevExpenses;
+    });
+    setNextCategorizationTime(new Date(Date.now() + 10000));
+  };
+
+  // 每10秒自動分類，只在消費追蹤分頁有效
+  useEffect(() => {
+    if (location.pathname === '/expenses' && selectedTripId) {
+      // 進入頁面立刻執行
+      runAiCategorization();
+      // 清掉舊interval
+      if (classifyIntervalRef.current) clearInterval(classifyIntervalRef.current);
+      // 設定新interval
+      classifyIntervalRef.current = setInterval(() => {
+        runAiCategorization();
+      }, 10000);
+    } else {
+      // 非本頁就清掉interval
+      if (classifyIntervalRef.current) {
+        clearInterval(classifyIntervalRef.current);
+        classifyIntervalRef.current = null;
+      }
+    }
+    // 離開時自動清理
+    return () => {
+      if (classifyIntervalRef.current) {
+        clearInterval(classifyIntervalRef.current);
+        classifyIntervalRef.current = null;
+      }
+    }
+  }, [location.pathname, selectedTripId]);
 
   // 繪製圓餅圖
   const renderPieChart = () => {
