@@ -964,23 +964,13 @@ const ExpenseTracker = () => {
     
     const updateTimer = setInterval(() => {
       const now = new Date();
-      // 檢查是否有未分類的記錄
-      const currentExpenses = expenses[selectedTripId] || [];
-      const hasUncategorized = currentExpenses.some(expense => 
-        expense.description && (!expense.category || expense.category === '其他')
-      );
-      
-      if (hasUncategorized) {
-        // 計算下一次分類時間（距離現在最近的5秒間隔）
-        // 因為是每5秒執行一次，所以下一次是當前時間+5秒
-        setNextCategorizationTime(new Date(now.getTime() + 5000));
-      } else {
-        setNextCategorizationTime(null);
-      }
+      // 計算下一次分類時間（距離現在最近的5秒間隔）
+      // 因為是每5秒執行一次，所以下一次是當前時間+5秒
+      setNextCategorizationTime(new Date(now.getTime() + 5000));
     }, 1000); // 每秒更新一次顯示
     
     return () => clearInterval(updateTimer);
-  }, [selectedTripId, expenses]);
+  }, [selectedTripId]);
 
   // 每5秒自動分析未分類的消費記錄
   useEffect(() => {
