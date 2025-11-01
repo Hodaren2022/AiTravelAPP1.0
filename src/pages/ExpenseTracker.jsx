@@ -216,6 +216,29 @@ const CategoryItem = styled.div`
   background-color: #f8f9fa;
   border-radius: 4px;
   border-left: 4px solid ${props => props.$color || '#ccc'};
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #e9ecef;
+  }
+`;
+
+const ExpenseDetailList = styled.div`
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid ${props => props.$color || '#ccc'};
+`;
+
+const ExpenseDetailItem = styled.div`
+  padding: 0.4rem 0.5rem;
+  margin: 0.3rem 0;
+  background-color: white;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const CategoryLabel = styled.div`
@@ -922,6 +945,14 @@ const ExpenseTracker = () => {
 
   const categoryStats = calculateCategoryStats();
   const top5Categories = categoryStats.slice(0, 5);
+  
+  // 追蹤展開的類別
+  const [expandedCategory, setExpandedCategory] = useState(null);
+  
+  // 切換類別展開狀態
+  const toggleCategoryExpansion = (categoryName) => {
+    setExpandedCategory(expandedCategory === categoryName ? null : categoryName);
+  };
 
   // 每5秒自動分析未分類的消費記錄
   useEffect(() => {
@@ -1317,27 +1348,49 @@ const ExpenseTracker = () => {
 
           {selectedTripExpenses.length > 0 && (
             <PieChartContainer>
+              <h3 style={{ width: '100%', marginTop: 0, marginBottom: '1rem' }}>消費類別統計</h3>
               <PieChartWrapper>
                 {renderPieChart()}
               </PieChartWrapper>
               <CategoryList>
-                <h3 style={{ marginTop: 0, marginBottom: '1rem' }}>消費類別統計</h3>
                 {top5Categories.map((category, index) => {
                   const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6'];
                   const color = colors[index % colors.length];
                   const percentage = totalExpense > 0 ? ((category.total / totalExpense) * 100).toFixed(1) : 0;
+                  const isExpanded = expandedCategory === category.name;
                   
                   return (
-                    <CategoryItem key={category.name} $color={color}>
-                      <CategoryLabel>
-                        <ColorDot $color={color} />
-                        <CategoryName>{category.name}</CategoryName>
-                      </CategoryLabel>
-                      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                        <CategoryAmount>{category.total.toFixed(2)} TWD</CategoryAmount>
-                        <CategoryPercentage>({percentage}%)</CategoryPercentage>
-                      </div>
-                    </CategoryItem>
+                    <div key={category.name}>
+                      <CategoryItem 
+                        $color={color}
+                        onClick={() => toggleCategoryExpansion(category.name)}
+                        title="點擊展開查看細項"
+                      >
+                        <CategoryLabel>
+                          <ColorDot $color={color} />
+                          <CategoryName>{category.name}</CategoryName>
+                        </CategoryLabel>
+                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                          <CategoryAmount>{category.total.toFixed(2)} TWD</CategoryAmount>
+                          <CategoryPercentage>({percentage}%)</CategoryPercentage>
+                          <span style={{ fontSize: '0.8rem', color: '#666' }}>
+                            {isExpanded ? '▼' : '▶'}
+                          </span>
+                        </div>
+                      </CategoryItem>
+                      {isExpanded && category.items && category.items.length > 0 && (
+                        <ExpenseDetailList $color={color}>
+                          {category.items.map(expense => (
+                            <ExpenseDetailItem key={expense.id}>
+                              <span>{expense.description || '未命名消費'}</span>
+                              <span style={{ fontWeight: 'bold', color: '#333' }}>
+                                {expense.fromAmount.toFixed(2)} TWD
+                              </span>
+                            </ExpenseDetailItem>
+                          ))}
+                        </ExpenseDetailList>
+                      )}
+                    </div>
                   );
                 })}
                 {categoryStats.length > 5 && (
