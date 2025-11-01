@@ -177,6 +177,74 @@ const EditActions = styled.div`
   margin-top: 0.5rem;
 `;
 
+const PieChartContainer = styled(Card)`
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+const PieChartWrapper = styled.div`
+  flex: 0 0 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PieChartSvg = styled.svg`
+  width: 250px;
+  height: 250px;
+  transform: rotate(-90deg);
+`;
+
+const CategoryList = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const CategoryItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid ${props => props.$color || '#ccc'};
+`;
+
+const CategoryLabel = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const ColorDot = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: ${props => props.$color || '#ccc'};
+`;
+
+const CategoryName = styled.span`
+  font-weight: 500;
+`;
+
+const CategoryAmount = styled.span`
+  font-weight: bold;
+  color: #333;
+`;
+
+const CategoryPercentage = styled.span`
+  color: #666;
+  font-size: 0.9rem;
+`;
+
 
 // 預設的消費描述選項
 const defaultDescriptions = ["早餐", "午餐", "晚餐", "交通", "點心", "飲料", "伴手", "禮物", "門票"];
@@ -599,6 +667,53 @@ const ExpenseTracker = () => {
       }
   };
 
+  // AI判斷消費類別（基於關鍵字的簡單分類，未來可擴展為真正的AI分類）
+  const categorizeExpense = (description) => {
+    if (!description) return '其他';
+    
+    const desc = description.toLowerCase();
+    
+    // 餐飲相關
+    if (desc.includes('早餐') || desc.includes('午餐') || desc.includes('晚餐') || 
+        desc.includes('點心') || desc.includes('飲料') || desc.includes('咖啡') ||
+        desc.includes('茶') || desc.includes('餐廳') || desc.includes('食物') ||
+        desc.includes('吃') || desc.includes('餐') || desc.includes('飯') ||
+        desc.includes('小吃') || desc.includes('宵夜')) {
+      return '餐飲';
+    }
+    
+    // 交通相關
+    if (desc.includes('交通') || desc.includes('車') || desc.includes('地鐵') ||
+        desc.includes('捷運') || desc.includes('公車') || desc.includes('計程車') ||
+        desc.includes('taxi') || desc.includes('uber') || desc.includes('租車') ||
+        desc.includes('機票') || desc.includes('船') || desc.includes('票')) {
+      return '交通';
+    }
+    
+    // 購物相關
+    if (desc.includes('購物') || desc.includes('買') || desc.includes('伴手') ||
+        desc.includes('禮物') || desc.includes('紀念品') || desc.includes('商品') ||
+        desc.includes('shopping') || desc.includes('mall') || desc.includes('百貨')) {
+      return '購物';
+    }
+    
+    // 住宿相關
+    if (desc.includes('住宿') || desc.includes('飯店') || desc.includes('酒店') ||
+        desc.includes('旅館') || desc.includes('民宿') || desc.includes('hotel') ||
+        desc.includes('房間') || desc.includes('住宿費')) {
+      return '住宿';
+    }
+    
+    // 娛樂相關
+    if (desc.includes('門票') || desc.includes('遊樂園') || desc.includes('景點') ||
+        desc.includes('電影') || desc.includes('娛樂') || desc.includes('玩') ||
+        desc.includes('活動') || desc.includes('表演') || desc.includes('展覽')) {
+      return '娛樂';
+    }
+    
+    // 其他
+    return '其他';
+  };
 
   // 記錄當前轉換
   const recordExpense = () => {
@@ -627,6 +742,7 @@ const ExpenseTracker = () => {
     const expense = {
       id: Date.now().toString(),
       description: newExpense.description,
+      category: categorizeExpense(newExpense.description), // 自動分類
       // Capture date and time for recording.
       // If the user selected a date in the form (`newExpense.date`), use that date
       // combined with the current time so the record's day matches the user's selection.
@@ -732,6 +848,96 @@ const ExpenseTracker = () => {
   };
 
   const totalExpense = calculateTotalExpense();
+
+  // 計算各類別消費統計
+  const calculateCategoryStats = () => {
+    if (!selectedTripId || !selectedTripExpenses.length) return [];
+    
+    const categoryMap = {};
+    
+    selectedTripExpenses.forEach(expense => {
+      const category = expense.category || categorizeExpense(expense.description);
+      if (!categoryMap[category]) {
+        categoryMap[category] = { total: 0, items: [] };
+      }
+      categoryMap[category].total += expense.fromAmount;
+      categoryMap[category].items.push(expense);
+    });
+    
+    // 轉換為數組並排序
+    return Object.entries(categoryMap)
+      .map(([name, data]) => ({
+        name,
+        total: data.total,
+        items: data.items
+      }))
+      .sort((a, b) => b.total - a.total);
+  };
+
+  const categoryStats = calculateCategoryStats();
+  const top5Categories = categoryStats.slice(0, 5);
+
+  // 繪製圓餅圖
+  const renderPieChart = () => {
+    if (categoryStats.length === 0) return null;
+    
+    const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#95a5a6'];
+    const radius = 100;
+    const centerX = 125;
+    const centerY = 125;
+    const total = categoryStats.reduce((sum, cat) => sum + cat.total, 0);
+    
+    let currentAngle = 0;
+    const paths = [];
+    
+    categoryStats.forEach((category, index) => {
+      const percentage = category.total / total;
+      const angle = percentage * 360;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + angle;
+      
+      // 計算扇形路徑
+      const startAngleRad = (startAngle * Math.PI) / 180;
+      const endAngleRad = (endAngle * Math.PI) / 180;
+      
+      const x1 = centerX + radius * Math.cos(startAngleRad);
+      const y1 = centerY + radius * Math.sin(startAngleRad);
+      const x2 = centerX + radius * Math.cos(endAngleRad);
+      const y2 = centerY + radius * Math.sin(endAngleRad);
+      
+      const largeArcFlag = angle > 180 ? 1 : 0;
+      
+      const pathData = [
+        `M ${centerX} ${centerY}`,
+        `L ${x1} ${y1}`,
+        `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
+        'Z'
+      ].join(' ');
+      
+      paths.push({
+        path: pathData,
+        color: colors[index % colors.length],
+        category: category.name,
+        percentage: percentage
+      });
+      
+      currentAngle = endAngle;
+    });
+    
+    return (
+      <PieChartSvg viewBox="0 0 250 250">
+        {paths.map((item, index) => (
+          <path
+            key={index}
+            d={item.path}
+            fill={item.color}
+            stroke="white"
+            strokeWidth="2"
+          />
+        ))}
+      </PieChartSvg>
+    );
+  };
 
   // 編輯功能相關函數
   // 啟動編輯模式
@@ -1014,6 +1220,40 @@ const ExpenseTracker = () => {
 
             <Button $primary onClick={recordExpense}>記錄消費</Button>
           </Card>
+
+          {selectedTripExpenses.length > 0 && (
+            <PieChartContainer>
+              <PieChartWrapper>
+                {renderPieChart()}
+              </PieChartWrapper>
+              <CategoryList>
+                <h3 style={{ marginTop: 0, marginBottom: '1rem' }}>消費類別統計</h3>
+                {top5Categories.map((category, index) => {
+                  const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6'];
+                  const color = colors[index % colors.length];
+                  const percentage = totalExpense > 0 ? ((category.total / totalExpense) * 100).toFixed(1) : 0;
+                  
+                  return (
+                    <CategoryItem key={category.name} $color={color}>
+                      <CategoryLabel>
+                        <ColorDot $color={color} />
+                        <CategoryName>{category.name}</CategoryName>
+                      </CategoryLabel>
+                      <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                        <CategoryAmount>{category.total.toFixed(2)} TWD</CategoryAmount>
+                        <CategoryPercentage>({percentage}%)</CategoryPercentage>
+                      </div>
+                    </CategoryItem>
+                  );
+                })}
+                {categoryStats.length > 5 && (
+                  <div style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#666' }}>
+                    共 {categoryStats.length} 個類別
+                  </div>
+                )}
+              </CategoryList>
+            </PieChartContainer>
+          )}
 
           <Card>
             <h3>消費記錄</h3>
