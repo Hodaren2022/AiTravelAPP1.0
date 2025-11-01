@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 import { useTrip } from '../contexts/TripContext'
 
 const Container = styled.div`
@@ -73,6 +74,7 @@ const CloseButton = styled.button`
 
 const DailyItinerary = () => {
   const { trips, setTrips, selectedTripId, setSelectedTripId } = useTrip();
+  const navigate = useNavigate();
   
   const [newActivity, setNewActivity] = useState({
     id: '',
@@ -154,6 +156,34 @@ const DailyItinerary = () => {
       }
       return trip;
     }));
+  };
+
+  const handleCreateNote = (activity) => {
+    if (!selectedTripId) return;
+    
+    // 準備要帶入旅遊筆記的內容
+    let noteContent = '';
+    if (activity.activity) {
+      noteContent += activity.activity;
+    }
+    if (activity.location) {
+      noteContent += (noteContent ? '\n' : '') + `地點：${activity.location}`;
+    }
+    if (activity.notes) {
+      noteContent += (noteContent ? '\n' : '') + `備註：${activity.notes}`;
+    }
+    
+    // 將資料存儲到 localStorage，讓旅遊筆記頁面可以讀取
+    const noteData = {
+      content: noteContent,
+      date: activity.date,
+      fromActivity: true
+    };
+    localStorage.setItem('pendingNoteFromActivity', JSON.stringify(noteData));
+    
+    // 確保選擇的行程ID是正確的（因為旅遊筆記頁面會使用 selectedTripId）
+    // 導航到旅遊筆記頁面
+    navigate('/notes');
   };
 
   const openAddModal = () => {
@@ -275,6 +305,7 @@ const DailyItinerary = () => {
                             {activity.notes && <p>備註: {activity.notes}</p>}
                             <ButtonGroup>
                               <Button $primary onClick={() => handleEdit(activity)}>編輯</Button>
+                              <Button onClick={() => handleCreateNote(activity)} style={{ backgroundColor: '#27ae60' }}>建立筆記</Button>
                               <Button onClick={() => handleDelete(activity.date, activity.id)}>刪除</Button>
                             </ButtonGroup>
                           </ActivityCard>

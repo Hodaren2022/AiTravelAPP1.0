@@ -188,6 +188,28 @@ const TravelNotes = () => {
     localStorage.setItem('travelNotes', JSON.stringify(notes));
   }, [notes]);
 
+  // 檢查是否有從每日行程帶來的待處理筆記資料
+  useEffect(() => {
+    const pendingNoteData = localStorage.getItem('pendingNoteFromActivity');
+    if (pendingNoteData && !isEditing && selectedTripId) {
+      try {
+        const noteData = JSON.parse(pendingNoteData);
+        // 填充表單資料
+        setNewNote(prev => ({
+          ...prev,
+          content: noteData.content || prev.content,
+          date: noteData.date || prev.date,
+          title: getCurrentDateTime()
+        }));
+        // 清除 localStorage 中的待處理資料
+        localStorage.removeItem('pendingNoteFromActivity');
+      } catch (error) {
+        console.error('解析待處理筆記資料失敗:', error);
+        localStorage.removeItem('pendingNoteFromActivity');
+      }
+    }
+  }, [selectedTripId, isEditing]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (!isEditing && selectedTripId && navigator.geolocation) {
       setGpsStatus('正在獲取位置...');
@@ -367,6 +389,91 @@ const TravelNotes = () => {
 
   const displayLocation = newNote.address ? `${newNote.address} (${newNote.location})` : newNote.location;
 
+  // 找出最接近的每日行程
+  const findClosestActivities = () => {
+    if (!selectedTripId) return [];
+    
+    const selectedTrip = trips.find(trip => trip.id === selectedTripId);
+    if (!selectedTrip || !selectedTrip.dailyItinerary) return [];
+    
+    const now = new Date();
+    const todayStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
+    const currentTime = now.getHours() * 60 + now.getMinutes(); // 轉換為分鐘數
+    
+    // 過濾出今天的行程
+    const todayActivities = selectedTrip.dailyItinerary.filter(activity => activity.date === todayStr);
+    
+    if (todayActivities.length === 0) return [];
+    
+    // 計算每個行程與當前時間的差距
+    const activitiesWithDiff = todayActivities.map(activity => {
+      let timeDiff = Infinity;
+      
+      if (activity.time) {
+        // 如果有時間，計算時間差
+        const [hours, minutes] = activity.time.split(':').map(Number);
+        const activityTime = hours * 60 + minutes;
+        timeDiff = Math.abs(activityTime - currentTime);
+      } else {
+        // 如果沒有時間，設置一個較大的差值（但不要是 Infinity，這樣可以排在後面）
+        timeDiff = 10000; // 24小時後的時間差作為基準
+      }
+      
+      return {
+        ...activity,
+        timeDiff
+      };
+    });
+    
+    // 排序：先按時間差，再按是否有時間
+    activitiesWithDiff.sort((a, b) => {
+      // 如果兩個都有時間，按時間差排序
+      if (a.time && b.time) {
+        return a.timeDiff - b.timeDiff;
+      }
+      // 如果有時間的排在前面
+      if (a.time && !b.time) return -1;
+      if (!a.time && b.time) return 1;
+      // 都沒有時間，保持原順序
+      return 0;
+    });
+    
+    // 返回最接近的兩個（或更少）
+    return activitiesWithDiff.slice(0, 2);
+  };
+
+  const closestActivities = findClosestActivities();
+  
+  // 處理點擊行程推薦按鈕
+  const handleActivityRecommendationClick = (activity) => {
+    let noteContent = '';
+    if (activity.activity) {
+      noteContent += activity.activity;
+    }
+    if (activity.location) {
+      noteContent += (noteContent ? '\n' : '') + `地點：${activity.location}`;
+    }
+    if (activity.notes) {
+      noteContent += (noteContent ? '\n' : '') + `備註：${activity.notes}`;
+    }
+    
+    if (contentRef.current) {
+      const currentContent = newNote.content || '';
+      const newContent = currentContent ? `${currentContent}\n\n${noteContent}` : noteContent;
+      setNewNote(prev => ({ ...prev, content: newContent }));
+      
+      // 設置游標位置到最後
+      setTimeout(() => {
+        if (contentRef.current) {
+          contentRef.current.focus();
+          contentRef.current.setSelectionRange(newContent.length, newContent.length);
+        }
+      }, 0);
+    } else {
+      setNewNote(prev => ({ ...prev, content: (prev.content || '') + (prev.content ? '\n\n' : '') + noteContent }));
+    }
+  };
+
   return (
     <Container>
       <h2>旅遊筆記</h2>
@@ -384,7 +491,23 @@ const TravelNotes = () => {
       {selectedTripId ? (
         <>
           <NoteForm onSubmit={handleSubmit}>
-            <h3>{isEditing ? '編輯筆記' : '新增筆記'}</h3>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+              <h3 style={{ margin: 0 }}>{isEditing ? '編輯筆記' : '新增筆記'}</h3>
+              {!isEditing && closestActivities.length > 0 && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.9rem', color: '#666' }}>是否想要添加以下筆記...</span>
+                  {closestActivities.map((activity, index) => (
+                    <QuickTextButton
+                      key={activity.id || index}
+                      onClick={() => handleActivityRecommendationClick(activity)}
+                      style={{ fontSize: '0.85rem', padding: '0.25rem 0.6rem' }}
+                    >
+                      {activity.time ? `${activity.time} - ` : ''}{activity.activity || '行程活動'}
+                    </QuickTextButton>
+                  ))}
+                </div>
+              )}
+            </div>
             <div>
               <label htmlFor="title">標題</label>
               <input type="text" id="title" name="title" value={newNote.title} onChange={handleInputChange} placeholder="輸入標題（選填）" />
