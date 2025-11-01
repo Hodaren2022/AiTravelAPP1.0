@@ -270,7 +270,7 @@ const DailyItinerary = () => {
                     ) : (
                       activities.map(activity => (
                           <ActivityCard key={activity.id}>
-                            <p><strong>{activity.time}</strong> - {activity.activity}</p>
+                            <p>{activity.time ? <><strong>{activity.time}</strong> - </> : null}{activity.activity}</p>
                             {activity.location && <p>地點: {activity.location}</p>}
                             {activity.notes && <p>備註: {activity.notes}</p>}
                             <ButtonGroup>
@@ -319,14 +319,13 @@ const DailyItinerary = () => {
               </div>
               
               <div>
-                <label htmlFor="time">時間</label>
+                <label htmlFor="time">時間（選填）</label>
                 <input
                   type="time"
                   id="time"
                   name="time"
                   value={newActivity.time}
                   onChange={handleInputChange}
-                  required
                 />
               </div>
               
