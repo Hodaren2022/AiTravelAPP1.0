@@ -667,8 +667,50 @@ const ExpenseTracker = () => {
       }
   };
 
-  // AI判斷消費類別（基於關鍵字的簡單分類，未來可擴展為真正的AI分類）
-  const categorizeExpense = (description) => {
+  // AI判斷消費類別（使用AI分析）
+  const categorizeExpense = async (description) => {
+    if (!description) return '其他';
+    
+    // 先檢查預設按鈕，如果能快速匹配就返回
+    const desc = description.toLowerCase();
+    if (defaultDescriptions.some(descBtn => desc.includes(descBtn.toLowerCase()))) {
+      // 快速匹配預設按鈕
+      if (desc.includes('早餐') || desc.includes('午餐') || desc.includes('晚餐') || 
+          desc.includes('點心') || desc.includes('飲料')) {
+        return '餐飲';
+      }
+      if (desc.includes('交通')) return '交通';
+      if (desc.includes('伴手') || desc.includes('禮物')) return '購物';
+      if (desc.includes('門票')) return '娛樂';
+      if (desc.includes('住宿')) return '住宿';
+      if (desc.includes('購物')) return '購物';
+    }
+    
+    // 如果快速匹配失敗，使用AI分析
+    try {
+      const response = await fetch(`/.netlify/functions/categorize-expense`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ description }),
+      });
+
+      if (!response.ok) {
+        console.error('AI分類失敗:', response.status);
+        return '其他'; // 失敗時返回"其他"
+      }
+
+      const data = await response.json();
+      return data.category || '其他';
+    } catch (error) {
+      console.error('AI分類錯誤:', error);
+      return '其他'; // 錯誤時返回"其他"
+    }
+  };
+
+  // 同步版本的快速分類（用於統計已保存的消費記錄）
+  const quickCategorizeExpense = (description) => {
     if (!description) return '其他';
     
     const desc = description.toLowerCase();
@@ -686,7 +728,7 @@ const ExpenseTracker = () => {
     if (desc.includes('交通') || desc.includes('車') || desc.includes('地鐵') ||
         desc.includes('捷運') || desc.includes('公車') || desc.includes('計程車') ||
         desc.includes('taxi') || desc.includes('uber') || desc.includes('租車') ||
-        desc.includes('機票') || desc.includes('船') || desc.includes('票')) {
+        desc.includes('機票') || desc.includes('船')) {
       return '交通';
     }
     
@@ -704,7 +746,7 @@ const ExpenseTracker = () => {
       return '住宿';
     }
     
-    // 娛樂相關
+    // 娛樂相關（排除交通票，只匹配娛樂票）
     if (desc.includes('門票') || desc.includes('遊樂園') || desc.includes('景點') ||
         desc.includes('電影') || desc.includes('娛樂') || desc.includes('玩') ||
         desc.includes('活動') || desc.includes('表演') || desc.includes('展覽')) {
@@ -716,7 +758,7 @@ const ExpenseTracker = () => {
   };
 
   // 記錄當前轉換
-  const recordExpense = () => {
+  const recordExpense = async () => {
     if (!selectedTripId) {
       alert('請先選擇一個行程');
       return;
@@ -739,10 +781,13 @@ const ExpenseTracker = () => {
         return;
     }
 
+    // 使用AI分類（異步處理）
+    const category = await categorizeExpense(newExpense.description);
+    
     const expense = {
       id: Date.now().toString(),
       description: newExpense.description,
-      category: categorizeExpense(newExpense.description), // 自動分類
+      category: category, // AI自動分類
       // Capture date and time for recording.
       // If the user selected a date in the form (`newExpense.date`), use that date
       // combined with the current time so the record's day matches the user's selection.
@@ -856,7 +901,8 @@ const ExpenseTracker = () => {
     const categoryMap = {};
     
     selectedTripExpenses.forEach(expense => {
-      const category = expense.category || categorizeExpense(expense.description);
+      // 如果已有分類就使用，否則用快速分類（避免異步問題）
+      const category = expense.category || quickCategorizeExpense(expense.description);
       if (!categoryMap[category]) {
         categoryMap[category] = { total: 0, items: [] };
       }
@@ -876,6 +922,54 @@ const ExpenseTracker = () => {
 
   const categoryStats = calculateCategoryStats();
   const top5Categories = categoryStats.slice(0, 5);
+
+  // 每5秒自動分析未分類的消費記錄
+  useEffect(() => {
+    if (!selectedTripId) return;
+
+    // 設置5秒間隔
+    const intervalId = setInterval(async () => {
+      // 使用函數式更新獲取最新的expenses狀態
+      setExpenses(prevExpenses => {
+        const currentExpenses = prevExpenses[selectedTripId] || [];
+        if (currentExpenses.length === 0) return prevExpenses;
+
+        // 找出所有沒有分類或分類為"其他"的消費記錄（但描述不是空的）
+        const currentUncategorized = currentExpenses.filter(expense => 
+          expense.description && (!expense.category || expense.category === '其他')
+        );
+
+        if (currentUncategorized.length === 0) return prevExpenses; // 沒有需要分類的記錄
+
+        // 批量處理未分類的記錄（每次處理一個，避免過載）
+        const expenseToCategorize = currentUncategorized[0]; // 每次只處理第一個
+        
+        // 異步處理分類
+        categorizeExpense(expenseToCategorize.description).then(category => {
+          // 如果AI分類結果不是"其他"，則更新記錄
+          if (category && category !== '其他') {
+            setExpenses(prev => {
+              const updated = { ...prev };
+              if (updated[selectedTripId]) {
+                updated[selectedTripId] = updated[selectedTripId].map(expense =>
+                  expense.id === expenseToCategorize.id
+                    ? { ...expense, category }
+                    : expense
+                );
+              }
+              return updated;
+            });
+          }
+        }).catch(error => {
+          console.error('自動分類失敗:', error);
+        });
+
+        return prevExpenses; // 立即返回，不等待異步操作
+      });
+    }, 5000); // 每5秒執行一次
+
+    return () => clearInterval(intervalId);
+  }, [selectedTripId]); // 只在選定行程改變時重新設置間隔
 
   // 繪製圓餅圖
   const renderPieChart = () => {
