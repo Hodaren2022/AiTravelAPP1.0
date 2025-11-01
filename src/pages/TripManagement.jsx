@@ -249,6 +249,12 @@ const TripManagement = () => {
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
   const [aiInputText, setAiInputText] = useState('');
   const [isAiLoading, setIsAiLoading] = useState(false); // Loading state for AI
+  
+  // --- AI Supplement State ---
+  const [isAiSupplementModalOpen, setIsAiSupplementModalOpen] = useState(false);
+  const [selectedTripForSupplement, setSelectedTripForSupplement] = useState('');
+  const [aiSupplementText, setAiSupplementText] = useState('');
+  const [isAiSupplementLoading, setIsAiSupplementLoading] = useState(false);
 
   const initialTripState = { id: '', name: '', destination: '', startDate: '', endDate: '', description: '', flights: [], hotels: [], dailyItinerary: [] };
   const initialFlightState = { date: '', airline: '', flightNumber: '', departureCity: '', arrivalCity: '', departureTime: '', arrivalTime: '', departureTimezone: 'UTC+8（中港澳台 / 中原標準）', arrivalTimezone: 'UTC+8（中港澳台 / 中原標準）', customAirline: '', duration: '' };
@@ -261,14 +267,14 @@ const TripManagement = () => {
 
   useEffect(() => {
     const bodyClassList = document.body.classList;
-    const hasModalOpen = isModalOpen || isChoiceModalOpen || isAiModalOpen;
+    const hasModalOpen = isModalOpen || isChoiceModalOpen || isAiModalOpen || isAiSupplementModalOpen;
     if (hasModalOpen) {
       bodyClassList.add('modal-open');
     } else {
       bodyClassList.remove('modal-open');
     }
     return () => bodyClassList.remove('modal-open');
-  }, [isModalOpen, isChoiceModalOpen, isAiModalOpen]);
+  }, [isModalOpen, isChoiceModalOpen, isAiModalOpen, isAiSupplementModalOpen]);
 
   // 卡片選定邏輯：監聽滾動事件，自動選定中間的卡片
   useEffect(() => {
@@ -558,6 +564,108 @@ const TripManagement = () => {
     setAiInputText('');
   };
 
+  // --- AI Supplement Modal Handlers ---
+  const openAiSupplementModal = () => {
+    setIsChoiceModalOpen(false);
+    setIsAiSupplementModalOpen(true);
+  };
+
+  const closeAiSupplementModal = () => {
+    setIsAiSupplementModalOpen(false);
+    setAiSupplementText('');
+    setSelectedTripForSupplement('');
+  };
+
+  const handleAiSupplementSubmit = async () => {
+    if (!selectedTripForSupplement) {
+      alert("請選擇要補充的行程。");
+      return;
+    }
+    if (!aiSupplementText.trim()) {
+      alert("請輸入要補充的行程文字。");
+      return;
+    }
+    
+    setIsAiSupplementLoading(true);
+    try {
+      const response = await fetch(`/.netlify/functions/analyze-itinerary`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: aiSupplementText }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`伺服器錯誤: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // 將AI分析的結果合併到選定的行程中
+      setTrips(prevTrips => prevTrips.map(trip => {
+        if (trip.id === selectedTripForSupplement) {
+          const existingFlights = trip.flights || [];
+          const existingHotels = trip.hotels || [];
+          const existingDailyItinerary = trip.dailyItinerary || [];
+
+          // 為新項目生成唯一ID並合併
+          const newFlights = (data.flights || []).map(flight => ({
+            ...flight,
+            id: flight.id || Date.now().toString() + Math.random().toString(36).substr(2, 9)
+          }));
+          
+          const newHotels = (data.hotels || []).map(hotel => ({
+            ...hotel,
+            id: hotel.id || Date.now().toString() + Math.random().toString(36).substr(2, 9)
+          }));
+          
+          const newDailyItinerary = (data.dailyItinerary || []).map(item => ({
+            ...item,
+            id: item.id || Date.now().toString() + Math.random().toString(36).substr(2, 9)
+          }));
+
+          const updatedTrip = {
+            ...trip,
+            flights: sortFlights([...existingFlights, ...newFlights]),
+            hotels: [...existingHotels, ...newHotels],
+            dailyItinerary: [...existingDailyItinerary, ...newDailyItinerary],
+          };
+
+          // 如果有新的基本資訊（名稱、目的地、日期等），可以選擇性更新
+          if (data.tripName && !trip.name) {
+            updatedTrip.name = data.tripName;
+          }
+          if (data.destination && !trip.destination) {
+            updatedTrip.destination = data.destination;
+          }
+          if (data.startDate && !trip.startDate) {
+            updatedTrip.startDate = data.startDate;
+          }
+          if (data.endDate && !trip.endDate) {
+            updatedTrip.endDate = data.endDate;
+          }
+          if (data.description && !trip.description) {
+            updatedTrip.description = data.description;
+          }
+
+          return updatedTrip;
+        }
+        return trip;
+      }));
+
+      closeAiSupplementModal();
+      const addedCount = (data.flights?.length || 0) + (data.hotels?.length || 0) + (data.dailyItinerary?.length || 0);
+      showToast(`已成功補充 ${addedCount} 項資訊至行程中`);
+
+    } catch (error) {
+      console.error("AI 補充失敗:", error);
+      alert(`AI 補充失敗: ${error.message}`);
+    } finally {
+      setIsAiSupplementLoading(false);
+    }
+  };
+
   const handleAiSubmit = async () => {
     if (!aiInputText.trim()) {
       alert("請輸入行程文字。");
@@ -729,9 +837,10 @@ const TripManagement = () => {
             <ModalContent onClick={e => e.stopPropagation()}>
               <CloseButton onClick={() => setIsChoiceModalOpen(false)}>&times;</CloseButton>
               <h3 style={{ textAlign: 'center', marginBottom: '2rem' }}>選擇新增方式</h3>
-              <ButtonGroup style={{ justifyContent: 'center', gap: '1rem' }}>
+              <ButtonGroup style={{ justifyContent: 'center', gap: '1rem', flexDirection: 'column' }}>
                 <Button onClick={openAddModal} $choiceButton style={{ padding: '1rem 2rem' }}>手動輸入行程</Button>
                 <Button onClick={openAiModal} $choiceButton style={{ padding: '1rem 2rem' }}>AI 辨識行程</Button>
+                <Button onClick={openAiSupplementModal} $choiceButton style={{ padding: '1rem 2rem' }}>Ai行程補充</Button>
               </ButtonGroup>
             </ModalContent>
           </ModalBackdrop>
@@ -755,6 +864,64 @@ const TripManagement = () => {
                 <Button type="button" onClick={handleAiSubmit} $primary disabled={isAiLoading}>
                   {isAiLoading ? '辨識中...' : '開始辨識'}
                 </Button>
+              </ButtonGroup>
+            </ModalContent>
+          </ModalBackdrop>
+        )}
+
+        {/* --- AI Supplement Modal --- */}
+        {isAiSupplementModalOpen && (
+          <ModalBackdrop onClick={closeAiSupplementModal}>
+            <ModalContent onClick={e => e.stopPropagation()}>
+              <CloseButton onClick={closeAiSupplementModal}>&times;</CloseButton>
+              <h3>Ai行程補充</h3>
+              <p style={{ margin: '1rem 0', color: '#666' }}>
+                請選擇要補充的行程，然後貼上要補充的行程文字，AI 將自動分析並添加至該行程的對應類別中。
+              </p>
+              
+              {trips.length === 0 ? (
+                <div style={{ padding: '2rem', textAlign: 'center', color: '#e74c3c' }}>
+                  <p>目前沒有任何行程，請先建立行程後再使用此功能。</p>
+                </div>
+              ) : (
+                <>
+                  <FormGroup>
+                    <label htmlFor="selectedTripForSupplement">選擇要補充的行程</label>
+                    <select
+                      id="selectedTripForSupplement"
+                      value={selectedTripForSupplement}
+                      onChange={(e) => setSelectedTripForSupplement(e.target.value)}
+                      style={{ width: '100%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px', fontSize: '1rem', boxSizing: 'border-box' }}
+                    >
+                      <option value="">-- 請選擇行程 --</option>
+                      {trips.map(trip => (
+                        <option key={trip.id} value={trip.id}>
+                          {trip.name} ({trip.startDate} 至 {trip.endDate})
+                        </option>
+                      ))}
+                    </select>
+                  </FormGroup>
+                  
+                  <FormGroup>
+                    <label htmlFor="aiSupplementText">補充的行程文字</label>
+                    <textarea
+                      id="aiSupplementText"
+                      style={{ width: '100%', minHeight: '250px', marginTop: '0.5rem', padding: '0.75rem', border: '1px solid #ccc', borderRadius: '4px', fontSize: '1rem', boxSizing: 'border-box' }}
+                      value={aiSupplementText}
+                      onChange={(e) => setAiSupplementText(e.target.value)}
+                      placeholder="例如：&#10;- 航班：中華航空 CI751 8/15 09:20 TPE -> SIN&#10;- 飯店：濱海灣金沙酒店 8/15-8/18&#10;- 活動：8/16 早上 10:00 環球影城"
+                    />
+                  </FormGroup>
+                </>
+              )}
+              
+              <ButtonGroup>
+                <Button type="button" onClick={closeAiSupplementModal} disabled={isAiSupplementLoading}>取消</Button>
+                {trips.length > 0 && (
+                  <Button type="button" onClick={handleAiSupplementSubmit} $primary disabled={isAiSupplementLoading}>
+                    {isAiSupplementLoading ? '分析中...' : '開始補充'}
+                  </Button>
+                )}
               </ButtonGroup>
             </ModalContent>
           </ModalBackdrop>
