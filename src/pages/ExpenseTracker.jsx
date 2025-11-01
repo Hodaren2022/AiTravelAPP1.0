@@ -270,7 +270,7 @@ const CategoryPercentage = styled.span`
 
 
 // 預設的消費描述選項
-const defaultDescriptions = ["早餐", "午餐", "晚餐", "交通", "點心", "飲料", "伴手", "禮物", "門票", "住宿", "購物"];
+const defaultDescriptions = ["早餐", "午餐", "晚餐", "交通", "點心", "飲料", "伴手", "禮物", "門票", "住宿", "購物", "文件", "電信"];
 
 
 const ExpenseTracker = () => {
