@@ -949,10 +949,38 @@ const ExpenseTracker = () => {
   // 追蹤展開的類別
   const [expandedCategory, setExpandedCategory] = useState(null);
   
+  // 追蹤AI分類時間
+  const [lastCategorizationTime, setLastCategorizationTime] = useState(null);
+  const [nextCategorizationTime, setNextCategorizationTime] = useState(null);
+  
   // 切換類別展開狀態
   const toggleCategoryExpansion = (categoryName) => {
     setExpandedCategory(expandedCategory === categoryName ? null : categoryName);
   };
+
+  // 更新下一次分類時間顯示（每秒更新一次，顯示動態倒計時）
+  useEffect(() => {
+    if (!selectedTripId) return;
+    
+    const updateTimer = setInterval(() => {
+      const now = new Date();
+      // 檢查是否有未分類的記錄
+      const currentExpenses = expenses[selectedTripId] || [];
+      const hasUncategorized = currentExpenses.some(expense => 
+        expense.description && (!expense.category || expense.category === '其他')
+      );
+      
+      if (hasUncategorized) {
+        // 計算下一次分類時間（距離現在最近的5秒間隔）
+        // 因為是每5秒執行一次，所以下一次是當前時間+5秒
+        setNextCategorizationTime(new Date(now.getTime() + 5000));
+      } else {
+        setNextCategorizationTime(null);
+      }
+    }, 1000); // 每秒更新一次顯示
+    
+    return () => clearInterval(updateTimer);
+  }, [selectedTripId, expenses]);
 
   // 每5秒自動分析未分類的消費記錄
   useEffect(() => {
@@ -977,6 +1005,10 @@ const ExpenseTracker = () => {
         
         // 異步處理分類
         categorizeExpense(expenseToCategorize.description).then(category => {
+          // 更新最後一次分類時間
+          const now = new Date();
+          setLastCategorizationTime(now);
+          
           // 如果AI分類結果不是"其他"，則更新記錄
           if (category && category !== '其他') {
             setExpenses(prev => {
@@ -1396,6 +1428,16 @@ const ExpenseTracker = () => {
                 {categoryStats.length > 5 && (
                   <div style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#666' }}>
                     共 {categoryStats.length} 個類別
+                  </div>
+                )}
+                {(lastCategorizationTime || nextCategorizationTime) && (
+                  <div style={{ marginTop: '1rem', paddingTop: '0.5rem', borderTop: '1px solid #eee', fontSize: '0.75rem', color: '#999', textAlign: 'center' }}>
+                    {lastCategorizationTime && (
+                      <div>AI最後分類時間：{lastCategorizationTime.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>
+                    )}
+                    {nextCategorizationTime && (
+                      <div>預計下次分類：{nextCategorizationTime.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</div>
+                    )}
                   </div>
                 )}
               </CategoryList>
