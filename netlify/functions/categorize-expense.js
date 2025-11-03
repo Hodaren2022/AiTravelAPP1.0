@@ -22,16 +22,47 @@ ${CATEGORIES.join('、')}
 消費描述：${description}
 `;
 
+// 統一的CORS標頭配置
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Max-Age': '86400'
+};
+
 export const handler = async (event) => {
+  // 處理OPTIONS預檢請求
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: CORS_HEADERS,
+      body: ''
+    };
+  }
+
   // 檢查 HTTP 方法是否為 POST
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+    return { 
+      statusCode: 405, 
+      headers: {
+        'Content-Type': 'application/json',
+        ...CORS_HEADERS
+      },
+      body: JSON.stringify({ error: 'Method Not Allowed' })
+    };
   }
 
   try {
     const { description } = JSON.parse(event.body);
     if (!description) {
-      return { statusCode: 400, body: 'Bad Request: description is required' };
+      return { 
+        statusCode: 400, 
+        headers: {
+          'Content-Type': 'application/json',
+          ...CORS_HEADERS
+        },
+        body: JSON.stringify({ error: 'Bad Request: description is required' })
+      };
     }
 
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
@@ -60,7 +91,7 @@ export const handler = async (event) => {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        ...CORS_HEADERS
       },
       body: JSON.stringify({ category }),
     };
@@ -71,7 +102,7 @@ export const handler = async (event) => {
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        ...CORS_HEADERS
       },
       body: JSON.stringify({ error: error.message, category: '其他' }),
     };

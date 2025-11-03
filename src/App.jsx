@@ -2,6 +2,7 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useTrip, TripProvider } from './contexts/TripContext';
+import { AIAssistantProvider } from './contexts/AIAssistantContext';
 
 // 頁面組件
 import TripManagement from './pages/TripManagement';
@@ -14,6 +15,11 @@ import DataManagement from './pages/DataManagement';
 import ExpenseTracker from './pages/ExpenseTracker';
 import Notes from './pages/Notes';
 import Settings from './pages/Settings';
+
+// AI助手組件
+import FloatingButton from './components/FloatingButton';
+import ChatDialog from './components/ChatDialog';
+import ConfirmationDialog from './components/ConfirmationDialog';
 
 // --- 新增：全域字體樣式注入器 ---
 const GlobalFontStyles = createGlobalStyle`
@@ -152,8 +158,9 @@ function App() {
 
   return (
     <TripProvider>
-      <FontStyleInjector /> {/* 在這裡注入全域字體樣式 */}
-      <AppContainer>
+      <AIAssistantProvider>
+        <FontStyleInjector /> {/* 在這裡注入全域字體樣式 */}
+        <AppContainer>
         <Header>
           <h1>旅遊應用程序 v1.2Ai</h1>
         </Header>
@@ -179,7 +186,13 @@ function App() {
         <Footer>
           <p>&copy; {new Date().getFullYear()} 旅遊應用程序 v1.1Ai</p>
         </Footer>
-      </AppContainer>
+        
+        {/* AI助手浮動按鈕和對話框 */}
+        <FloatingButton />
+        <ChatDialog />
+        <ConfirmationDialog />
+        </AppContainer>
+      </AIAssistantProvider>
     </TripProvider>
   );
 }

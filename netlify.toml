@@ -2,5 +2,11 @@
   directory = "netlify/functions/"
 
 [dev]
-  command = "npm run dev"
-  targetPort = 3000
+  command = "npm run dev:vite"
+  targetPort = 5175
+  publish = "dist"
+
+[build]
+  command = "npm run build"
+  functions = "netlify/functions/"
+  publish = "dist"
