@@ -19,6 +19,7 @@ const CardsContainer = styled.div`
   display: flex; overflow-x: auto; gap: 1rem; padding: 1rem 0;
   scrollbar-width: thin; scrollbar-color: #ccc #f1f1f1;
   scroll-behavior: smooth;
+  touch-action: pan-x; /* 只允許水平滾動，提升觸摸性能 */
   &::-webkit-scrollbar { height: 8px; }
   &::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
   &::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }

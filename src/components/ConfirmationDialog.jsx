@@ -85,6 +85,7 @@ const DialogContent = styled.div`
   flex: 1;
   overflow-y: auto;
   padding: 1.5rem;
+  touch-action: pan-y; /* 只允許垂直滾動 */
   
   /* 自定義滾動條 */
   &::-webkit-scrollbar {

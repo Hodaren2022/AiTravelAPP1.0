@@ -64,6 +64,7 @@ const MessagesContainer = styled.div`
   overflow-y: auto;
   padding: 1rem;
   max-height: 300px;
+  touch-action: pan-y; /* 只允許垂直滾動 */
   
   /* 自定義滾動條 */
   &::-webkit-scrollbar {

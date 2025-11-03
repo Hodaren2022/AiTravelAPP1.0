@@ -17,6 +17,7 @@ const FloatingButtonContainer = styled.div`
   justify-content: center;
   transition: all 0.3s ease;
   user-select: none;
+  touch-action: none; /* 禁用所有觸摸手勢，允許自定義拖拽 */
   
   &:hover {
     background-color: var(--theme-accent, #2980b9);
@@ -143,19 +144,25 @@ const FloatingButton = () => {
 
   // 觸控事件處理
   const handleTouchStart = (e) => {
-    e.preventDefault();
+    if (e.cancelable) {
+      e.preventDefault();
+    }
     const touch = e.touches[0];
     handleDragStart(touch.clientX, touch.clientY);
   };
 
   const handleTouchMove = (e) => {
-    e.preventDefault();
+    if (e.cancelable) {
+      e.preventDefault();
+    }
     const touch = e.touches[0];
     handleDragMove(touch.clientX, touch.clientY);
   };
 
   const handleTouchEnd = (e) => {
-    e.preventDefault();
+    if (e.cancelable) {
+      e.preventDefault();
+    }
     handleDragEnd();
   };
 
