@@ -121,7 +121,7 @@ const DefaultItems = {
   '護照、簽證與證件': ['護照', '簽證', '國際信用卡', '駕照', '身分證/記憶卡', '旅行支票', '計算機', '現金一日用', '名片'],
   '衣物與鞋子': ['帽子', '隱形眼鏡', '太陽眼鏡', '內衣', '襪子', '輕便拖鞋', '涼鞋', '睡衣', '防寒衣物', '正式服裝'],
   '盥洗與美容用品': ['牙刷', '牙膏', '洗髮精', '沐浴乳', '毛巾', '刮鬍刀', '化妝品', '防曬霜', '髮膠', '保養品'],
-  '電子產品': ['相機/數位相機', '充電器', '筆記型電腦', '筆電電源', '行動電源', '變壓器', '耳機', '手機', '平板'],
+  '電子產品': ['相機/數位相機', '充電器', '筆記型電腦', '筆電電源', '行動電源', '變壓器', '耳機', '手機', '平板', '插座轉接頭'],
   '藥品與健康': ['個人藥物', '口罩', '防蚊液', 'OK繃', '常備藥品'],
   '旅行配件': ['行李箱', '背包', '旅遊指南', '地圖', '雨具', '望遠鏡', '筆記本', '筆', '指南針', '防曬傘'],
   '其他必需品': ['零錢包', '鑰匙包', '針線包', '塑膠袋', '日記簿', '濕紙巾']
@@ -295,19 +295,27 @@ const PackingList = () => {
     ? Math.round((selectedTripItems.filter(item => item.isPacked).length / selectedTripItems.length) * 100)
     : 0;
   
-  // 添加預設物品到清單中
-  const addDefaultItem = (itemName) => {
+  // 添加或移除預設物品到清單中
+  const toggleDefaultItem = (itemName) => {
     if (!selectedTripId) return;
     
     const tripItems = packingLists[selectedTripId] || [];
     
     // 檢查物品是否已存在
-    const itemExists = tripItems.some(item => 
+    const existingItemIndex = tripItems.findIndex(item => 
       item.name.toLowerCase() === itemName.toLowerCase() && 
       item.category === getItemCategory(itemName)
     );
     
-    if (!itemExists) {
+    if (existingItemIndex !== -1) {
+      // 物品已存在，移除它
+      const updatedItems = tripItems.filter((_, index) => index !== existingItemIndex);
+      setPackingLists({
+        ...packingLists,
+        [selectedTripId]: updatedItems
+      });
+    } else {
+      // 物品不存在，添加它
       const id = Date.now().toString();
       const category = getItemCategory(itemName);
       
@@ -393,7 +401,7 @@ const PackingList = () => {
                 <DefaultItemButton
                   key={item}
                   selected={isItemInList(item)}
-                  onClick={() => addDefaultItem(item)}
+                  onClick={() => toggleDefaultItem(item)}
                 >
                   {item}
                 </DefaultItemButton>

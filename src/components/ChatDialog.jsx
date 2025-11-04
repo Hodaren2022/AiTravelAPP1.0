@@ -270,13 +270,27 @@ const MessageInput = styled.input`
   border-radius: 20px;
   font-size: var(--font-dy, 14px);
   outline: none;
+  transform: scale(1);
+  transition: border-color 0.2s ease;
   
   &:focus {
     border-color: var(--theme-2, #3498db);
+    transform: scale(1);
+    font-size: var(--font-dy, 14px);
   }
   
   &::placeholder {
     color: #999;
+  }
+  
+  /* 禁用移動設備上的自動縮放 */
+  @media screen and (max-width: 768px) {
+    font-size: 16px; /* 防止iOS Safari自動縮放 */
+    
+    &:focus {
+      font-size: 16px;
+      transform: scale(1);
+    }
   }
 `;
 
