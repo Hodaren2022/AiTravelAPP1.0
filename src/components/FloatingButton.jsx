@@ -207,6 +207,28 @@ const FloatingButton = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [position, updatePosition]);
 
+  // 組件掛載時檢查是否需要重置位置
+  useEffect(() => {
+    const checkPositionReset = () => {
+      const sessionStartTime = sessionStorage.getItem('aiAssistantSessionStart');
+      if (!sessionStartTime) {
+        // 新會話，設置會話開始時間並重置位置
+        sessionStorage.setItem('aiAssistantSessionStart', Date.now().toString());
+        // 計算預設位置（新增行程按鈕上方）
+        const getDefaultPosition = () => {
+          return {
+            x: window.innerWidth - 90, // right: 30px + 60px button width = 90px from right
+            y: window.innerHeight - 160 // bottom: 30px + 60px button height + 70px spacing = 160px from bottom
+          };
+        };
+        const defaultPos = getDefaultPosition();
+        updatePosition(defaultPos);
+      }
+    };
+
+    checkPositionReset();
+  }, [updatePosition]);
+
   // 對話圖標SVG路徑
   const ChatIconPath = () => (
     <ChatIcon viewBox="0 0 24 24" style={{ pointerEvents: 'none' }}>

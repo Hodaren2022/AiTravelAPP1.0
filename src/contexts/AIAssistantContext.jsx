@@ -9,10 +9,14 @@ const MESSAGE_TYPES = {
   SYSTEM: 'system'
 };
 
-// 預設位置（右下角）
-const DEFAULT_POSITION = {
-  x: window.innerWidth - 80,
-  y: window.innerHeight - 80
+// 計算預設位置（新增行程按鈕上方）
+const getDefaultPosition = () => {
+  // 新增行程按鈕位置：bottom: 30px, right: 30px, size: 60px
+  // AI助手按鈕應該在它上方，留一些間距
+  return {
+    x: window.innerWidth - 90, // right: 30px + 60px button width = 90px from right
+    y: window.innerHeight - 160 // bottom: 30px + 60px button height + 70px spacing = 160px from bottom
+  };
 };
 
 export const AIAssistantProvider = ({ children }) => {
@@ -20,13 +24,29 @@ export const AIAssistantProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState(() => {
-    try {
-      const savedPosition = localStorage.getItem('aiAssistantPosition');
-      return savedPosition ? JSON.parse(savedPosition) : DEFAULT_POSITION;
-    } catch (error) {
-      console.error("Failed to parse AI assistant position from localStorage", error);
-      return DEFAULT_POSITION;
+    // 檢查是否為新的會話（沒有保存的位置或程式重新啟動）
+    const savedPosition = localStorage.getItem('aiAssistantPosition');
+    const sessionStartTime = sessionStorage.getItem('aiAssistantSessionStart');
+    const currentTime = Date.now().toString();
+    
+    // 如果沒有會話開始時間，表示是新的會話
+    if (!sessionStartTime) {
+      sessionStorage.setItem('aiAssistantSessionStart', currentTime);
+      return getDefaultPosition();
     }
+    
+    // 如果有保存的位置，使用保存的位置
+    if (savedPosition) {
+      try {
+        return JSON.parse(savedPosition);
+      } catch (error) {
+        console.error("Failed to parse AI assistant position from localStorage", error);
+        return getDefaultPosition();
+      }
+    }
+    
+    // 否則使用預設位置
+    return getDefaultPosition();
   });
 
   // --- 消息歷史管理 ---
