@@ -23,6 +23,17 @@ export const AIAssistantProvider = ({ children }) => {
   // --- AI助手基本狀態 ---
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  
+  // --- AI模型溫度設定 ---
+  const [temperature, setTemperature] = useState(() => {
+    try {
+      const savedTemperature = localStorage.getItem('aiAssistantTemperature');
+      return savedTemperature ? parseFloat(savedTemperature) : 0.7; // 預設溫度為0.7
+    } catch (error) {
+      console.error("Failed to parse AI assistant temperature from localStorage", error);
+      return 0.7;
+    }
+  });
   const [position, setPosition] = useState(() => {
     // 檢查是否為新的會話（沒有保存的位置或程式重新啟動）
     const savedPosition = localStorage.getItem('aiAssistantPosition');
@@ -68,6 +79,11 @@ export const AIAssistantProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('aiAssistantPosition', JSON.stringify(position));
   }, [position]);
+
+  // --- 持久化溫度設定 ---
+  useEffect(() => {
+    localStorage.setItem('aiAssistantTemperature', temperature.toString());
+  }, [temperature]);
 
   // --- 持久化消息歷史（限制最多100條） ---
   useEffect(() => {
@@ -191,6 +207,11 @@ export const AIAssistantProvider = ({ children }) => {
     setShowConfirmation(false);
   };
 
+  // 更新AI模型溫度
+  const updateTemperature = (newTemperature) => {
+    setTemperature(newTemperature);
+  };
+
   // --- 提供給所有子元件的值 ---
   const value = {
     // 狀態
@@ -200,6 +221,7 @@ export const AIAssistantProvider = ({ children }) => {
     messages,
     pendingChanges,
     showConfirmation,
+    temperature,
     
     // 常量
     MESSAGE_TYPES,
@@ -217,7 +239,8 @@ export const AIAssistantProvider = ({ children }) => {
     handleDataChanges,
     confirmChanges,
     rejectChanges,
-    processAISuggestions
+    processAISuggestions,
+    updateTemperature
   };
 
   return (

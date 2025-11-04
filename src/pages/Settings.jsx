@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useTrip } from '../contexts/TripContext';
+import { useAIAssistant } from '../contexts/AIAssistantContext';
 
 // --- Styled Components ---
 const Container = styled.div`
@@ -247,6 +248,7 @@ const defaultFontSizes = {
 
 const Settings = () => {
   const { fontSizes, setFontSizes, previewThemeFn, applyThemeFn, clearThemeFn, appliedTheme } = useTrip();
+  const { temperature, updateTemperature } = useAIAssistant();
 
   // color palettes
   const colorPalettes = [
@@ -366,6 +368,11 @@ const Settings = () => {
     setFontSizes(defaultFontSizes);
   };
 
+  const handleTemperatureChange = (e) => {
+    const value = parseFloat(e.target.value);
+    updateTemperature(value);
+  };
+
   return (
     <Container>
       <h2>應用設定</h2>
@@ -418,6 +425,27 @@ const Settings = () => {
               </PaletteCard>
             ))}
           </PaletteGrid>
+        </div>
+      </Card>
+
+      <Card>
+        <h3>AI助手設定</h3>
+        <SettingItem>
+          <PageName>創意度</PageName>
+          <SliderContainer>
+            <Slider 
+              type="range" 
+              min={0}
+              max={1}
+              step={0.1}
+              value={temperature}
+              onChange={handleTemperatureChange}
+            />
+            <FontSizeValue>{temperature.toFixed(1)}</FontSizeValue>
+          </SliderContainer>
+        </SettingItem>
+        <div style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem' }}>
+          創意度控制AI回答的隨機性。較低的值(0.1-0.3)會產生更一致、保守的回答，較高的值(0.7-1.0)會產生更有創意、多樣化的回答。
         </div>
       </Card>
 
