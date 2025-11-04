@@ -45,15 +45,34 @@ const pdfMakeReady = new Promise((resolve, reject) => {
       }
 
       // 嘗試從 vfs_fonts 模組中直接獲取 vfs
-      // 根據 pdfmake 的打包方式，vfs 可能在 module.pdfMake.vfs 或 module.default.pdfMake.vfs
+      // 根據 pdfmake 的打包方式，vfs 可能在不同的位置
+      let vfsLoaded = false;
+      
       if (module && module.pdfMake && module.pdfMake.vfs) {
         pdfMakeInstance.vfs = module.pdfMake.vfs;
         console.log('pdfMake vfs 從 module.pdfMake.vfs 載入並註冊完成');
+        vfsLoaded = true;
       } else if (module && module.default && module.default.pdfMake && module.default.pdfMake.vfs) {
         pdfMakeInstance.vfs = module.default.pdfMake.vfs;
         console.log('pdfMake vfs 從 module.default.pdfMake.vfs 載入並註冊完成');
-      } else {
-        console.warn('無法找到有效的vfs字體路徑，將使用默認字體。');
+        vfsLoaded = true;
+      } else if (module && module.default && module.default.vfs) {
+        pdfMakeInstance.vfs = module.default.vfs;
+        console.log('pdfMake vfs 從 module.default.vfs 載入並註冊完成');
+        vfsLoaded = true;
+      } else if (module && module.vfs) {
+        pdfMakeInstance.vfs = module.vfs;
+        console.log('pdfMake vfs 從 module.vfs 載入並註冊完成');
+        vfsLoaded = true;
+      } else if (module && module.default) {
+        // 嘗試直接使用 module.default 作為 vfs
+        pdfMakeInstance.vfs = module.default;
+        console.log('pdfMake vfs 從 module.default 載入並註冊完成');
+        vfsLoaded = true;
+      }
+      
+      if (!vfsLoaded) {
+        console.info('使用默認字體配置，PDF 將以基本字體顯示');
         // 設置一個空的vfs對象，讓pdfMake使用默認字體
         pdfMakeInstance.vfs = pdfMakeInstance.vfs || {};
       }
