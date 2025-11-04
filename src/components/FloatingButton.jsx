@@ -17,7 +17,7 @@ const FloatingButtonContainer = styled.div`
   justify-content: center;
   transition: all 0.3s ease;
   user-select: none;
-  touch-action: none; /* 禁用所有觸摸手勢，允許自定義拖拽 */
+  touch-action: manipulation; /* 允許點擊和拖拽，但禁用雙擊縮放等 */
   
   &:hover {
     background-color: var(--theme-accent, #2980b9);
@@ -77,14 +77,14 @@ const FloatingButton = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [isPointerDown, setIsPointerDown] = useState(false);
   const buttonRef = useRef(null);
 
   // 處理按鈕點擊（只有在非拖拽狀態下才觸發）
   const handleClick = (e) => {
-    e.preventDefault();
     e.stopPropagation();
     
-    // 如果剛剛結束拖拽，不觸發點擊
+    // 如果正在拖拽或剛剛拖拽過，不觸發點擊
     if (isDragging) {
       return;
     }
@@ -94,38 +94,49 @@ const FloatingButton = () => {
 
   // 開始拖拽
   const handleDragStart = (clientX, clientY) => {
-    setIsDragging(true);
+    setIsPointerDown(true);
     setDragStart({ x: clientX, y: clientY });
     setDragOffset({ x: clientX - position.x, y: clientY - position.y });
   };
 
   // 拖拽中
   const handleDragMove = (clientX, clientY) => {
-    if (!isDragging) return;
+    if (!isPointerDown) return;
+    
+    // 檢查是否移動了足夠的距離才開始拖拽
+    const moveDistance = Math.sqrt(
+      Math.pow(clientX - dragStart.x, 2) + Math.pow(clientY - dragStart.y, 2)
+    );
+    
+    // 如果移動距離足夠，開始拖拽
+    if (moveDistance >= 10 && !isDragging) {
+      setIsDragging(true);
+    }
+    
+    // 只有在拖拽狀態下才更新位置
+    if (isDragging) {
+      const newX = clientX - dragOffset.x;
+      const newY = clientY - dragOffset.y;
 
-    const newX = clientX - dragOffset.x;
-    const newY = clientY - dragOffset.y;
+      // 邊界檢查
+      const buttonSize = 60;
+      const maxX = window.innerWidth - buttonSize;
+      const maxY = window.innerHeight - buttonSize;
 
-    // 邊界檢查
-    const buttonSize = 60;
-    const maxX = window.innerWidth - buttonSize;
-    const maxY = window.innerHeight - buttonSize;
+      const boundedX = Math.max(0, Math.min(newX, maxX));
+      const boundedY = Math.max(0, Math.min(newY, maxY));
 
-    const boundedX = Math.max(0, Math.min(newX, maxX));
-    const boundedY = Math.max(0, Math.min(newY, maxY));
-
-    updatePosition({ x: boundedX, y: boundedY });
+      updatePosition({ x: boundedX, y: boundedY });
+    }
   };
 
   // 結束拖拽
   const handleDragEnd = () => {
-    if (isDragging) {
+    setIsPointerDown(false);
+    // 延遲重置拖拽狀態，避免立即觸發點擊事件
+    setTimeout(() => {
       setIsDragging(false);
-      // 延遲重置拖拽狀態，避免立即觸發點擊事件
-      setTimeout(() => {
-        setIsDragging(false);
-      }, 100);
-    }
+    }, 100);
   };
 
   // 鼠標事件處理
@@ -144,15 +155,13 @@ const FloatingButton = () => {
 
   // 觸控事件處理
   const handleTouchStart = (e) => {
-    if (e.cancelable) {
-      e.preventDefault();
-    }
     const touch = e.touches[0];
     handleDragStart(touch.clientX, touch.clientY);
   };
 
   const handleTouchMove = (e) => {
-    if (e.cancelable) {
+    // 只在拖拽時阻止默認行為
+    if (isDragging && e.cancelable) {
       e.preventDefault();
     }
     const touch = e.touches[0];
@@ -160,15 +169,12 @@ const FloatingButton = () => {
   };
 
   const handleTouchEnd = (e) => {
-    if (e.cancelable) {
-      e.preventDefault();
-    }
     handleDragEnd();
   };
 
   // 添加全局事件監聽器
   useEffect(() => {
-    if (isDragging) {
+    if (isPointerDown) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
       document.addEventListener('touchmove', handleTouchMove, { passive: false });
@@ -181,7 +187,7 @@ const FloatingButton = () => {
         document.removeEventListener('touchend', handleTouchEnd);
       };
     }
-  }, [isDragging, dragOffset]);
+  }, [isPointerDown, isDragging, dragOffset]);
 
   // 窗口大小改變時調整位置
   useEffect(() => {
