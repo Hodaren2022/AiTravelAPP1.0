@@ -595,8 +595,11 @@ const ChatDialog = () => {
             </MessageContent>
           </MessageBubble>
         ) : (
-          messages.map((message) => (
-            <MessageBubble key={message.id} $isUser={message.type === MESSAGE_TYPES.USER}>
+          messages.map((message, index) => (
+            <MessageBubble 
+              key={`${message.id}_${index}_${message.timestamp}`} 
+              $isUser={message.type === MESSAGE_TYPES.USER}
+            >
               <MessageContent 
                 $isUser={message.type === MESSAGE_TYPES.USER}
                 $isSystem={message.type === MESSAGE_TYPES.SYSTEM}
@@ -617,7 +620,7 @@ const ChatDialog = () => {
                     <SourcesList>
                       <strong>參考來源：</strong>
                       {message.groundingMetadata.sources.map((source, index) => (
-                        <div key={source.id} className="source-item">
+                        <div key={`${source.id}_${index}_${source.url}`} className="source-item">
                           <span className="source-number">{index + 1}</span>
                           <a 
                             href={source.url} 

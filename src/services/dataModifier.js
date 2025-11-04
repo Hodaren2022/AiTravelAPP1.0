@@ -84,53 +84,77 @@ class DataModifier {
     const { type, field, newValue, targetId } = change;
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
     
-    let tripIndex = -1;
-    if (targetId) {
-      tripIndex = trips.findIndex(trip => trip.id === targetId);
-    } else {
-      // 如果沒有指定ID，使用當前選中的行程
-      const selectedTripId = localStorage.getItem('lastSelectedTrip');
-      tripIndex = trips.findIndex(trip => trip.id === selectedTripId);
-    }
-
-    if (tripIndex === -1) {
-      throw new DataModificationError('找不到指定的行程');
-    }
-
     switch (type) {
+      case 'create':
+        // 建立新行程
+        const newTrip = {
+          ...newValue,
+          id: newValue.id || `trip_${Date.now()}`,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        trips.push(newTrip);
+        
+        // 設定為當前選中的行程
+        localStorage.setItem('lastSelectedTrip', newTrip.id);
+        
+        localStorage.setItem('trips', JSON.stringify(trips));
+        window.dispatchEvent(new Event('storage'));
+        
+        return newTrip;
+        
       case 'edit':
-        trips[tripIndex][field] = newValue;
-        break;
       case 'add':
-        if (field === 'flights') {
-          trips[tripIndex].flights = trips[tripIndex].flights || [];
-          trips[tripIndex].flights.push(newValue);
-        } else if (field === 'hotels') {
-          trips[tripIndex].hotels = trips[tripIndex].hotels || [];
-          trips[tripIndex].hotels.push(newValue);
-        } else {
-          trips[tripIndex][field] = newValue;
-        }
-        break;
       case 'delete':
-        if (field === 'flights' || field === 'hotels') {
-          const array = trips[tripIndex][field] || [];
-          const itemIndex = array.findIndex(item => item.id === newValue);
-          if (itemIndex > -1) {
-            array.splice(itemIndex, 1);
-          }
+        let tripIndex = -1;
+        if (targetId) {
+          tripIndex = trips.findIndex(trip => trip.id === targetId);
         } else {
-          delete trips[tripIndex][field];
+          // 如果沒有指定ID，使用當前選中的行程
+          const selectedTripId = localStorage.getItem('lastSelectedTrip');
+          tripIndex = trips.findIndex(trip => trip.id === selectedTripId);
         }
-        break;
-    }
 
-    localStorage.setItem('trips', JSON.stringify(trips));
-    
-    // 觸發存儲事件以更新其他組件
-    window.dispatchEvent(new Event('storage'));
-    
-    return trips[tripIndex];
+        if (tripIndex === -1) {
+          throw new DataModificationError('找不到指定的行程');
+        }
+
+        switch (type) {
+          case 'edit':
+            trips[tripIndex][field] = newValue;
+            trips[tripIndex].updatedAt = new Date().toISOString();
+            break;
+          case 'add':
+            if (field === 'flights') {
+              trips[tripIndex].flights = trips[tripIndex].flights || [];
+              trips[tripIndex].flights.push(newValue);
+            } else if (field === 'hotels') {
+              trips[tripIndex].hotels = trips[tripIndex].hotels || [];
+              trips[tripIndex].hotels.push(newValue);
+            } else {
+              trips[tripIndex][field] = newValue;
+            }
+            trips[tripIndex].updatedAt = new Date().toISOString();
+            break;
+          case 'delete':
+            if (field === 'flights' || field === 'hotels') {
+              const array = trips[tripIndex][field] || [];
+              const itemIndex = array.findIndex(item => item.id === newValue);
+              if (itemIndex > -1) {
+                array.splice(itemIndex, 1);
+              }
+            } else {
+              delete trips[tripIndex][field];
+            }
+            trips[tripIndex].updatedAt = new Date().toISOString();
+            break;
+        }
+
+        localStorage.setItem('trips', JSON.stringify(trips));
+        window.dispatchEvent(new Event('storage'));
+        
+        return trips[tripIndex];
+    }
   }
 
   // 修改費用數據

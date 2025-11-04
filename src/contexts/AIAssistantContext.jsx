@@ -64,7 +64,15 @@ export const AIAssistantProvider = ({ children }) => {
   const [messages, setMessages] = useState(() => {
     try {
       const savedMessages = localStorage.getItem('aiAssistantMessages');
-      return savedMessages ? JSON.parse(savedMessages) : [];
+      if (savedMessages) {
+        const parsedMessages = JSON.parse(savedMessages);
+        // 清理歷史消息中的 suggestions，避免重新執行數據變更
+        return parsedMessages.map(message => ({
+          ...message,
+          suggestions: null // 移除歷史消息中的建議，防止重複執行
+        }));
+      }
+      return [];
     } catch (error) {
       console.error("Failed to parse AI assistant messages from localStorage", error);
       return [];
@@ -91,7 +99,14 @@ export const AIAssistantProvider = ({ children }) => {
     if (limitedMessages.length !== messages.length) {
       setMessages(limitedMessages);
     }
-    localStorage.setItem('aiAssistantMessages', JSON.stringify(limitedMessages));
+    
+    // 保存時清理 suggestions 避免歷史消息重複執行
+    const cleanedMessages = limitedMessages.map(message => ({
+      ...message,
+      suggestions: null // 清理建議數據
+    }));
+    
+    localStorage.setItem('aiAssistantMessages', JSON.stringify(cleanedMessages));
   }, [messages]);
 
   // --- 核心功能函數 ---
@@ -106,10 +121,26 @@ export const AIAssistantProvider = ({ children }) => {
     setIsOpen(false);
   };
 
+  // 生成唯一ID的輔助函數
+  const generateUniqueId = (type) => {
+    const timestamp = Date.now();
+    const performanceNow = performance.now().toString().replace('.', '');
+    const random1 = Math.random().toString(36).substr(2, 9);
+    const random2 = Math.random().toString(36).substr(2, 9);
+    
+    // 添加全局計數器確保唯一性
+    if (!window._aiAssistantIdCounter) {
+      window._aiAssistantIdCounter = 0;
+    }
+    window._aiAssistantIdCounter++;
+    
+    return `${type}_${timestamp}_${performanceNow}_${random1}_${random2}_${window._aiAssistantIdCounter}`;
+  };
+
   // 添加消息
   const addMessage = (content, type = MESSAGE_TYPES.USER, suggestions = null, groundingMetadata = null) => {
     const newMessage = {
-      id: Date.now().toString(),
+      id: generateUniqueId(type),
       content,
       type,
       timestamp: new Date(),
@@ -137,7 +168,12 @@ export const AIAssistantProvider = ({ children }) => {
   };
 
   // 處理AI建議的數據變更
-  const processAISuggestions = (suggestions) => {
+  const processAISuggestions = (suggestions, isFromHistory = false) => {
+    // 如果是歷史消息，忽略建議避免重複執行
+    if (isFromHistory) {
+      return;
+    }
+    
     if (suggestions && suggestions.length > 0) {
       handleDataChanges(suggestions);
       addSystemMessage(`AI建議了 ${suggestions.length} 項數據變更，請查看確認對話框進行確認。`);
@@ -161,7 +197,7 @@ export const AIAssistantProvider = ({ children }) => {
     localStorage.removeItem('aiAssistantMessages');
     // 添加歡迎消息
     const welcomeMessage = {
-      id: Date.now().toString(),
+      id: generateUniqueId(`welcome_${MESSAGE_TYPES.AI}`),
       content: '您好！我是您的AI旅行助手。我可以幫助您管理行程、查詢旅遊資訊，以及協助編輯您的旅行數據。有什麼可以為您服務的嗎？',
       type: MESSAGE_TYPES.AI,
       timestamp: new Date(),

@@ -26,6 +26,12 @@ const SYSTEM_PROMPT = `
 3. 提供旅遊建議和資訊
 4. 協助編輯和更新旅行數據
 5. 搜索最新的旅遊資訊和天氣資訊
+6. 協助建立新的旅行行程
+
+當用戶要求建立、儲存或創建新行程時，你應該：
+- 根據用戶提供的資訊（目的地、天數、偏好等）規劃詳細的行程
+- 明確表達你將為用戶建立這個行程
+- 在回應中包含「建立」、「儲存」或「創建」等關鍵詞，以便系統識別並執行相應的儲存操作
 
 當用戶詢問關於他們的旅行數據時，請基於提供的上下文資訊進行回答。
 如果需要修改數據，請明確說明要修改的內容，並等待用戶確認。
@@ -335,6 +341,29 @@ export const handler = async (event) => {
 function analyzeForDataChanges(responseText, context) {
   const suggestions = [];
   
+  // 檢查是否提到建立新行程
+  if (responseText.includes('建立') || responseText.includes('儲存') || responseText.includes('創建') || 
+      responseText.includes('新增行程') || responseText.includes('規劃行程')) {
+    
+    // 檢測建立新行程的意圖
+    if ((responseText.includes('行程') || responseText.includes('旅行')) && 
+        (responseText.includes('建立') || responseText.includes('儲存') || responseText.includes('創建'))) {
+      
+      // 從回應中提取行程資訊
+      const tripData = extractTripDataFromResponse(responseText, context);
+      
+      suggestions.push({
+        id: `change_${Date.now()}_trip_create`,
+        type: 'create',
+        category: 'trip',
+        field: 'trip',
+        newValue: tripData,
+        description: 'AI建議建立新的行程',
+        targetId: null
+      });
+    }
+  }
+  
   // 檢查是否提到修改行程
   if (responseText.includes('修改') || responseText.includes('更新') || responseText.includes('編輯') || 
       responseText.includes('新增') || responseText.includes('刪除') || responseText.includes('調整')) {
@@ -387,4 +416,62 @@ function analyzeForDataChanges(responseText, context) {
   }
   
   return suggestions;
+}
+
+// 從AI回應中提取行程資訊
+function extractTripDataFromResponse(responseText, context) {
+  // 預設的行程資料結構
+  const defaultTripData = {
+    id: `trip_${Date.now()}`,
+    destination: '台北',
+    startDate: new Date().toISOString().split('T')[0],
+    endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 預設2天後
+    budget: 0,
+    status: 'planning',
+    description: '',
+    itinerary: [],
+    hotels: [],
+    flights: [],
+    createdAt: new Date().toISOString()
+  };
+
+  // 嘗試從回應中提取目的地
+  const destinationMatch = responseText.match(/(?:台北|東京|大阪|首爾|曼谷|新加坡|香港|澳門|上海|北京|巴黎|倫敦|紐約|洛杉磯|雪梨|墨爾本)/);
+  if (destinationMatch) {
+    defaultTripData.destination = destinationMatch[0];
+  }
+
+  // 嘗試從回應中提取天數
+  const daysMatch = responseText.match(/(\d+)\s*(?:天|日)/);
+  if (daysMatch) {
+    const days = parseInt(daysMatch[1]);
+    defaultTripData.endDate = new Date(Date.now() + (days - 1) * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  }
+
+  // 嘗試從回應中提取行程內容
+  if (responseText.includes('第一天') || responseText.includes('第二天') || responseText.includes('第三天')) {
+    const itineraryItems = [];
+    const dayMatches = responseText.match(/第[一二三四五六七八九十]+天[：:](.*?)(?=第[一二三四五六七八九十]+天|$)/gs);
+    
+    if (dayMatches) {
+      dayMatches.forEach((dayMatch, index) => {
+        const dayContent = dayMatch.replace(/第[一二三四五六七八九十]+天[：:]/, '').trim();
+        itineraryItems.push({
+          id: `day_${index + 1}`,
+          day: index + 1,
+          date: new Date(Date.now() + index * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+          activities: dayContent.split(/[，。、]/).filter(activity => activity.trim().length > 0).map(activity => ({
+            id: `activity_${Date.now()}_${Math.random()}`,
+            time: '',
+            activity: activity.trim(),
+            location: '',
+            notes: ''
+          }))
+        });
+      });
+      defaultTripData.itinerary = itineraryItems;
+    }
+  }
+
+  return defaultTripData;
 }
