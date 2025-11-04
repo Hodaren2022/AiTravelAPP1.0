@@ -1,9 +1,22 @@
 // AI服務層 - 處理與Gemini API的通信
 
 // 根據環境動態設置API基礎URL
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL 
-  ? `${import.meta.env.VITE_API_BASE_URL}/.netlify/functions`
-  : '/.netlify/functions';
+const getApiBaseUrl = () => {
+  // 在生產環境中，使用相對路徑
+  if (import.meta.env.PROD) {
+    return '/.netlify/functions';
+  }
+  
+  // 在開發環境中，檢查是否有設置VITE_API_BASE_URL
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return `${import.meta.env.VITE_API_BASE_URL}/.netlify/functions`;
+  }
+  
+  // 預設使用相對路徑
+  return '/.netlify/functions';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 // API調用錯誤類
 class AIServiceError extends Error {
@@ -46,6 +59,9 @@ class AIService {
         }
       };
 
+      console.log('AI Service: 發送請求到:', `${API_BASE_URL}/ai-chat-enhanced`);
+      console.log('AI Service: 請求內容:', requestBody);
+
       const response = await fetch(`${API_BASE_URL}/ai-chat-enhanced`, {
         method: 'POST',
         headers: {
@@ -55,8 +71,22 @@ class AIService {
         signal: this.abortController.signal
       });
 
+      console.log('AI Service: 收到回應狀態:', response.status);
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        let errorData = {};
+        try {
+          errorData = await response.json();
+        } catch (parseError) {
+          console.error('AI Service: 無法解析錯誤回應:', parseError);
+        }
+        
+        console.error('AI Service: API錯誤:', {
+          status: response.status,
+          statusText: response.statusText,
+          errorData
+        });
+        
         throw new AIServiceError(
           errorData.error || `HTTP ${response.status}: ${response.statusText}`,
           response.status
@@ -64,6 +94,7 @@ class AIService {
       }
 
       const data = await response.json();
+      console.log('AI Service: 成功收到回應:', data);
       
       // 重置AbortController
       this.abortController = null;
@@ -102,7 +133,16 @@ class AIService {
       }
       
       // 網路錯誤或其他未知錯誤
-      if (error.code === 'ECONNREFUSED') {
+      console.error('AI Service: 網路或其他錯誤:', {
+        name: error.name,
+        message: error.message,
+        code: error.code,
+        stack: error.stack
+      });
+      
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        throw new AIServiceError('網路連接失敗，請檢查您的網路連接或稍後再試');
+      } else if (error.code === 'ECONNREFUSED') {
         throw new AIServiceError('無法連接到 AI 服務。請檢查網路連接或稍後再試');
       } else if (error.code === 'ETIMEDOUT') {
         throw new AIServiceError('請求超時。請檢查網路連接或稍後再試');

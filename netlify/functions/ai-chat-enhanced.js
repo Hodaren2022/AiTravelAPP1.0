@@ -200,9 +200,10 @@ ${JSON.stringify(searchResults, null, 2)}
 // 統一的CORS標頭配置
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Max-Age': '86400'
+  'Access-Control-Max-Age': '86400',
+  'Access-Control-Allow-Credentials': 'false'
 };
 
 export const handler = async (event) => {

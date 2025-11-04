@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAIAssistant } from '../contexts/AIAssistantContext';
 import aiService, { AIServiceError } from '../services/aiService';
+import { networkMonitor, getNetworkDiagnostics, formatDiagnosticsForDisplay } from '../utils/networkUtils';
 
 // 對話框容器
 const DialogContainer = styled.div`
@@ -424,6 +425,7 @@ const ChatDialog = () => {
 
   const [inputValue, setInputValue] = React.useState('');
   const [showConfirmDialog, setShowConfirmDialog] = React.useState(false);
+  const [networkStatus, setNetworkStatus] = React.useState(networkMonitor.getStatus());
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -451,8 +453,12 @@ const ChatDialog = () => {
       setLoadingState(true);
       
       try {
+        console.log('ChatDialog: 開始發送消息:', userMessage);
+        
         // 調用AI服務，傳入對話歷史
         const response = await aiService.sendMessageWithContext(userMessage, messages);
+        
+        console.log('ChatDialog: 收到AI回應:', response);
         
         // 添加AI回應，包含搜索元數據
         addAIMessage(response.content, response.suggestions, response.groundingMetadata);
@@ -463,7 +469,12 @@ const ChatDialog = () => {
         }
         
       } catch (error) {
-        console.error('AI service error:', error);
+        console.error('ChatDialog: AI service error:', error);
+        console.error('ChatDialog: 錯誤詳情:', {
+          name: error.name,
+          message: error.message,
+          stack: error.stack
+        });
         
         if (error instanceof AIServiceError) {
           if (error.message.includes('取消')) {
@@ -472,7 +483,13 @@ const ChatDialog = () => {
           }
           addSystemMessage(`錯誤：${error.message}`);
         } else {
-          addSystemMessage('抱歉，發生了未知錯誤。請稍後再試。');
+          // 獲取網路診斷信息
+          getNetworkDiagnostics().then(diagnostics => {
+            const diagnosticsText = formatDiagnosticsForDisplay(diagnostics);
+            addSystemMessage(`發生未知錯誤。網路診斷信息：\n${diagnosticsText}`);
+          }).catch(() => {
+            addSystemMessage('抱歉，發生了未知錯誤。請稍後再試。');
+          });
         }
       } finally {
         setLoadingState(false);
@@ -508,12 +525,25 @@ const ChatDialog = () => {
     setShowConfirmDialog(false);
   };
 
-  // 組件卸載時取消請求
+  // 組件卸載時取消請求和清理網路監聽器
   useEffect(() => {
+    // 網路狀態監聽器
+    const handleNetworkChange = (status, isOnline) => {
+      setNetworkStatus(networkMonitor.getStatus());
+      if (!isOnline) {
+        addSystemMessage('網路連接已斷開，請檢查您的網路連接');
+      } else {
+        addSystemMessage('網路連接已恢復');
+      }
+    };
+    
+    networkMonitor.addListener(handleNetworkChange);
+    
     return () => {
       aiService.cancelRequest();
+      networkMonitor.removeListener(handleNetworkChange);
     };
-  }, []);
+  }, [addSystemMessage]);
 
   // 格式化時間
   const formatTime = (timestamp) => {
