@@ -115,7 +115,7 @@ class AIService {
   }
 
   // 獲取當前應用數據上下文（帶智能壓縮）
-  async getCurrentContext() {
+  async getCurrentContext(conversationHistory = []) {
     try {
       // 從localStorage獲取應用數據
       const trips = JSON.parse(localStorage.getItem('trips') || '[]');
@@ -136,6 +136,7 @@ class AIService {
         notes: this.compressNotes(notes),
         travelNotes: this.compressNotes(selectedTripId ? travelNotes[selectedTripId] || [] : []),
         packingList: this.compressPackingList(selectedTripId ? packingLists[selectedTripId] || [] : []),
+        conversationHistory: this.compressConversationHistory(conversationHistory),
         currentPage: window.location.pathname,
         timestamp: new Date().toISOString()
       };
@@ -147,6 +148,7 @@ class AIService {
       console.error('Error getting current context:', error);
       return {
         error: 'Failed to load travel data',
+        conversationHistory: this.compressConversationHistory(conversationHistory),
         currentPage: window.location.pathname,
         timestamp: new Date().toISOString()
       };
@@ -208,6 +210,23 @@ class AIService {
     }));
   }
 
+  // 壓縮對話歷史
+  compressConversationHistory(messages) {
+    if (!messages || messages.length === 0) return [];
+    
+    // 只保留最近的10條消息，並且只保留用戶和AI的消息
+    const relevantMessages = messages
+      .filter(msg => msg.type === 'user' || msg.type === 'ai')
+      .slice(-10)
+      .map(msg => ({
+        type: msg.type,
+        content: msg.content?.substring(0, 500) || '', // 限制內容長度
+        timestamp: msg.timestamp
+      }));
+    
+    return relevantMessages;
+  }
+
   // 優化上下文大小
   optimizeContextSize(context) {
     const contextString = JSON.stringify(context);
@@ -226,6 +245,7 @@ class AIService {
       notes: context.notes.slice(-3), // 只保留最近3條筆記
       travelNotes: context.travelNotes.slice(-3),
       packingList: context.packingList.slice(0, 10), // 只保留前10項
+      conversationHistory: context.conversationHistory.slice(-5), // 只保留最近5條對話
       currentPage: context.currentPage,
       timestamp: context.timestamp,
       compressed: true
@@ -233,11 +253,11 @@ class AIService {
   }
 
   // 發送帶上下文的消息（帶智能重試機制）
-  async sendMessageWithContext(message, retryCount = 0) {
+  async sendMessageWithContext(message, conversationHistory = [], retryCount = 0) {
     const maxRetries = 3;
     
     try {
-      const context = await this.getCurrentContext();
+      const context = await this.getCurrentContext(conversationHistory);
       return await this.sendMessage(message, context);
     } catch (error) {
       // 智能重試邏輯
@@ -248,7 +268,7 @@ class AIService {
         console.log(`AI service error, retrying in ${delay}ms... (attempt ${retryCount + 1}/${maxRetries})`);
         
         await new Promise(resolve => setTimeout(resolve, delay));
-        return this.sendMessageWithContext(message, retryCount + 1);
+        return this.sendMessageWithContext(message, conversationHistory, retryCount + 1);
       }
       
       throw error;

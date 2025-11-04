@@ -37,6 +37,39 @@ const DialogHeader = styled.div`
   font-weight: 600;
 `;
 
+// 標題左側區域
+const HeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+// 標題右側按鈕區域
+const HeaderButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+// 新對話按鈕
+const NewConversationButton = styled.button`
+  background: none;
+  border: none;
+  color: var(--theme-4, white);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+`;
+
 // 關閉按鈕
 const CloseButton = styled.button`
   background: none;
@@ -300,6 +333,79 @@ const LoadingDots = styled.div`
   }
 `;
 
+// 確認對話框樣式
+const ConfirmDialog = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+`;
+
+const ConfirmDialogContent = styled.div`
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+`;
+
+const ConfirmDialogTitle = styled.h3`
+  margin: 0 0 1rem 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+`;
+
+const ConfirmDialogMessage = styled.p`
+  margin: 0 0 1.5rem 0;
+  color: #666;
+  line-height: 1.5;
+`;
+
+const ConfirmDialogButtons = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+`;
+
+const ConfirmButton = styled.button`
+  background-color: var(--theme-2, #3498db);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: var(--theme-accent, #2980b9);
+  }
+`;
+
+const CancelButton = styled.button`
+  background-color: #f8f9fa;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+  }
+`;
+
 const ChatDialog = () => {
   const {
     isOpen,
@@ -312,10 +418,12 @@ const ChatDialog = () => {
     addSystemMessage,
     setLoadingState,
     processAISuggestions,
+    startNewConversation,
     MESSAGE_TYPES
   } = useAIAssistant();
 
   const [inputValue, setInputValue] = React.useState('');
+  const [showConfirmDialog, setShowConfirmDialog] = React.useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -343,8 +451,8 @@ const ChatDialog = () => {
       setLoadingState(true);
       
       try {
-        // 調用AI服務
-        const response = await aiService.sendMessageWithContext(userMessage);
+        // 調用AI服務，傳入對話歷史
+        const response = await aiService.sendMessageWithContext(userMessage, messages);
         
         // 添加AI回應，包含搜索元數據
         addAIMessage(response.content, response.suggestions, response.groundingMetadata);
@@ -378,6 +486,26 @@ const ChatDialog = () => {
       e.preventDefault();
       handleSendMessage();
     }
+  };
+
+  // 處理新對話按鈕點擊
+  const handleNewConversation = () => {
+    if (messages.length > 0) {
+      setShowConfirmDialog(true);
+    } else {
+      startNewConversation();
+    }
+  };
+
+  // 確認開始新對話
+  const confirmNewConversation = () => {
+    startNewConversation();
+    setShowConfirmDialog(false);
+  };
+
+  // 取消新對話
+  const cancelNewConversation = () => {
+    setShowConfirmDialog(false);
   };
 
   // 組件卸載時取消請求
@@ -440,10 +568,23 @@ const ChatDialog = () => {
       }}
     >
       <DialogHeader>
-        <span>AI 旅行助手</span>
-        <CloseButton onClick={closeDialog} title="關閉">
-          ×
-        </CloseButton>
+        <HeaderLeft>
+          <span>AI 旅行助手</span>
+        </HeaderLeft>
+        <HeaderButtons>
+          <NewConversationButton 
+            onClick={handleNewConversation} 
+            title="開始新對話"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+            </svg>
+            新對話
+          </NewConversationButton>
+          <CloseButton onClick={closeDialog} title="關閉">
+            ×
+          </CloseButton>
+        </HeaderButtons>
       </DialogHeader>
       
       <MessagesContainer>
@@ -536,6 +677,26 @@ const ChatDialog = () => {
           </svg>
         </SendButton>
       </InputContainer>
+
+      {/* 新對話確認對話框 */}
+      {showConfirmDialog && (
+        <ConfirmDialog>
+          <ConfirmDialogContent>
+            <ConfirmDialogTitle>開始新對話</ConfirmDialogTitle>
+            <ConfirmDialogMessage>
+              確定要清除當前對話歷史並開始新對話嗎？此操作無法撤銷。
+            </ConfirmDialogMessage>
+            <ConfirmDialogButtons>
+              <ConfirmButton onClick={confirmNewConversation}>
+                確定
+              </ConfirmButton>
+              <CancelButton onClick={cancelNewConversation}>
+                取消
+              </CancelButton>
+            </ConfirmDialogButtons>
+          </ConfirmDialogContent>
+        </ConfirmDialog>
+      )}
     </DialogContainer>
   );
 };

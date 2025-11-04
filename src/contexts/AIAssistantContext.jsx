@@ -155,6 +155,22 @@ export const AIAssistantProvider = ({ children }) => {
     localStorage.removeItem('aiAssistantMessages');
   };
 
+  // 開始新對話
+  const startNewConversation = () => {
+    setMessages([]);
+    localStorage.removeItem('aiAssistantMessages');
+    // 添加歡迎消息
+    const welcomeMessage = {
+      id: Date.now().toString(),
+      content: '您好！我是您的AI旅行助手。我可以幫助您管理行程、查詢旅遊資訊，以及協助編輯您的旅行數據。有什麼可以為您服務的嗎？',
+      type: MESSAGE_TYPES.AI,
+      timestamp: new Date(),
+      suggestions: null,
+      groundingMetadata: null
+    };
+    setMessages([welcomeMessage]);
+  };
+
   // 設置載入狀態
   const setLoadingState = (loading) => {
     setIsLoading(loading);
@@ -235,6 +251,7 @@ export const AIAssistantProvider = ({ children }) => {
     addSystemMessage,
     updatePosition,
     clearHistory,
+    startNewConversation,
     setLoadingState,
     handleDataChanges,
     confirmChanges,
