@@ -1,7 +1,5 @@
 // 數據修改服務 - 處理實際的數據變更操作
 
-import { useTrip } from '../contexts/TripContext';
-
 // 數據修改錯誤類
 class DataModificationError extends Error {
   constructor(message, changeId = null) {
@@ -20,7 +18,7 @@ class DataModifier {
   // 應用單個變更
   async applyChange(change) {
     try {
-      const { type, category, field, newValue, oldValue, targetId } = change;
+      const { category } = change;
       
       switch (category) {
         case 'trip':
@@ -85,7 +83,7 @@ class DataModifier {
     const trips = JSON.parse(localStorage.getItem('trips') || '[]');
     
     switch (type) {
-      case 'create':
+      case 'create': {
         // 建立新行程
         const newTrip = {
           ...newValue,
@@ -102,10 +100,11 @@ class DataModifier {
         window.dispatchEvent(new Event('storage'));
         
         return newTrip;
+      }
         
       case 'edit':
       case 'add':
-      case 'delete':
+      case 'delete': {
         let tripIndex = -1;
         if (targetId) {
           tripIndex = trips.findIndex(trip => trip.id === targetId);
@@ -154,6 +153,7 @@ class DataModifier {
         window.dispatchEvent(new Event('storage'));
         
         return trips[tripIndex];
+      }
     }
   }
 
@@ -170,25 +170,28 @@ class DataModifier {
     const tripExpenses = expenses[selectedTripId] || [];
 
     switch (type) {
-      case 'add':
+      case 'add': {
         tripExpenses.push({
           id: Date.now().toString(),
           ...newValue,
           createdAt: new Date().toISOString()
         });
         break;
-      case 'edit':
+      }
+      case 'edit': {
         const expenseIndex = tripExpenses.findIndex(exp => exp.id === targetId);
         if (expenseIndex > -1) {
           tripExpenses[expenseIndex][field] = newValue;
         }
         break;
-      case 'delete':
+      }
+      case 'delete': {
         const deleteIndex = tripExpenses.findIndex(exp => exp.id === targetId);
         if (deleteIndex > -1) {
           tripExpenses.splice(deleteIndex, 1);
         }
         break;
+      }
     }
 
     expenses[selectedTripId] = tripExpenses;
@@ -204,25 +207,28 @@ class DataModifier {
     const notes = JSON.parse(localStorage.getItem('notes') || '[]');
 
     switch (type) {
-      case 'add':
+      case 'add': {
         notes.push({
           id: Date.now().toString(),
           ...newValue,
           createdAt: new Date().toISOString()
         });
         break;
-      case 'edit':
+      }
+      case 'edit': {
         const noteIndex = notes.findIndex(note => note.id === targetId);
         if (noteIndex > -1) {
           notes[noteIndex][field] = newValue;
         }
         break;
-      case 'delete':
+      }
+      case 'delete': {
         const deleteIndex = notes.findIndex(note => note.id === targetId);
         if (deleteIndex > -1) {
           notes.splice(deleteIndex, 1);
         }
         break;
+      }
     }
 
     localStorage.setItem('notes', JSON.stringify(notes));
@@ -244,25 +250,28 @@ class DataModifier {
     const tripPackingList = packingLists[selectedTripId] || [];
 
     switch (type) {
-      case 'add':
+      case 'add': {
         tripPackingList.push({
           id: Date.now().toString(),
           ...newValue,
           createdAt: new Date().toISOString()
         });
         break;
-      case 'edit':
+      }
+      case 'edit': {
         const itemIndex = tripPackingList.findIndex(item => item.id === targetId);
         if (itemIndex > -1) {
           tripPackingList[itemIndex][field] = newValue;
         }
         break;
-      case 'delete':
+      }
+      case 'delete': {
         const deleteIndex = tripPackingList.findIndex(item => item.id === targetId);
         if (deleteIndex > -1) {
           tripPackingList.splice(deleteIndex, 1);
         }
         break;
+      }
     }
 
     packingLists[selectedTripId] = tripPackingList;
@@ -285,25 +294,28 @@ class DataModifier {
     const tripHotels = hotels[selectedTripId] || [];
 
     switch (type) {
-      case 'add':
+      case 'add': {
         tripHotels.push({
           id: Date.now().toString(),
           ...newValue,
           createdAt: new Date().toISOString()
         });
         break;
-      case 'edit':
+      }
+      case 'edit': {
         const hotelIndex = tripHotels.findIndex(hotel => hotel.id === targetId);
         if (hotelIndex > -1) {
           tripHotels[hotelIndex][field] = newValue;
         }
         break;
-      case 'delete':
+      }
+      case 'delete': {
         const deleteIndex = tripHotels.findIndex(hotel => hotel.id === targetId);
         if (deleteIndex > -1) {
           tripHotels.splice(deleteIndex, 1);
         }
         break;
+      }
     }
 
     hotels[selectedTripId] = tripHotels;
@@ -326,25 +338,28 @@ class DataModifier {
     const tripItinerary = itineraries[selectedTripId] || [];
 
     switch (type) {
-      case 'add':
+      case 'add': {
         tripItinerary.push({
           id: Date.now().toString(),
           ...newValue,
           createdAt: new Date().toISOString()
         });
         break;
-      case 'edit':
+      }
+      case 'edit': {
         const itemIndex = tripItinerary.findIndex(item => item.id === targetId);
         if (itemIndex > -1) {
           tripItinerary[itemIndex][field] = newValue;
         }
         break;
-      case 'delete':
+      }
+      case 'delete': {
         const deleteIndex = tripItinerary.findIndex(item => item.id === targetId);
         if (deleteIndex > -1) {
           tripItinerary.splice(deleteIndex, 1);
         }
         break;
+      }
     }
 
     itineraries[selectedTripId] = tripItinerary;

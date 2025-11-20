@@ -1,4 +1,5 @@
 // AI服務層 - 處理與Gemini API的通信
+import { DEFAULT_SYSTEM_PROMPT, getContextualPrompt } from '../constants/systemPrompts';
 
 // 根據環境動態設置API基礎URL
 const getApiBaseUrl = () => {
@@ -50,8 +51,17 @@ class AIService {
     this.abortController = new AbortController();
     
     try {
+      // 根據上下文決定使用哪個系統提示詞
+      let systemPrompt = DEFAULT_SYSTEM_PROMPT;
+      if (context.isModification) {
+        systemPrompt = getContextualPrompt('modification');
+      } else if (context.isError) {
+        systemPrompt = getContextualPrompt('error');
+      }
+
       const requestBody = {
         message,
+        systemPrompt, // 添加系統提示詞
         context: {
           currentPage: window.location.pathname,
           timestamp: new Date().toISOString(),

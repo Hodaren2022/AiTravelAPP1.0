@@ -110,8 +110,7 @@ export const createDragHandler = (options = {}) => {
   const {
     onDragStart = () => {},
     onDragMove = () => {},
-    onDragEnd = () => {},
-    element = null
+    onDragEnd = () => {}
   } = options;
 
   let isDragging = false;

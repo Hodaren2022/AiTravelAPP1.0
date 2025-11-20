@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useAIAssistant } from '../contexts/AIAssistantContext';
 import aiService, { AIServiceError } from '../services/aiService';
 import { networkMonitor, getNetworkDiagnostics, formatDiagnosticsForDisplay } from '../utils/networkUtils';
+import MarkdownRenderer from './MarkdownRenderer';
 
 // 對話框容器
 const DialogContainer = styled.div`
@@ -450,13 +451,27 @@ const ChatDialog = () => {
 
   useEffect(() => {
     if (isOpen) {
-      scrollToBottom();
+      // 只在對話框首次打開時滾動到底部，不在每次消息更新時滾動
+      if (messages.length === 0) {
+        scrollToBottom();
+      }
       // 聚焦輸入框
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
     }
-  }, [isOpen, messages]);
+  }, [isOpen]);
+
+  // 只在用戶發送消息時滾動到底部
+  useEffect(() => {
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      // 只有當最後一條消息是用戶消息時才滾動
+      if (lastMessage.type === MESSAGE_TYPES.USER) {
+        scrollToBottom();
+      }
+    }
+  }, [messages, MESSAGE_TYPES.USER]);
 
   // 處理發送消息
   const handleSendMessage = async () => {
@@ -635,7 +650,14 @@ const ChatDialog = () => {
         {messages.length === 0 ? (
           <MessageBubble $isUser={false}>
             <MessageContent $isUser={false}>
-              您好！我是您的AI旅行助手。我可以幫助您管理行程、查詢旅遊資訊，以及協助編輯您的旅行數據。有什麼可以為您服務的嗎？
+              <MarkdownRenderer content="您好！我是您的**AI旅行助手**。我可以幫助您：
+
+## 主要功能
+- **行程管理** - 協助規劃和編輯旅行計劃
+- **旅遊資訊** - 提供景點、交通、住宿建議  
+- **數據編輯** - 幫助管理您的旅行數據
+
+*有什麼可以為您服務的嗎？*" />
             </MessageContent>
           </MessageBubble>
         ) : (
@@ -644,11 +666,20 @@ const ChatDialog = () => {
               key={`${message.id}_${index}_${message.timestamp}`} 
               $isUser={message.type === MESSAGE_TYPES.USER}
             >
-              <MessageContent 
-                $isUser={message.type === MESSAGE_TYPES.USER}
-                $isSystem={message.type === MESSAGE_TYPES.SYSTEM}
-                dangerouslySetInnerHTML={{ __html: formatMessageContent(message.content) }}
-              />
+              {message.type === MESSAGE_TYPES.USER || message.type === MESSAGE_TYPES.SYSTEM ? (
+                <MessageContent 
+                  $isUser={message.type === MESSAGE_TYPES.USER}
+                  $isSystem={message.type === MESSAGE_TYPES.SYSTEM}
+                  dangerouslySetInnerHTML={{ __html: formatMessageContent(message.content) }}
+                />
+              ) : (
+                <MessageContent 
+                  $isUser={false}
+                  $isSystem={false}
+                >
+                  <MarkdownRenderer content={message.content} />
+                </MessageContent>
+              )}
               
               {/* 顯示搜索元數據 */}
               {message.groundingMetadata && message.groundingMetadata.hasGrounding && (
