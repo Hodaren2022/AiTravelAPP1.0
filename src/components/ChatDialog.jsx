@@ -451,13 +451,27 @@ const ChatDialog = () => {
 
   useEffect(() => {
     if (isOpen) {
-      scrollToBottom();
+      // 只在對話框首次打開時滾動到底部，不在每次消息更新時滾動
+      if (messages.length === 0) {
+        scrollToBottom();
+      }
       // 聚焦輸入框
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
     }
-  }, [isOpen, messages]);
+  }, [isOpen]);
+
+  // 只在用戶發送消息時滾動到底部
+  useEffect(() => {
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      // 只有當最後一條消息是用戶消息時才滾動
+      if (lastMessage.type === MESSAGE_TYPES.USER) {
+        scrollToBottom();
+      }
+    }
+  }, [messages, MESSAGE_TYPES.USER]);
 
   // 處理發送消息
   const handleSendMessage = async () => {
